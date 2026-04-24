@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <img src="https://raw.githubusercontent.com/praneeshrv/dying-star/main/public/favicon.ico" width="80" height="80" alt="Logo" />
 
-## Getting Started
+  # dying-star (Praneesh R V Portfolio)
+  
+  *The void speaks in packets.*
+  
+  A dark, 3D-immersive, high-performance cybersecurity portfolio built with Next.js 16, Tailwind v4, and React Three Fiber.
+</div>
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Mission Status
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Current Phase:** Scaffold & Design System (M0-M1)  
+**Overall Completion:** ![Progress](https://geps.dev/progress/15?dangerColor=8B5CF6&warningColor=00FF88&successColor=00FF41)  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> **Note:** This repository is actively under construction following the M0-M8 architecture module plan.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🏗️ Architecture Modules
 
-To learn more about Next.js, take a look at the following resources:
+### 🟢 M0: Scaffold & Foundation (100%)
+- [x] Next.js 16 App Router + Turbopack
+- [x] Tailwind CSS v4 (@theme tokens)
+- [x] Biome setup + Husky pre-commit hooks
+- [x] Zustand Global Store
+- [x] Typographic scale (Orbitron, DM Sans, JetBrains Mono, Cinzel)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🟡 M1: Design System (10%)
+- [x] Glassmorphism & Glow Utilities
+- [x] Custom `not-found.tsx` with terminal aesthetic
+- [ ] GlitchText & Custom Cursor
+- [ ] Core React Components (Buttons, Cards, Navigation)
+- [ ] Terminal Boot Loading Screen
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🔴 M2: 3D Space Scene (0%)
+- [ ] React Three Fiber Canvas Setup
+- [ ] Neutron Star Shader (GLSL)
+- [ ] Adaptive Starfield Particle System
+- [ ] Planetary Orbits & Dyson Sphere Wireframe
 
-## Deploy on Vercel
+### 🔴 M3: Core Sections (0%)
+- [ ] Hero (Typewriter Overlay)
+- [ ] About (Cockpit HUD)
+- [ ] Projects (3D Tilt Cards)
+- [ ] Skills (Interactive Constellation Graph)
+- [ ] Experience (Warp-Speed Timeline)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🔴 M4: Animation Layer (0%)
+- [ ] GSAP ScrollTriggers
+- [ ] CSS Scroll-Driven Animations
+- [ ] Hover Micro-interactions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🔴 M5: Terminal Module (0%)
+- [ ] xterm.js Integration
+- [ ] Custom Command Interpreter (15+ commands)
+- [ ] OSINT / Anime Easter Eggs
+
+### 🔴 M6: Minigame — Packet Runner (0%)
+- [ ] HTML5 Canvas Game Loop
+- [ ] Collision Detection & Scoring
+- [ ] LocalStorage Leaderboard
+
+### 🔴 M7: Blog Engine (0%)
+- [ ] MDX Setup (Velite)
+- [ ] Shiki Syntax Highlighting
+- [ ] RSS Generation
+
+### 🔴 M8: Polish & Launch (0%)
+- [ ] Accessibility & Lighthouse Audit
+- [ ] SEO & OpenGraph Optimization
+- [ ] Mobile & Safari Testing
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Styling:** Tailwind CSS v4
+- **3D / WebGL:** Three.js + React Three Fiber + Drei
+- **Animation:** GSAP + Motion + CSS Transitions
+- **State Management:** Zustand
+- **Tooling:** Biome (Lint/Format), TypeScript, Husky
+
+---
+
+## 💻 Local Development
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/praneeshrv/dying-star.git
+   cd dying-star
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Run linters & formatters**
+   ```bash
+   npm run lint
+   npm run format
+   ```
+
+---
+<div align="center">
+  <sub>Built by <a href="https://github.com/praneeshrv">Praneesh R V</a> • root@cosmos:~$ whoami</sub>
+</div>

@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/praneeshrv/dying-star/main/public/favicon.ico" width="80" height="80" alt="Logo" />
+  <img src="https://raw.githubusercontent.com/PraneeshRV/dying-star/main/public/favicon.ico" width="80" height="80" alt="Logo" />
 
   # dying-star (Praneesh R V Portfolio)
   
@@ -90,7 +90,7 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/praneeshrv/dying-star.git
+   git clone https://github.com/PraneeshRV/dying-star.git
    cd dying-star
    ```
 
@@ -112,5 +112,5 @@
 
 ---
 <div align="center">
-  <sub>Built by <a href="https://github.com/praneeshrv">Praneesh R V</a> • root@cosmos:~$ whoami</sub>
+  <sub>Built by <a href="https://github.com/PraneeshRV">Praneesh R V</a> • root@cosmos:~$ whoami</sub>
 </div>

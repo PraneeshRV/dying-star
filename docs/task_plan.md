@@ -4,7 +4,13 @@
 Build a dark, 3D-immersive, explorable cybersecurity portfolio website with a space/quasar theme, terminal easter eggs, minigame, blog, and anime references — designed to be one of the best portfolio websites on the internet.
 
 ## Current Phase
-Phase 2 — Scaffold (M0) ✅ COMPLETE
+Phase 3 — Design System (M1) [OUTSOURCING]
+
+## Workflow Protocol
+1. **User (Outsourcer):** Uses `OUTSOURCING_PLAN.md` prompts to generate code via external AIs (ChatGPT, v0, Copilot).
+2. **User (Outsourcer):** Provides the generated raw code/assets back to me.
+3. **Antigravity (Integrator):** Cleans, refactors to Next.js 16/Biome standards, and integrates into the repository.
+4. **Antigravity (Integrator):** Verifies the build and pushes commits.
 
 ## Phases
 
@@ -39,12 +45,13 @@ Phase 2 — Scaffold (M0) ✅ COMPLETE
 - [x] Glow effect utilities (glow-green, glow-purple, box-glow-*) — done in M0
 - [x] CRT scanlines overlay — done in M0
 - [x] 404 page — done in M0
-- [ ] Custom cursor (crosshair + hover states)
-- [ ] GlitchText component
-- [ ] Button, Card, Navigation React components
-- [ ] Loading screen (terminal boot)
-- [ ] TypewriterText component
-- **Status:** NEXT
+- [ ] OUTSOURCE: Custom cursor (crosshair + hover states)
+- [ ] OUTSOURCE: GlitchText component
+- [ ] OUTSOURCE: Button, Card, Navigation React components
+- [ ] OUTSOURCE: Loading screen (terminal boot)
+- [ ] OUTSOURCE: TypewriterText component
+- [ ] INTEGRATE: Refactor and wire up M1 components into the repo
+- **Status:** waiting_for_user_outsourcing
 
 ### Phase 4: 3D Space Scene (M2)
 - [ ] R3F Canvas + camera + controls

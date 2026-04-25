@@ -19,6 +19,10 @@
   - Completed M0 Scaffold (Next.js 16, Tailwind v4, Biome, Zustand, 404/Hero pages)
   - Created GitHub repository (dying-star)
   - Shifted to Outsourcing Protocol (User = Outsourcer, Antigravity = Integrator)
+  - Integrated M1.1 GlitchText component with CSS clip-path hover/focus glitch
+  - Integrated M1.1 CustomCursor component with requestAnimationFrame reticle tracking
+  - Integrated M1.2 BootLoader component with terminal typewriter sequence and ASCII progress bar
+  - Verified M1.1/M1.2 with `npm run lint` and `npm run build`
 - Files created/modified:
   - task_plan.md (created)
   - findings.md (created)
@@ -28,11 +32,19 @@
   - TOOL_ASSIGNMENT.md (created ✓)
   - FREE_TOOLS_GUIDE.md (created ✓)
   - OUTSOURCING_PLAN.md (created ✓)
+  - components/ui/GlitchText.tsx (created ✓)
+  - components/ui/GlitchText.module.css (created ✓)
+  - components/ui/CustomCursor.tsx (created ✓)
+  - components/ui/CustomCursor.module.css (created ✓)
+  - components/ui/BootLoader.tsx (created ✓)
+  - components/ui/BootLoader.module.css (created ✓)
+  - app/globals.css (updated ✓)
 
 ## Test Results
 | Test | Input | Expected | Actual | Status |
 |------|-------|----------|--------|--------|
-| (none yet) | — | — | — | — |
+| Lint | `npm run lint` | Biome passes | 0 errors | ✅ |
+| Build | `npm run build` | Production build passes | Build passed after allowing font network fetch | ✅ |
 
 ## Error Log
 | Timestamp | Error | Attempt | Resolution |

@@ -193,3 +193,16 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ═══ Custom Cursor Document State ═══ */
+html.custom-cursor-enabled,
+html.custom-cursor-enabled * {
+  cursor: none !important;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  html.custom-cursor-enabled,
+  html.custom-cursor-enabled * {
+    cursor: auto !important;
+  }
+}

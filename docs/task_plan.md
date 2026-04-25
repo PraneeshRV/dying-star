@@ -45,13 +45,13 @@ Phase 3 — Design System (M1) [OUTSOURCING]
 - [x] Glow effect utilities (glow-green, glow-purple, box-glow-*) — done in M0
 - [x] CRT scanlines overlay — done in M0
 - [x] 404 page — done in M0
-- [ ] OUTSOURCE: Custom cursor (crosshair + hover states)
-- [ ] OUTSOURCE: GlitchText component
+- [x] OUTSOURCE/INTEGRATE: Custom cursor (crosshair + hover states)
+- [x] OUTSOURCE/INTEGRATE: GlitchText component
 - [ ] OUTSOURCE: Button, Card, Navigation React components
-- [ ] OUTSOURCE: Loading screen (terminal boot)
+- [x] OUTSOURCE/INTEGRATE: Loading screen (terminal boot)
 - [ ] OUTSOURCE: TypewriterText component
 - [ ] INTEGRATE: Refactor and wire up M1 components into the repo
-- **Status:** waiting_for_user_outsourcing
+- **Status:** partially_integrated
 
 ### Phase 4: 3D Space Scene (M2)
 - [ ] R3F Canvas + camera + controls

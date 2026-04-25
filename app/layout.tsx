@@ -82,6 +82,9 @@ export const viewport: Viewport = {
 
 /* ═══ Root Layout ═══ */
 
+import { CustomCursor } from "@/components/ui/CustomCursor";
+import { MainContent } from "./MainContent";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -92,7 +95,10 @@ export default function RootLayout({
       lang="en"
       className={`${orbitron.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${cinzel.variable}`}
     >
-      <body className="min-h-dvh flex flex-col antialiased">{children}</body>
+      <body className="min-h-dvh flex flex-col antialiased bg-void">
+        <CustomCursor />
+        <MainContent>{children}</MainContent>
+      </body>
     </html>
   );
 }

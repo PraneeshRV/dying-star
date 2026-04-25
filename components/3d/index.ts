@@ -21,5 +21,7 @@ export type { NeutronStarProps } from "./NeutronStar";
 export { NeutronStar } from "./NeutronStar";
 export type { OrbitalPlanetsProps } from "./OrbitalPlanets";
 export { OrbitalPlanets } from "./OrbitalPlanets";
+export { SpaceCanvas } from "./SpaceCanvas";
 export type { StarfieldProps } from "./Starfield";
 export { Starfield } from "./Starfield";
+export { WebGLErrorBoundary } from "./WebGLErrorBoundary";

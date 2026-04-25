@@ -1,24 +1,13 @@
+import { SpaceCanvas, WebGLErrorBoundary } from "@/components/3d";
+import { StarFallback } from "@/components/fallbacks/StarFallback";
+
 export default function Home() {
   return (
     <main className="relative flex flex-col items-center justify-center min-h-dvh bg-void overflow-hidden">
-      {/* Ambient starfield dots (placeholder — replaced by R3F in M2) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 80 }).map((_, i) => (
-          <div
-            key={`star-${i}`}
-            className="absolute rounded-full bg-white"
-            style={{
-              width: `${Math.random() * 2 + 1}px`,
-              height: `${Math.random() * 2 + 1}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.6 + 0.2,
-              animation: `twinkle ${Math.random() * 4 + 2}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 3}s`,
-            }}
-          />
-        ))}
-      </div>
+      {/* 3D Space Scene */}
+      <WebGLErrorBoundary fallback={<StarFallback />}>
+        <SpaceCanvas />
+      </WebGLErrorBoundary>
 
       {/* Hero Content */}
       <div className="relative z-10 text-center px-6">
@@ -68,14 +57,6 @@ export default function Home() {
           <div className="w-1 h-2 bg-green rounded-full animate-bounce" />
         </div>
       </div>
-
-      {/* Twinkle keyframes */}
-      <style>{`
-        @keyframes twinkle {
-          0%, 100% { opacity: 0.2; }
-          50% { opacity: 0.8; }
-        }
-      `}</style>
     </main>
   );
 }

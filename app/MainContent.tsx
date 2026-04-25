@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { BootLoader } from "@/components/ui/BootLoader";
-import { useGlobalStore } from "@/stores/globalStore";
-
 import { FloatingNav } from "@/components/ui/FloatingNav";
+import { useGlobalStore } from "@/stores/globalStore";
 
 export function MainContent({ children }: { children: React.ReactNode }) {
   const { loadingComplete, setLoadingComplete } = useGlobalStore();

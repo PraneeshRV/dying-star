@@ -134,11 +134,7 @@ export function OrbitalPlanets({ speedMultiplier = 1 }: OrbitalPlanetsProps) {
   return (
     <group>
       {PLANETS.map((p, i) => (
-        <group
-          // biome-ignore lint/suspicious/noArrayIndexKey: PLANETS is a fixed-length constant array
-          key={i}
-          rotation={[p.inclination, phases[i], 0]}
-        >
+        <group key={i} rotation={[p.inclination, phases[i], 0]}>
           {/* Orbital ring — sits on the inclined plane */}
           <mesh rotation={[Math.PI / 2, 0, 0]}>
             <torusGeometry args={[p.radius, 0.012, 8, 192]} />
@@ -157,7 +153,7 @@ export function OrbitalPlanets({ speedMultiplier = 1 }: OrbitalPlanetsProps) {
             }}
           >
             <mesh position={[p.radius, 0, 0]}>
-              <sphereGeometry args={[p.size, 32, 32]} />
+              <sphereGeometry args={[p.size, 16, 16]} />
               <meshStandardMaterial
                 color={p.color}
                 emissive={p.emissive}

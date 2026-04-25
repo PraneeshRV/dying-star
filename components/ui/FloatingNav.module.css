@@ -1,18 +1,18 @@
 .wrapper {
   position: fixed;
   bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   z-index: var(--z-nav);
   display: flex;
   justify-content: center;
   pointer-events: none;
-  width: max-content;
-  max-width: calc(100vw - 2rem);
+  padding-inline: 1rem;
 }
 
 .wrapper > * {
   pointer-events: auto;
+  max-width: 100%;
 }
 
 .dock {

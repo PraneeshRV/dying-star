@@ -1,6 +1,11 @@
 "use client";
 
-import type { ComponentPropsWithoutRef, ElementType } from "react";
+import type {
+  ComponentPropsWithoutRef,
+  ElementType,
+  FC,
+  ReactNode,
+} from "react";
 import { cn } from "@/lib/utils";
 import styles from "./GlitchText.module.css";
 
@@ -18,7 +23,11 @@ export function GlitchText<TTag extends ElementType = "span">({
   text,
   ...props
 }: GlitchTextProps<TTag>) {
-  const Component = as ?? "span";
+  const Component = (as ?? "span") as FC<{
+    className?: string;
+    "data-text"?: string;
+    children?: ReactNode;
+  }>;
 
   return (
     <Component

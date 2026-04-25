@@ -1,0 +1,124 @@
+/* ═══════════════════════════════════════════════════
+   Button — Cybersecurity Portfolio
+   Glassmorphism with green/purple glow variants
+   ═══════════════════════════════════════════════════ */
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  background: rgba(10, 10, 26, 0.6);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    color var(--duration-normal) var(--ease-out),
+    border-color var(--duration-normal) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    background-color var(--duration-normal) var(--ease-out);
+}
+
+/* sweeping highlight on hover */
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 40%,
+    currentColor 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  opacity: 0;
+  transform: translateX(-100%);
+  transition:
+    transform var(--duration-slow) var(--ease-out),
+    opacity var(--duration-normal) var(--ease-out);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.button:hover::before,
+.button:focus-visible::before {
+  opacity: 0.18;
+  transform: translateX(100%);
+}
+
+.button:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ─── Primary: Quasar Green ─── */
+.primary {
+  color: var(--color-green);
+  border-color: var(--color-green);
+  box-shadow:
+    0 0 0 0 rgba(0, 255, 136, 0),
+    inset 0 0 0 0 rgba(0, 255, 136, 0);
+}
+
+.primary:hover,
+.primary:focus-visible {
+  color: var(--color-void);
+  background: rgba(0, 255, 136, 0.95);
+  border-color: var(--color-green);
+  box-shadow:
+    0 0 24px rgba(0, 255, 136, 0.55),
+    0 0 60px rgba(0, 255, 136, 0.25),
+    inset 0 0 12px rgba(0, 255, 136, 0.4);
+  text-shadow: none;
+}
+
+/* ─── Secondary: Nebula Purple ─── */
+.secondary {
+  color: var(--color-purple-hot);
+  border-color: var(--color-purple);
+}
+
+.secondary:hover,
+.secondary:focus-visible {
+  color: var(--color-neutron);
+  background: rgba(139, 92, 246, 0.18);
+  border-color: var(--color-purple-hot);
+  box-shadow:
+    0 0 24px rgba(139, 92, 246, 0.6),
+    0 0 60px rgba(139, 92, 246, 0.3),
+    inset 0 0 12px rgba(139, 92, 246, 0.25);
+  text-shadow: 0 0 12px rgba(167, 139, 250, 0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .button::before {
+    transition: none;
+  }
+  .button:active {
+    transform: none;
+  }
+}

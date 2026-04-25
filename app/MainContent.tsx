@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { BootLoader } from "@/components/ui/BootLoader";
 import { useGlobalStore } from "@/stores/globalStore";
 
+import { FloatingNav } from "@/components/ui/FloatingNav";
+
 export function MainContent({ children }: { children: React.ReactNode }) {
   const { loadingComplete, setLoadingComplete } = useGlobalStore();
   const [mounted, setMounted] = useState(false);
@@ -26,6 +28,7 @@ export function MainContent({ children }: { children: React.ReactNode }) {
       >
         {children}
       </div>
+      {loadingComplete && <FloatingNav />}
     </>
   );
 }

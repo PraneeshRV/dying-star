@@ -18,7 +18,7 @@ export function GlitchText<TTag extends ElementType = "span">({
   text,
   ...props
 }: GlitchTextProps<TTag>) {
-  const Component = as ?? "span";
+  const Component = (as ?? "span") as ElementType;
 
   return (
     <Component

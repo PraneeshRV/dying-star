@@ -47,11 +47,12 @@ Phase 3 — Design System (M1) [OUTSOURCING]
 - [x] 404 page — done in M0
 - [x] OUTSOURCE/INTEGRATE: Custom cursor (crosshair + hover states)
 - [x] OUTSOURCE/INTEGRATE: GlitchText component
-- [ ] OUTSOURCE: Button, Card, Navigation React components
+- [x] OUTSOURCE/INTEGRATE: Button, Card, Navigation React components
 - [x] OUTSOURCE/INTEGRATE: Loading screen (terminal boot)
-- [ ] OUTSOURCE: TypewriterText component
+- [x] OUTSOURCE/INTEGRATE: TypewriterText component
+- [ ] OUTSOURCE: Floating Navigation (M1.4)
 - [ ] INTEGRATE: Refactor and wire up M1 components into the repo
-- **Status:** partially_integrated
+- **Status:** core_ui_components_done
 
 ### Phase 4: 3D Space Scene (M2)
 - [ ] R3F Canvas + camera + controls

@@ -1,8 +1,8 @@
 "use client";
 
-import { useGlobalStore } from "@/stores/globalStore";
-import { BootLoader } from "@/components/ui/BootLoader";
 import { useEffect, useState } from "react";
+import { BootLoader } from "@/components/ui/BootLoader";
+import { useGlobalStore } from "@/stores/globalStore";
 
 export function MainContent({ children }: { children: React.ReactNode }) {
   const { loadingComplete, setLoadingComplete } = useGlobalStore();

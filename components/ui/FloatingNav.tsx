@@ -24,7 +24,9 @@ const NAV_ITEMS: readonly NavItem[] = [
 // Distance (in px) the user must scroll past before auto-hide kicks in.
 // Prevents the nav from twitching on small wheel jitter near the top.
 const SCROLL_HIDE_THRESHOLD = 12;
-const TOP_REVEAL_OFFSET = 80;
+// Keep the nav hidden until the user scrolls past the hero so it doesn't
+// overlap the "scroll to explore" indicator.
+const HERO_REVEAL_OFFSET = 240;
 
 export interface FloatingNavProps {
   /** Override default sections, e.g. on a docs subpage. */
@@ -37,7 +39,7 @@ export function FloatingNav({
   className,
 }: FloatingNavProps) {
   const [activeId, setActiveId] = useState<string>(items[0]?.id ?? "");
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
   // Track scroll direction for auto-hide.
@@ -46,16 +48,19 @@ export function FloatingNav({
   useEffect(() => {
     if (typeof window === "undefined") return;
     lastScrollY.current = window.scrollY;
+    // Sync initial visibility to current scroll position (e.g. after refresh
+    // mid-page or when navigating back with a scroll restoration).
+    setVisible(window.scrollY >= HERO_REVEAL_OFFSET);
 
     const onScroll = () => {
       const current = window.scrollY;
       const delta = current - lastScrollY.current;
 
-      // Always reveal near the top of the page.
-      if (current < TOP_REVEAL_OFFSET) {
-        setVisible(true);
+      // Hide while still inside the hero so we don't cover the scroll
+      // indicator. Otherwise auto-hide on scroll down, reveal on scroll up.
+      if (current < HERO_REVEAL_OFFSET) {
+        setVisible(false);
       } else if (Math.abs(delta) > SCROLL_HIDE_THRESHOLD) {
-        // Scrolling down → hide. Scrolling up → reveal.
         setVisible(delta < 0);
       }
 

@@ -4,7 +4,7 @@
 Build a dark, 3D-immersive, explorable cybersecurity portfolio website with a space/quasar theme, terminal easter eggs, minigame, blog, and anime references — designed to be one of the best portfolio websites on the internet.
 
 ## Current Phase
-Phase 3 — Design System (M1) [OUTSOURCING]
+Phase 4 — 3D Space Scene (M2) [OUTSOURCING]
 
 ## Workflow Protocol
 1. **User (Outsourcer):** Uses `OUTSOURCING_PLAN.md` prompts to generate code via external AIs (ChatGPT, v0, Copilot).
@@ -50,9 +50,9 @@ Phase 3 — Design System (M1) [OUTSOURCING]
 - [x] OUTSOURCE/INTEGRATE: Button, Card, Navigation React components
 - [x] OUTSOURCE/INTEGRATE: Loading screen (terminal boot)
 - [x] OUTSOURCE/INTEGRATE: TypewriterText component
-- [ ] OUTSOURCE: Floating Navigation (M1.4)
-- [ ] INTEGRATE: Refactor and wire up M1 components into the repo
-- **Status:** core_ui_components_done
+- [x] OUTSOURCE: Floating Navigation (M1.4)
+- [x] INTEGRATE: Refactor and wire up M1 components into the repo
+- **Status:** ✅ DONE
 
 ### Phase 4: 3D Space Scene (M2)
 - [ ] R3F Canvas + camera + controls
@@ -64,7 +64,7 @@ Phase 3 — Design System (M1) [OUTSOURCING]
 - [ ] PostProcessing (Bloom, Vignette)
 - [ ] GPU tier detection + mobile CSS fallback
 - [ ] Error boundary around 3D
-- **Status:** pending
+- **Status:** in_progress
 
 ### Phase 5: Sections (M3)
 - [ ] Hero overlay (typewriter, CTA)

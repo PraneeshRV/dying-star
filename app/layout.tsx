@@ -95,7 +95,7 @@ export default function RootLayout({
       lang="en"
       className={`${orbitron.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${cinzel.variable}`}
     >
-      <body className="min-h-dvh flex flex-col antialiased bg-void">
+      <body suppressHydrationWarning className="min-h-dvh flex flex-col antialiased bg-void">
         <CustomCursor />
         <MainContent>{children}</MainContent>
       </body>

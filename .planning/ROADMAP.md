@@ -12,7 +12,7 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 | # | Phase | Goal | Requirements | Status |
 |---|-------|------|--------------|--------|
 | 0 | Existing Baseline | Preserve and verify implemented M0-M3 foundation | FOUND-01..04, SCENE-01..02, CONT-01..06, CONT-08, FORM-01, QA-01..02 | Complete |
-| 1 | Finish Content Shell | Complete M3 content quality and certification UI | CONT-07, CONT-09 | Pending |
+| 1 | Finish Content Shell | Complete M3 content quality and certification UI | CONT-07, CONT-09 | Complete |
 | 2 | Contact API | Replace mailto-only contact with secure Resend submission | FORM-02, FORM-03 | Pending |
 | 3 | 3D Fallbacks and Validation | Make the heavy scene resilient across devices and preferences | SCENE-03, SCENE-04 | Pending |
 | 4 | Motion and Terminal | Add polished animation and the secret terminal layer | MOTN-01, MOTN-02, TERM-01, TERM-02, TERM-03 | Pending |
@@ -39,7 +39,7 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 ### Phase 1: Finish Content Shell
 
 **Goal:** Complete the remaining M3 content work so the portfolio reads as a complete MVP, not a shell.
-**Status:** Pending
+**Status:** Complete
 **UI hint:** yes
 
 **Requirements:** CONT-07, CONT-09

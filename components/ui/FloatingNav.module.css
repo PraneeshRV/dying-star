@@ -183,6 +183,12 @@
   }
 }
 
+@media (max-width: 380px) {
+  .hideOnNarrow {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .item,
   .tooltip {

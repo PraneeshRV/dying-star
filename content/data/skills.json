@@ -1,0 +1,116 @@
+[
+  {
+    "name": "Web Exploitation",
+    "category": "security",
+    "proficiency": 4,
+    "icon": "globe-lock"
+  },
+  {
+    "name": "Digital Forensics",
+    "category": "security",
+    "proficiency": 4,
+    "icon": "file-search"
+  },
+  {
+    "name": "OSINT",
+    "category": "security",
+    "proficiency": 5,
+    "icon": "radar"
+  },
+  {
+    "name": "Cryptography",
+    "category": "security",
+    "proficiency": 3,
+    "icon": "key-round"
+  },
+  {
+    "name": "VAPT",
+    "category": "security",
+    "proficiency": 3,
+    "icon": "shield-check"
+  },
+  {
+    "name": "Network Analysis",
+    "category": "security",
+    "proficiency": 3,
+    "icon": "network"
+  },
+  {
+    "name": "Python",
+    "category": "development",
+    "proficiency": 4,
+    "icon": "python"
+  },
+  {
+    "name": "Rust",
+    "category": "development",
+    "proficiency": 3,
+    "icon": "rust"
+  },
+  {
+    "name": "C/C++",
+    "category": "development",
+    "proficiency": 3,
+    "icon": "code-2"
+  },
+  {
+    "name": "JavaScript",
+    "category": "development",
+    "proficiency": 3,
+    "icon": "javascript"
+  },
+  {
+    "name": "Node.js",
+    "category": "development",
+    "proficiency": 3,
+    "icon": "nodejs"
+  },
+  {
+    "name": "Linux (Arch/Debian)",
+    "category": "infrastructure",
+    "proficiency": 5,
+    "icon": "terminal"
+  },
+  {
+    "name": "Docker",
+    "category": "infrastructure",
+    "proficiency": 4,
+    "icon": "container"
+  },
+  {
+    "name": "GCP",
+    "category": "infrastructure",
+    "proficiency": 3,
+    "icon": "cloud"
+  },
+  {
+    "name": "Git",
+    "category": "tools",
+    "proficiency": 4,
+    "icon": "git-branch"
+  },
+  {
+    "name": "Burp Suite",
+    "category": "tools",
+    "proficiency": 4,
+    "icon": "bug"
+  },
+  {
+    "name": "Wireshark",
+    "category": "tools",
+    "proficiency": 3,
+    "icon": "waves"
+  },
+  {
+    "name": "Metasploit",
+    "category": "tools",
+    "proficiency": 3,
+    "icon": "crosshair"
+  },
+  {
+    "name": "Nmap",
+    "category": "tools",
+    "proficiency": 4,
+    "icon": "scan-search"
+  }
+]

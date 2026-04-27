@@ -27,9 +27,9 @@
 - [x] **CONT-04**: Visitor can inspect skills through a desktop constellation graph and mobile-friendly grouped grid.
 - [x] **CONT-05**: Visitor can read an experience timeline with education, CTF, project, and milestone entries.
 - [x] **CONT-06**: Visitor can see CTF achievements and a safe fake challenge token interaction.
-- [ ] **CONT-07**: Visitor can see certifications and education badges as a polished section, not just raw JSON data.
+- [x] **CONT-07**: Visitor can see certifications and education badges as a polished section, not just raw JSON data.
 - [x] **CONT-08**: Visitor can open a resume route and access the static resume PDF.
-- [ ] **CONT-09**: Visitor can distinguish the strongest projects through sharper descriptions, real links where available, and case-study depth for flagship work.
+- [x] **CONT-09**: Visitor can distinguish the strongest projects through sharper descriptions, real links where available, and case-study depth for flagship work.
 
 ### Contact
 
@@ -111,9 +111,9 @@
 | CONT-04 | Phase 0 | Complete |
 | CONT-05 | Phase 0 | Complete |
 | CONT-06 | Phase 0 | Complete |
-| CONT-07 | Phase 1 | Pending |
+| CONT-07 | Phase 1 | Complete |
 | CONT-08 | Phase 0 | Complete |
-| CONT-09 | Phase 1 | Pending |
+| CONT-09 | Phase 1 | Complete |
 | FORM-01 | Phase 0 | Complete |
 | FORM-02 | Phase 2 | Pending |
 | FORM-03 | Phase 2 | Pending |

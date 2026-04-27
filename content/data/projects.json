@@ -2,28 +2,40 @@
   {
     "id": "redcalibur",
     "title": "RedCalibur",
-    "description": "AI-driven VAPT automation framework for penetration testing and vulnerability assessment.",
+    "description": "In-progress AI-assisted VAPT automation framework for reconnaissance, findings triage, and report scaffolding during practical assessments.",
     "techStack": ["Python", "AI/ML", "Security", "Docker"],
     "category": "security",
     "status": "wip",
+    "role": "Builder",
+    "year": "2026",
+    "scope": "VAPT automation",
+    "proofLabel": "GitHub profile",
     "sourceUrl": "https://github.com/praneeshrv"
   },
   {
     "id": "axec-cli",
     "title": "Axec-CLI",
-    "description": "Rust-based AppImage manager for Linux. Install, update, and manage AppImages from the terminal.",
+    "description": "Rust CLI for installing, updating, and managing AppImages on Linux with a terminal-first workflow.",
     "techStack": ["Rust", "Linux", "CLI", "AppImage"],
     "category": "tools",
     "status": "active",
+    "role": "Maintainer",
+    "year": "2025",
+    "scope": "Linux utility",
+    "proofLabel": "GitHub profile",
     "sourceUrl": "https://github.com/praneeshrv"
   },
   {
     "id": "l3monctf",
     "title": "L3m0nCTF Infrastructure",
-    "description": "Full CTF competition infrastructure — GCP + Docker + CTFd platform for L3m0nCTF 2025.",
+    "description": "Organizer-built CTFd infrastructure on GCP with Docker, Nginx, and Linux operations for L3m0nCTF 2025.",
     "techStack": ["GCP", "Docker", "CTFd", "Nginx", "Linux"],
     "category": "infrastructure",
     "status": "active",
+    "role": "Infrastructure organizer",
+    "year": "2025",
+    "scope": "CTF platform ops",
+    "proofLabel": "GitHub profile",
     "sourceUrl": "https://github.com/praneeshrv"
   }
 ]

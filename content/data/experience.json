@@ -1,0 +1,58 @@
+[
+  {
+    "id": "amrita-cse-cybersecurity",
+    "year": "2023",
+    "title": "Enrolled at Amrita Vishwa Vidyapeetham",
+    "description": "Started B.Tech CSE with a cybersecurity focus, building fundamentals across programming, networks, Linux, and security practice.",
+    "type": "education"
+  },
+  {
+    "id": "team-hunter",
+    "year": "2024",
+    "title": "Joined Team Hunter",
+    "description": "Started competing more seriously in CTFs with Team Hunter, focusing on OSINT, forensics, web exploitation, and practical problem solving.",
+    "type": "ctf"
+  },
+  {
+    "id": "ctf-run",
+    "year": "2024",
+    "title": "Built CTF Competition Momentum",
+    "description": "Competed in dozens of CTF events and strengthened repeatable workflows for recon, triage, writeups, and teammate handoffs.",
+    "type": "milestone"
+  },
+  {
+    "id": "h7ctf-2025",
+    "year": "2025",
+    "title": "H7CTF 2025 Finalist",
+    "description": "Reached finals at H7CTF 2025 hosted by SRMIST and placed 14th among finalist teams.",
+    "type": "ctf"
+  },
+  {
+    "id": "pragyan-ctf-2025",
+    "year": "2025",
+    "title": "Pragyan CTF 2025",
+    "description": "Placed 8th at Pragyan CTF 2025 hosted by NIT Trichy.",
+    "type": "ctf"
+  },
+  {
+    "id": "sih-2025",
+    "year": "2025",
+    "title": "Smart India Hackathon Internal Finals",
+    "description": "Reached internal finals with wipeITclean, a security-focused project around safer data handling and cleanup.",
+    "type": "milestone"
+  },
+  {
+    "id": "l3monctf-2025",
+    "year": "2025",
+    "title": "L3m0nCTF 2025 Core Organizer",
+    "description": "Led infrastructure for L3m0nCTF 2025 using GCP, Docker, CTFd, Nginx, and Linux operations.",
+    "type": "ctf"
+  },
+  {
+    "id": "redcalibur-wip",
+    "year": "WIP",
+    "title": "RedCalibur",
+    "description": "Building an AI-assisted VAPT automation framework while keeping the scope practical for learning, testing, and repeatable assessment workflows.",
+    "type": "project"
+  }
+]

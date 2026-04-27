@@ -44,10 +44,11 @@ export function Constellation({
   const { camera } = useThree();
 
   /* ────── Star positions (rest pose + live copy) ────── */
-  const { rest, live, sizes, pairs, linePositions } = useMemo(() => {
+  const { rest, live, sizes, phases, pairs, linePositions } = useMemo(() => {
     const rest = new Float32Array(count * 3);
     const live = new Float32Array(count * 3);
     const sizes = new Float32Array(count);
+    const phases = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
       // Cluster slightly toward the camera-facing hemisphere for visual density
@@ -67,6 +68,7 @@ export function Constellation({
       rest[i * 3 + 2] = live[i * 3 + 2] = z;
 
       sizes[i] = 0.8 + Math.random() * 1.6;
+      phases[i] = Math.random() * Math.PI * 2;
     }
 
     // Pre-compute neighbor pairs (n^2 once at mount)
@@ -90,7 +92,7 @@ export function Constellation({
     }
 
     const linePositions = new Float32Array((pairs.length / 2) * 6);
-    return { rest, live, sizes, pairs, linePositions };
+    return { rest, live, sizes, phases, pairs, linePositions };
   }, [count, radius, linkDistance]);
 
   /* ────── Refs to geometry attributes for streaming ────── */
@@ -127,11 +129,12 @@ export function Constellation({
 
   const STAR_VERT = /* glsl */ `
     attribute float aSize;
+    attribute float aPhase;
     uniform float uTime;
     uniform float uPixelRatio;
     varying float vTwinkle;
     void main() {
-      float t = uTime * 1.2 + float(gl_VertexID) * 0.13;
+      float t = uTime * 1.2 + aPhase;
       vTwinkle = 0.6 + 0.4 * sin(t);
       vec4 mv = modelViewMatrix * vec4(position, 1.0);
       gl_Position = projectionMatrix * mv;
@@ -243,6 +246,11 @@ export function Constellation({
           <bufferAttribute
             attach="attributes-aSize"
             args={[sizes, 1]}
+            count={count}
+          />
+          <bufferAttribute
+            attach="attributes-aPhase"
+            args={[phases, 1]}
             count={count}
           />
         </bufferGeometry>

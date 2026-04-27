@@ -16,6 +16,10 @@ export type ProjectCardProps = {
   techStack: string[];
   status: Project["status"];
   sourceUrl?: string;
+  proofLabel?: string;
+  role?: string;
+  year?: string;
+  scope?: string;
   className?: string;
 };
 
@@ -44,6 +48,10 @@ export function ProjectCard({
   techStack,
   status,
   sourceUrl,
+  proofLabel = "View Source",
+  role,
+  year,
+  scope,
   className,
 }: ProjectCardProps) {
   const cardRef = useRef<HTMLElement>(null);
@@ -120,6 +128,32 @@ export function ProjectCard({
         <p className={styles.description}>{description}</p>
 
         <footer className={styles.footer}>
+          {(role || year || scope) && (
+            <dl
+              className={styles.metaList}
+              aria-label={`Proof context for ${title}`}
+            >
+              {role && (
+                <div className={styles.metaItem}>
+                  <dt>Role</dt>
+                  <dd>{role}</dd>
+                </div>
+              )}
+              {year && (
+                <div className={styles.metaItem}>
+                  <dt>Year</dt>
+                  <dd>{year}</dd>
+                </div>
+              )}
+              {scope && (
+                <div className={styles.metaItem}>
+                  <dt>Scope</dt>
+                  <dd>{scope}</dd>
+                </div>
+              )}
+            </dl>
+          )}
+
           {techStack.length > 0 && (
             <ul
               className={styles.techStack}
@@ -139,9 +173,9 @@ export function ProjectCard({
               target="_blank"
               rel="noopener noreferrer"
               className={styles.sourceLink}
-              aria-label={`View source code for ${title}`}
+              aria-label={`${proofLabel} for ${title}`}
             >
-              View Source
+              {proofLabel}
             </a>
           )}
         </footer>

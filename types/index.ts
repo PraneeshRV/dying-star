@@ -15,7 +15,22 @@ export interface Project {
   status: "active" | "wip" | "archived";
   liveUrl?: string;
   sourceUrl?: string;
+  proofLabel?: string;
+  role?: string;
+  year?: string;
+  scope?: string;
   image?: string;
+}
+
+/** Certification and education proof data shape */
+export interface Certification {
+  id: string;
+  title: string;
+  issuer: string;
+  status: "in-progress" | "completed";
+  year: string;
+  description: string;
+  focus: string[];
 }
 
 /** Skill data shape */

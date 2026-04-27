@@ -1,0 +1,38 @@
+{
+  "name": "Praneesh R V",
+  "role": "Cybersecurity Student",
+  "location": "Coimbatore, India",
+  "affiliation": "Amrita Vishwa Vidyapeetham",
+  "clearance": "B.Tech CSE Cybersecurity",
+  "tagline": "root@cosmos:~$ whoami",
+  "roles": ["Cybersecurity Student", "CTF Player", "Arch User", "Builder"],
+  "summary": "Cybersecurity student and CTF player building practical security tools, CTF infrastructure, and Linux-first workflows.",
+  "email": "praneeshrv404@gmail.com",
+  "identity": {
+    "name": "Praneesh R V",
+    "location": "Coimbatore, India",
+    "affiliation": "Amrita Vishwa Vidyapeetham",
+    "program": "B.Tech CSE Cybersecurity",
+    "graduation": "2027"
+  },
+  "operatorProfile": {
+    "primary": "CTF player with Team Hunter",
+    "secondary": ["Web Exploitation", "OSINT", "Digital Forensics"],
+    "tertiary": ["Infrastructure", "Linux", "Rust"],
+    "team": "Team Hunter"
+  },
+  "personalLog": [
+    "Arch Linux user",
+    "Neovim and terminal workflow enthusiast",
+    "Currently building RedCalibur",
+    "Maintains Axec-CLI for Linux AppImage workflows",
+    "Built L3m0nCTF infrastructure with GCP, Docker, CTFd, Nginx, and Linux"
+  ],
+  "featuredProjects": ["RedCalibur", "Axec-CLI", "L3m0nCTF Infrastructure"],
+  "specialties": ["OSINT", "Digital Forensics", "Web Exploitation"],
+  "social": {
+    "github": "https://github.com/praneeshrv",
+    "linkedin": "https://www.linkedin.com/in/praneeshrv",
+    "website": "https://praneeshrv.me"
+  }
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "pjpt",
+    "title": "Practical Junior Penetration Tester",
+    "issuer": "TCM Security",
+    "status": "in-progress",
+    "year": "WIP",
+    "description": "Active certification track focused on practical penetration testing methodology, reporting, and hands-on assessment skills.",
+    "focus": ["VAPT", "reporting", "methodology", "hands-on labs"]
+  },
+  {
+    "id": "btech-cse-cybersecurity",
+    "title": "B.Tech CSE Cybersecurity",
+    "issuer": "Amrita Vishwa Vidyapeetham",
+    "status": "in-progress",
+    "year": "2023-2027",
+    "description": "Academic cybersecurity program covering computer science foundations, networks, systems, and security practice.",
+    "focus": ["computer science", "cybersecurity", "networks", "systems"]
+  }
+]

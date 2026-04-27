@@ -1,6 +1,15 @@
 "use client";
 
-import { Briefcase, Cpu, FolderGit2, Home, Mail, User } from "lucide-react";
+import {
+  Award,
+  Briefcase,
+  Cpu,
+  Flag,
+  FolderGit2,
+  Home,
+  Mail,
+  User,
+} from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -10,6 +19,7 @@ type NavItem = {
   id: string;
   label: string;
   Icon: typeof Home;
+  hideOnNarrow?: boolean;
 };
 
 const NAV_ITEMS: readonly NavItem[] = [
@@ -18,6 +28,13 @@ const NAV_ITEMS: readonly NavItem[] = [
   { id: "projects", label: "Projects", Icon: FolderGit2 },
   { id: "skills", label: "Skills", Icon: Cpu },
   { id: "experience", label: "Experience", Icon: Briefcase },
+  {
+    id: "certifications",
+    label: "Certifications",
+    Icon: Award,
+    hideOnNarrow: true,
+  },
+  { id: "ctf", label: "CTF", Icon: Flag },
   { id: "contact", label: "Contact", Icon: Mail },
 ] as const;
 
@@ -152,14 +169,18 @@ export function FloatingNav({
           }}
         >
           <nav className={styles.dock} aria-label="Section navigation">
-            {items.map(({ id, label, Icon }) => {
+            {items.map(({ id, label, Icon, hideOnNarrow }) => {
               const isActive = activeId === id;
               return (
                 <a
                   key={id}
                   href={`#${id}`}
                   onClick={(e) => handleClick(e, id)}
-                  className={cn(styles.item, isActive && styles.itemActive)}
+                  className={cn(
+                    styles.item,
+                    hideOnNarrow && styles.hideOnNarrow,
+                    isActive && styles.itemActive,
+                  )}
                   aria-label={`Navigate to ${label} section`}
                   aria-current={isActive ? "page" : undefined}
                 >

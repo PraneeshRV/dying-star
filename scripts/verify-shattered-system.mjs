@@ -90,17 +90,6 @@ function assertSceneBody(body, collectionName, sectionIds) {
     `${collectionName} ${body.id} points to invalid section ${body.sectionId}`,
   );
 
-  if ("orbitRadius" in body) {
-    assertPositiveNumber(
-      body.orbitRadius,
-      `${collectionName} ${body.id} orbitRadius`,
-    );
-  }
-
-  if ("size" in body) {
-    assertPositiveNumber(body.size, `${collectionName} ${body.id} size`);
-  }
-
   assertHexColor(body.color, `${collectionName} ${body.id} color`);
 
   if (collectionName !== "pathways") {
@@ -136,12 +125,31 @@ const sectionIds = new Set(requiredSections);
 for (const section of system.sections) {
   assertObject(section, "section entry");
   assertString(section.id, "section entry id");
+  assert(
+    sectionIds.has(section.id),
+    `section ${section.id} is not a required section`,
+  );
   assertString(section.anchorId, `section ${section.id} anchorId`);
+}
+
+assert(
+  system.sections.length === requiredSections.length,
+  `expected ${requiredSections.length} sections, got ${system.sections.length}`,
+);
+
+const seenSectionIds = new Set();
+
+for (const section of system.sections) {
+  assert(
+    !seenSectionIds.has(section.id),
+    `duplicate section id: ${section.id}`,
+  );
+  seenSectionIds.add(section.id);
 }
 
 for (const sectionId of requiredSections) {
   assert(
-    system.sections.some((section) => section.id === sectionId),
+    seenSectionIds.has(sectionId),
     `missing section mapping: ${sectionId}`,
   );
 }
@@ -177,6 +185,9 @@ for (const moon of system.moons) {
 }
 
 for (const planet of system.planets) {
+  assertPositiveNumber(planet.orbitRadius, `planet ${planet.id} orbitRadius`);
+  assertPositiveNumber(planet.size, `planet ${planet.id} size`);
+  assertFiniteNumber(planet.inclination, `planet ${planet.id} inclination`);
   assertNonzeroNumber(
     planet.rotationSpeed,
     `planet ${planet.id} rotationSpeed`,
@@ -185,11 +196,17 @@ for (const planet of system.planets) {
 }
 
 for (const moon of system.moons) {
+  assertPositiveNumber(moon.orbitRadius, `moon ${moon.id} orbitRadius`);
+  assertPositiveNumber(moon.size, `moon ${moon.id} size`);
   assertNonzeroNumber(moon.rotationSpeed, `moon ${moon.id} rotationSpeed`);
   assertNonzeroNumber(moon.orbitSpeed, `moon ${moon.id} orbitSpeed`);
 }
 
 for (const structure of system.megastructures) {
+  assertPositiveNumber(
+    structure.orbitRadius,
+    `megastructure ${structure.id} orbitRadius`,
+  );
   assertNonzeroNumber(
     structure.rotationSpeed,
     `megastructure ${structure.id} rotationSpeed`,
@@ -204,6 +221,10 @@ for (const pathway of system.pathways) {
   assertPositiveNumber(pathway.radius, `pathway ${pathway.id} radius`);
   assertFiniteNumber(pathway.arcStart, `pathway ${pathway.id} arcStart`);
   assertFiniteNumber(pathway.arcEnd, `pathway ${pathway.id} arcEnd`);
+  assert(
+    pathway.arcEnd > pathway.arcStart,
+    `pathway ${pathway.id} arcEnd must be greater than arcStart`,
+  );
 }
 
 console.log("shattered-system: data contract valid");

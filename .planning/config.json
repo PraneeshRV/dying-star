@@ -1,0 +1,31 @@
+{
+  "mode": "yolo",
+  "granularity": "standard",
+  "parallelization": true,
+  "commit_docs": true,
+  "model_profile": "inherit",
+  "runtime": "codex",
+  "created": "2026-04-28",
+  "workflow": {
+    "research": true,
+    "plan_check": true,
+    "verifier": true,
+    "nyquist_validation": true,
+    "auto_advance": false
+  },
+  "planning": {
+    "current_milestone": "v1 portfolio launch",
+    "sub_repos": [],
+    "source_of_truth": [
+      ".planning/PROJECT.md",
+      ".planning/REQUIREMENTS.md",
+      ".planning/ROADMAP.md",
+      "docs/task_plan.md"
+    ]
+  },
+  "notes": [
+    "Initialized through the gsd-new-project workflow using manual artifact creation because gsd-sdk was unavailable in this shell.",
+    "This is a brownfield project: source code and docs existed before initialization.",
+    "Use local Next.js docs under node_modules/next/dist/docs before framework changes."
+  ]
+}

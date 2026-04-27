@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
+    "verify:system": "node scripts/verify-shattered-system.mjs",
     "prepare": "husky"
   },
   "lint-staged": {

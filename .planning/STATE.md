@@ -72,6 +72,12 @@ Highest-impact blockers:
 - Investigate Next 16 dev-server hydration/response behavior; production build and `next start` are currently healthy.
 - Run visual/mobile screenshots for the full home page and tighten responsive details.
 
+## Session Continuity
+
+- Stopped at: Phase 1 context gathered.
+- Resume file: `.planning/phases/01-finish-content-shell/01-CONTEXT.md`
+- Auto-chain requested: discuss -> plan -> execute.
+
 ## Quick Tasks Completed
 
 | Date | Mode | Task | Status |

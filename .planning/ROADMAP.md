@@ -151,7 +151,7 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 
 ## Next Step
 
-Run `$gsd-plan-phase 1` to plan the next implementation phase: Finish Content Shell.
+Run `$gsd-discuss-phase 2 --auto --analyze --chain` to start the next implementation phase: Contact API.
 
 ---
 *Roadmap created: 2026-04-28*

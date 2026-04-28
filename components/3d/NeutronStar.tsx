@@ -77,6 +77,7 @@ const CORE_FRAG = /* glsl */ `
   uniform float uTime;
   uniform vec3 uColorPrimary;
   uniform vec3 uColorSecondary;
+  uniform vec3 uColorScar;
 
   varying vec3 vPos;
   varying vec3 vNormal;
@@ -89,6 +90,9 @@ const CORE_FRAG = /* glsl */ `
     vec3 p = normalize(vPos);
     float n = fbm(p.xy * 3.0 + uTime * 0.35) * 0.5
             + fbm(p.yz * 4.0 - uTime * 0.5) * 0.5;
+    float magneticBand = abs(p.y);
+    float scarNoise = fbm(p.xz * 7.0 + vec2(uTime * 0.08, -uTime * 0.04));
+    float darkScar = smoothstep(0.58, 0.86, scarNoise) * smoothstep(0.12, 0.82, magneticBand);
 
     // Pulsating brightness
     float pulse = 0.85 + 0.15 * sin(uTime * 2.4)
@@ -101,9 +105,10 @@ const CORE_FRAG = /* glsl */ `
     float rim = 1.0 - max(dot(vNormal, vViewDir), 0.0);
     rim = pow(rim, 2.4);
 
-    vec3 color = base * (0.55 + 0.45 * n) * pulse;
-    color += uColorPrimary * rim * 1.6 * pulse;
-    color += vec3(1.0) * pow(rim, 6.0) * 0.7;
+    vec3 color = base * (0.72 + 0.42 * n) * pulse;
+    color = mix(color, uColorScar * 0.28, darkScar * 0.72);
+    color += uColorPrimary * rim * 1.9 * pulse;
+    color += vec3(1.0) * pow(rim, 5.0) * 0.92;
 
     gl_FragColor = vec4(color, 1.0);
   }
@@ -215,10 +220,12 @@ const JET_FRAG = /* glsl */ `
 export interface NeutronStarProps {
   position?: [number, number, number];
   scale?: number;
-  /** Inner / hot color — defaults to neon green */
+  /** Hot neutron emission color */
   primaryColor?: string;
-  /** Outer / cool color — defaults to deep purple */
+  /** Corona and magnetic field color */
   secondaryColor?: string;
+  /** Attack-scar and accretion ember color */
+  scarColor?: string;
   /** Spin speed in rad/sec for the disk */
   spinSpeed?: number;
 }
@@ -226,9 +233,10 @@ export interface NeutronStarProps {
 export function NeutronStar({
   position = [0, 0, 0],
   scale = 1,
-  primaryColor = "#00FF88",
-  secondaryColor = "#8B5CF6",
-  spinSpeed = 0.6,
+  primaryColor = "#dceeff",
+  secondaryColor = "#58f3ff",
+  scarColor = "#ff7a45",
+  spinSpeed = 0.42,
 }: NeutronStarProps) {
   const groupRef = useRef<THREE.Group>(null);
   const diskRef = useRef<THREE.Mesh>(null);
@@ -242,8 +250,9 @@ export function NeutronStar({
     () => ({
       primary: new THREE.Color(primaryColor),
       secondary: new THREE.Color(secondaryColor),
+      scar: new THREE.Color(scarColor),
     }),
-    [primaryColor, secondaryColor],
+    [primaryColor, secondaryColor, scarColor],
   );
 
   const coreUniforms = useMemo(
@@ -251,6 +260,7 @@ export function NeutronStar({
       uTime: { value: 0 },
       uColorPrimary: { value: colors.primary },
       uColorSecondary: { value: colors.secondary },
+      uColorScar: { value: colors.scar },
     }),
     [colors],
   );
@@ -260,6 +270,7 @@ export function NeutronStar({
       uTime: { value: 0 },
       uColorPrimary: { value: colors.primary },
       uColorSecondary: { value: colors.secondary },
+      uColorScar: { value: colors.scar },
     }),
     [colors],
   );
@@ -316,6 +327,30 @@ export function NeutronStar({
           color={primaryColor}
           transparent
           opacity={0.08}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+          toneMapped={false}
+        />
+      </mesh>
+
+      <mesh rotation={[Math.PI / 2.4, 0, Math.PI / 7]}>
+        <torusGeometry args={[1.75, 0.015, 8, 192]} />
+        <meshBasicMaterial
+          color={secondaryColor}
+          transparent
+          opacity={0.28}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+          toneMapped={false}
+        />
+      </mesh>
+
+      <mesh rotation={[Math.PI / 2.1, 0, -Math.PI / 5]}>
+        <torusGeometry args={[2.05, 0.01, 8, 192]} />
+        <meshBasicMaterial
+          color={scarColor}
+          transparent
+          opacity={0.14}
           blending={THREE.AdditiveBlending}
           depthWrite={false}
           toneMapped={false}

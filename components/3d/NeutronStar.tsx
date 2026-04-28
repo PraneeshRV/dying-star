@@ -228,6 +228,7 @@ export interface NeutronStarProps {
   scarColor?: string;
   /** Spin speed in rad/sec for the disk */
   spinSpeed?: number;
+  timeScale?: number;
 }
 
 export function NeutronStar({
@@ -237,6 +238,7 @@ export function NeutronStar({
   secondaryColor = "#58f3ff",
   scarColor = "#ff7a45",
   spinSpeed = 0.42,
+  timeScale = 1,
 }: NeutronStarProps) {
   const groupRef = useRef<THREE.Group>(null);
   const diskRef = useRef<THREE.Mesh>(null);
@@ -294,16 +296,17 @@ export function NeutronStar({
   );
 
   useFrame((state, delta) => {
-    const t = state.clock.elapsedTime;
+    const scaledDelta = delta * timeScale;
+    const t = state.clock.elapsedTime * timeScale;
     if (coreMatRef.current) coreMatRef.current.uniforms.uTime.value = t;
     if (diskMatRef.current) diskMatRef.current.uniforms.uTime.value = t;
     if (jetTopMatRef.current) jetTopMatRef.current.uniforms.uTime.value = t;
     if (jetBottomMatRef.current)
       jetBottomMatRef.current.uniforms.uTime.value = t;
 
-    if (diskRef.current) diskRef.current.rotation.z += delta * spinSpeed;
+    if (diskRef.current) diskRef.current.rotation.z += scaledDelta * spinSpeed;
     if (groupRef.current)
-      groupRef.current.rotation.y += delta * spinSpeed * 0.18;
+      groupRef.current.rotation.y += scaledDelta * spinSpeed * 0.18;
   });
 
   return (

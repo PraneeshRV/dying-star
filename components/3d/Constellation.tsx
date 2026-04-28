@@ -30,6 +30,12 @@ export interface ConstellationProps {
   mouseStrength?: number;
   starColor?: string;
   lineColor?: string;
+  timeScale?: number;
+}
+
+function seededUnit(seed: number) {
+  const x = Math.sin(seed * 127.1) * 43758.5453;
+  return x - Math.floor(x);
 }
 
 export function Constellation({
@@ -40,6 +46,7 @@ export function Constellation({
   mouseStrength = 0.9,
   starColor = "#38BDF8",
   lineColor = "#8B5CF6",
+  timeScale = 1,
 }: ConstellationProps) {
   const { camera } = useThree();
 
@@ -52,11 +59,11 @@ export function Constellation({
 
     for (let i = 0; i < count; i++) {
       // Cluster slightly toward the camera-facing hemisphere for visual density
-      const u = Math.random();
-      const v = Math.random() * 0.85 + 0.15;
+      const u = seededUnit(i + 701);
+      const v = seededUnit(i + 809) * 0.85 + 0.15;
       const theta = u * Math.PI * 2;
       const phi = Math.acos(2 * v - 1);
-      const r = radius * (0.85 + Math.random() * 0.3);
+      const r = radius * (0.85 + seededUnit(i + 907) * 0.3);
       const sinPhi = Math.sin(phi);
 
       const x = r * sinPhi * Math.cos(theta);
@@ -67,8 +74,8 @@ export function Constellation({
       rest[i * 3 + 1] = live[i * 3 + 1] = y;
       rest[i * 3 + 2] = live[i * 3 + 2] = z;
 
-      sizes[i] = 0.8 + Math.random() * 1.6;
-      phases[i] = Math.random() * Math.PI * 2;
+      sizes[i] = 0.8 + seededUnit(i + 1009) * 1.6;
+      phases[i] = seededUnit(i + 1103) * Math.PI * 2;
     }
 
     // Pre-compute neighbor pairs (n^2 once at mount)
@@ -92,6 +99,19 @@ export function Constellation({
     }
 
     const linePositions = new Float32Array((pairs.length / 2) * 6);
+    const lineCount = pairs.length / 2;
+    for (let p = 0; p < lineCount; p++) {
+      const a = pairs[p * 2] * 3;
+      const b = pairs[p * 2 + 1] * 3;
+      const o = p * 6;
+      linePositions[o + 0] = live[a + 0];
+      linePositions[o + 1] = live[a + 1];
+      linePositions[o + 2] = live[a + 2];
+      linePositions[o + 3] = live[b + 0];
+      linePositions[o + 4] = live[b + 1];
+      linePositions[o + 5] = live[b + 2];
+    }
+
     return { rest, live, sizes, phases, pairs, linePositions };
   }, [count, radius, linkDistance]);
 
@@ -159,7 +179,12 @@ export function Constellation({
   /* ────── Frame loop ────── */
   useFrame((state, delta) => {
     if (starMatRef.current) {
-      starMatRef.current.uniforms.uTime.value = state.clock.elapsedTime;
+      starMatRef.current.uniforms.uTime.value =
+        state.clock.elapsedTime * timeScale;
+    }
+
+    if (timeScale <= 0) {
+      return;
     }
 
     // Project pointer onto a plane in front of the camera
@@ -170,7 +195,7 @@ export function Constellation({
       scratch.mouseWorld,
     );
 
-    const ease = Math.min(delta * 4, 1);
+    const ease = Math.min(delta * 4 * timeScale, 1);
     const mouseR2 = mouseRadius * mouseRadius;
 
     for (let i = 0; i < count; i++) {

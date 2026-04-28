@@ -28,6 +28,7 @@ export interface DysonSphereProps {
   /** Fraction of shell visibly destroyed. 0.33 means 33% structural loss. */
   destroyedFraction?: number;
   debrisCount?: number;
+  timeScale?: number;
 }
 
 const DAMAGE_CENTER = Math.PI * 0.18;
@@ -52,6 +53,7 @@ export function DysonSphere({
   panelFill = 0.67,
   destroyedFraction = 0.33,
   debrisCount = 180,
+  timeScale = 1,
 }: DysonSphereProps) {
   const outerRef = useRef<THREE.LineSegments>(null);
   const innerRef = useRef<THREE.Mesh>(null);
@@ -229,11 +231,12 @@ export function DysonSphere({
   }, [debris]);
 
   useFrame((state, delta) => {
-    const t = state.clock.elapsedTime;
+    const scaledDelta = delta * timeScale;
+    const t = state.clock.elapsedTime * timeScale;
 
     if (outerRef.current) {
-      outerRef.current.rotation.y += delta * rotationSpeed;
-      outerRef.current.rotation.x += delta * rotationSpeed * 0.35;
+      outerRef.current.rotation.y += scaledDelta * rotationSpeed;
+      outerRef.current.rotation.x += scaledDelta * rotationSpeed * 0.35;
       const s = 1 + Math.sin(t * 0.5) * 0.012;
       outerRef.current.scale.set(s, s, s);
     }
@@ -250,8 +253,8 @@ export function DysonSphere({
     }
 
     if (innerRef.current) {
-      innerRef.current.rotation.y -= delta * rotationSpeed * 0.6;
-      innerRef.current.rotation.z += delta * rotationSpeed * 0.4;
+      innerRef.current.rotation.y -= scaledDelta * rotationSpeed * 0.6;
+      innerRef.current.rotation.z += scaledDelta * rotationSpeed * 0.4;
     }
 
     // Opacity pulse — subtle breathing

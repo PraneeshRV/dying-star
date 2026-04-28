@@ -4,14 +4,17 @@ import { getGPUTier } from "@pmndrs/detect-gpu";
 import { Canvas } from "@react-three/fiber";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { Suspense, useEffect, useState } from "react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import {
   Constellation,
   DysonSphere,
+  Megastructures,
   NeutronStar,
-  OrbitalPlanets,
+  OrbitalBodies,
+  PathwayRemnants,
   Starfield,
+  SystemCamera,
 } from "./index";
-import { SystemCamera } from "./SystemCamera";
 
 /**
  * SpaceCanvas — The primary 3D environment for the Dying Star portfolio.
@@ -24,6 +27,7 @@ import { SystemCamera } from "./SystemCamera";
  */
 export function SpaceCanvas() {
   const [tier, setTier] = useState<number>(2);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     // Detect GPU capability to scale population and resolution
@@ -35,7 +39,8 @@ export function SpaceCanvas() {
   // Performance scaling based on GPU tier (tier 0 = detection failed → treat as low-end)
   const starCount = tier <= 1 ? 800 : tier === 2 ? 2000 : 3500;
   const constellationCount = tier <= 1 ? 250 : tier === 2 ? 500 : 750;
-  const useBloom = tier > 1;
+  const speedMultiplier = reducedMotion ? 0 : tier <= 1 ? 0.35 : 1;
+  const useBloom = tier > 1 && !reducedMotion;
 
   return (
     <div className="absolute inset-0 z-0 bg-void">
@@ -49,32 +54,43 @@ export function SpaceCanvas() {
           alpha: false,
         }}
       >
-        <color attach="background" args={["#000005"]} />
-        <SystemCamera reducedMotion={false} />
+        <color attach="background" args={["#030406"]} />
+        <SystemCamera
+          reducedMotion={reducedMotion}
+          speedMultiplier={speedMultiplier}
+        />
 
-        {/* Environment Lighting */}
-        <ambientLight intensity={0.35} />
-        <pointLight position={[0, 0, 0]} intensity={3} color="#00FF88" />
+        <ambientLight intensity={0.18} />
+        <pointLight position={[0, 0, 0]} intensity={4.2} color="#dceeff" />
+        <pointLight position={[-18, 7, 14]} intensity={0.55} color="#ff7a45" />
 
         <Suspense fallback={null}>
-          {/* Background Population */}
-          <Starfield count={starCount} />
-          <Constellation count={constellationCount} />
+          <Starfield
+            count={starCount}
+            color="#c7d0d8"
+            timeScale={speedMultiplier}
+          />
+          <Constellation
+            count={constellationCount}
+            timeScale={speedMultiplier}
+          />
+          <PathwayRemnants />
+          <NeutronStar timeScale={speedMultiplier} />
+          <DysonSphere
+            color="#b8894d"
+            destroyedFraction={0.33}
+            panelFill={0.67}
+            timeScale={speedMultiplier}
+          />
+          <OrbitalBodies speedMultiplier={speedMultiplier} renderMoons={true} />
+          <Megastructures speedMultiplier={speedMultiplier} />
 
-          {/* Main Subject */}
-          <NeutronStar />
-
-          {/* Decorative Bodies */}
-          <DysonSphere />
-          <OrbitalPlanets />
-
-          {/* Post-processing: Make the neon glows pop */}
           {useBloom && (
             <EffectComposer enableNormalPass={false}>
               <Bloom
-                intensity={1.5}
-                luminanceThreshold={0.2}
-                luminanceSmoothing={0.9}
+                intensity={1.15}
+                luminanceThreshold={0.22}
+                luminanceSmoothing={0.82}
                 mipmapBlur
               />
             </EffectComposer>

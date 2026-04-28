@@ -62,6 +62,12 @@ export interface StarfieldProps {
   /** Outer radius of the spherical shell */
   outerRadius?: number;
   color?: string;
+  timeScale?: number;
+}
+
+function seededUnit(seed: number) {
+  const x = Math.sin(seed * 127.1) * 43758.5453;
+  return x - Math.floor(x);
 }
 
 export function Starfield({
@@ -69,6 +75,7 @@ export function Starfield({
   innerRadius = 60,
   outerRadius = 140,
   color = "#E8E8F0",
+  timeScale = 1,
 }: StarfieldProps) {
   const matRef = useRef<THREE.ShaderMaterial>(null);
 
@@ -79,22 +86,22 @@ export function Starfield({
 
     for (let i = 0; i < count; i++) {
       // Uniformly distribute on a spherical shell
-      const u = Math.random();
-      const v = Math.random();
+      const u = seededUnit(i + 101);
+      const v = seededUnit(i + 211);
       const theta = u * Math.PI * 2;
       const phi = Math.acos(2 * v - 1);
-      const r = innerRadius + Math.random() * (outerRadius - innerRadius);
+      const r = innerRadius + seededUnit(i + 307) * (outerRadius - innerRadius);
 
       const sinPhi = Math.sin(phi);
       positions[i * 3 + 0] = r * sinPhi * Math.cos(theta);
       positions[i * 3 + 1] = r * sinPhi * Math.sin(theta);
       positions[i * 3 + 2] = r * Math.cos(phi);
 
-      phases[i] = Math.random() * Math.PI * 2;
+      phases[i] = seededUnit(i + 409) * Math.PI * 2;
 
       // Size distribution skewed toward small stars, occasional bright ones
-      const rs = Math.random();
-      sizes[i] = rs < 0.92 ? 0.6 + rs * 1.2 : 1.6 + Math.random() * 1.8;
+      const rs = seededUnit(i + 503);
+      sizes[i] = rs < 0.92 ? 0.6 + rs * 1.2 : 1.6 + seededUnit(i + 601) * 1.8;
     }
 
     return { positions, phases, sizes };
@@ -116,7 +123,7 @@ export function Starfield({
 
   useFrame((state) => {
     if (matRef.current) {
-      matRef.current.uniforms.uTime.value = state.clock.elapsedTime;
+      matRef.current.uniforms.uTime.value = state.clock.elapsedTime * timeScale;
     }
   });
 

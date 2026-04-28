@@ -25,15 +25,25 @@ export interface DysonSphereProps {
   rotationSpeed?: number;
   /** Fraction of faces to fill (0–1). 0.55 = "under construction" */
   panelFill?: number;
+  /** Fraction of shell visibly destroyed. 0.33 means 33% structural loss. */
+  destroyedFraction?: number;
+  debrisCount?: number;
+}
+
+function seededUnit(seed: number) {
+  const x = Math.sin(seed * 127.1) * 43758.5453;
+  return x - Math.floor(x);
 }
 
 export function DysonSphere({
   radius = 30,
   detail = 2,
-  color = "#8B5CF6",
-  baseOpacity = 0.13,
-  rotationSpeed = 0.04,
-  panelFill = 0.55,
+  color = "#b8894d",
+  baseOpacity = 0.16,
+  rotationSpeed = 0.032,
+  panelFill = 0.67,
+  destroyedFraction = 0.33,
+  debrisCount = 180,
 }: DysonSphereProps) {
   const outerRef = useRef<THREE.Mesh>(null);
   const innerRef = useRef<THREE.Mesh>(null);
@@ -59,7 +69,23 @@ export function DysonSphere({
 
     const indices: number[] = [];
     for (let i = 0; i < faceCount; i++) {
-      if (seededRandom(i) < panelFill) {
+      const vx = srcPos.getX(i * 3);
+      const vy = srcPos.getY(i * 3);
+      const vz = srcPos.getZ(i * 3);
+      const angle = Math.atan2(vz, vx);
+      const damageCenter = Math.PI * 0.18;
+      const damageWidth = Math.PI * destroyedFraction * 1.55;
+      const angularDistance = Math.abs(
+        Math.atan2(
+          Math.sin(angle - damageCenter),
+          Math.cos(angle - damageCenter),
+        ),
+      );
+      const inDamageArc = angularDistance < damageWidth;
+      const erosion = inDamageArc ? 0.82 : 0.18;
+      const keepPanel = seededRandom(i) < panelFill * (1 - erosion);
+
+      if (keepPanel) {
         indices.push(i * 3, i * 3 + 1, i * 3 + 2);
       }
     }
@@ -80,7 +106,25 @@ export function DysonSphere({
     nonIndexed.dispose();
 
     return filled;
-  }, [radius, detail, panelFill]);
+  }, [radius, detail, panelFill, destroyedFraction]);
+
+  const debris = useMemo(() => {
+    return Array.from({ length: debrisCount }, (_, index) => {
+      const t = index / debrisCount;
+      const angle =
+        Math.PI * 0.18 + (t - 0.5) * Math.PI * destroyedFraction * 2.1;
+      const distance = radius * (0.9 + seededUnit(index + 900) * 0.42);
+      return {
+        id: `dyson-debris-${index}`,
+        position: [
+          Math.cos(angle) * distance,
+          (seededUnit(index + 1200) - 0.5) * radius * 0.44,
+          Math.sin(angle) * distance,
+        ] as [number, number, number],
+        size: 0.035 + seededUnit(index + 1500) * 0.12,
+      };
+    });
+  }, [debrisCount, destroyedFraction, radius]);
 
   useFrame((state, delta) => {
     const t = state.clock.elapsedTime;
@@ -124,6 +168,18 @@ export function DysonSphere({
           toneMapped={false}
         />
       </mesh>
+
+      {debris.map((piece) => (
+        <mesh key={piece.id} position={piece.position}>
+          <boxGeometry args={[piece.size, piece.size * 0.42, piece.size * 1.8]} />
+          <meshBasicMaterial
+            color="#ff7a45"
+            transparent
+            opacity={0.55}
+            toneMapped={false}
+          />
+        </mesh>
+      ))}
 
       {/* Outer wireframe shell */}
       <Icosahedron ref={outerRef} args={[radius, detail]}>

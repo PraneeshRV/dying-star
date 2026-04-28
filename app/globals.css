@@ -7,37 +7,40 @@
 
 @theme inline {
   /* ─── Backgrounds ─── */
-  --color-void: #000005;
-  --color-void-2: #03000d;
-  --color-surface: #0a0a1a;
-  --color-surface-2: #0f0f2a;
+  --color-void: #030406;
+  --color-void-2: #07111a;
+  --color-surface: #081018;
+  --color-surface-2: #101821;
 
-  /* ─── Primary: Quasar Green (terminal) ─── */
-  --color-green: #00ff88;
-  --color-green-dim: #00cc6a;
+  /* ─── Shattered-Star Tactical Palette ─── */
+  --color-ash: #c7d0d8;
+  --color-cherenkov: #58f3ff;
+  --color-ember: #ff7a45;
+  --color-oxidized: #b8894d;
+  --color-rust: #8a3f2d;
+  --color-gravity: #6fa8ff;
+  --color-threat: #d94a4a;
 
-  /* ─── Secondary: Nebula Purple ─── */
-  --color-purple: #8b5cf6;
-  --color-purple-hot: #a78bfa;
-  --color-purple-deep: #4c1d95;
-
-  /* ─── Tertiary: Plasma Blue ─── */
-  --color-blue: #38bdf8;
-  --color-blue-hot: #7dd3fc;
-  --color-blue-deep: #0c4a6e;
-
-  /* ─── Danger / Alert ─── */
-  --color-red: #ff3366;
-  --color-orange: #ff6b35;
+  /* ─── Legacy Semantic Mappings ─── */
+  --color-green: #58f3ff;
+  --color-green-dim: #3fb8c6;
+  --color-purple: #6fa8ff;
+  --color-purple-hot: #9ec3ff;
+  --color-purple-deep: #21314d;
+  --color-blue: #58f3ff;
+  --color-blue-hot: #dceeff;
+  --color-blue-deep: #17303f;
+  --color-red: #d94a4a;
+  --color-orange: #ff7a45;
 
   /* ─── Text ─── */
-  --color-text-primary: #e8e8f0;
-  --color-text-secondary: #8888aa;
-  --color-text-dim: #444466;
-  --color-text-mono: #00ff88;
+  --color-text-primary: #e6eef5;
+  --color-text-secondary: #9aa8b4;
+  --color-text-dim: #55616c;
+  --color-text-mono: #58f3ff;
 
   /* ─── Special ─── */
-  --color-gold: #f5a623;
+  --color-gold: #b8894d;
   --color-neutron: #ffffff;
 
   /* ─── Fonts ─── */
@@ -69,9 +72,10 @@
 
 /* ─── Glow Effect Colors (not in @theme bc rgba) ─── */
 :root {
-  --green-glow: rgba(0, 255, 136, 0.15);
-  --purple-glow: rgba(139, 92, 246, 0.2);
-  --blue-glow: rgba(56, 189, 248, 0.15);
+  --green-glow: rgba(88, 243, 255, 0.16);
+  --purple-glow: rgba(111, 168, 255, 0.18);
+  --blue-glow: rgba(88, 243, 255, 0.14);
+  --ember-glow: rgba(255, 122, 69, 0.18);
 }
 
 /* ═══ Base Styles ═══ */
@@ -122,19 +126,19 @@ body {
 
 /* ═══ Glassmorphism Utilities ═══ */
 .glass-panel {
-  background: rgba(10, 10, 26, 0.6);
-  backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(139, 92, 246, 0.15);
+  background: rgba(8, 16, 24, 0.66);
+  backdrop-filter: blur(16px) saturate(145%);
+  border: 1px solid rgba(199, 208, 216, 0.12);
   box-shadow:
-    0 0 40px rgba(139, 92, 246, 0.05),
+    0 0 40px rgba(88, 243, 255, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .glass-terminal {
-  background: rgba(0, 0, 5, 0.85);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(0, 255, 136, 0.2);
-  box-shadow: 0 0 20px rgba(0, 255, 136, 0.1);
+  background: rgba(3, 4, 6, 0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(88, 243, 255, 0.18);
+  box-shadow: 0 0 20px rgba(88, 243, 255, 0.08);
 }
 
 /* ═══ Glow Utilities ═══ */
@@ -156,14 +160,14 @@ body {
 
 .box-glow-green {
   box-shadow:
-    0 0 30px rgba(0, 255, 136, 0.3),
-    0 0 60px rgba(0, 255, 136, 0.1);
+    0 0 30px rgba(88, 243, 255, 0.3),
+    0 0 60px rgba(88, 243, 255, 0.1);
 }
 
 .box-glow-purple {
   box-shadow:
-    0 0 30px rgba(139, 92, 246, 0.3),
-    0 0 60px rgba(139, 92, 246, 0.1);
+    0 0 30px rgba(111, 168, 255, 0.28),
+    0 0 60px rgba(111, 168, 255, 0.1);
 }
 
 /* ═══ CRT Scanlines Overlay ═══ */

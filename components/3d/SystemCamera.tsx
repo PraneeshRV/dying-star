@@ -10,49 +10,135 @@ import { useGlobalStore } from "@/stores/globalStore";
 
 const DEFAULT_TARGET = new THREE.Vector3(0, 0, 0);
 const DEFAULT_CAMERA = new THREE.Vector3(0, 8, 30);
+const FOCUS_OFFSET = new THREE.Vector3(0, 3.2, 8);
+const MAX_GUIDE_DURATION = 2.4;
+const TWO_PI = Math.PI * 2;
 
-function staticOrbitPosition(orbitRadius: number, inclination = 0) {
-  return new THREE.Vector3(
-    orbitRadius,
-    Math.sin(inclination) * orbitRadius * 0.22,
-    Math.cos(inclination) * orbitRadius * 0.18,
+function phaseOffsetForId(id: string) {
+  let hash = 0;
+
+  for (let index = 0; index < id.length; index++) {
+    hash = (hash * 31 + id.charCodeAt(index)) >>> 0;
+  }
+
+  return (hash / 0xffffffff) * TWO_PI;
+}
+
+const SYSTEM_NODE_PHASES = new Map(
+  [
+    ...SHATTERED_SYSTEM.planets,
+    ...SHATTERED_SYSTEM.moons,
+    ...SHATTERED_SYSTEM.megastructures,
+    ...SHATTERED_SYSTEM.pathways,
+  ].map((item) => [item.id, phaseOffsetForId(item.id)]),
+);
+
+function phaseForId(id: string) {
+  return SYSTEM_NODE_PHASES.get(id) ?? 0;
+}
+
+function writeOrbitPosition(
+  target: THREE.Vector3,
+  orbitRadius: number,
+  orbitSpeed: number,
+  elapsedTime: number,
+  inclination = 0,
+  phaseOffset = 0,
+) {
+  const angle = elapsedTime * orbitSpeed + phaseOffset;
+
+  target.set(
+    Math.cos(angle) * orbitRadius,
+    Math.sin(angle) * Math.sin(inclination) * orbitRadius * 0.22,
+    Math.sin(angle) * Math.cos(inclination) * orbitRadius,
   );
 }
 
-function findFocusPosition(id: string | null) {
-  if (!id) return DEFAULT_TARGET;
+function writeFocusPosition(
+  id: string | null,
+  elapsedTime: number,
+  target: THREE.Vector3,
+  parentTarget: THREE.Vector3,
+) {
+  if (!id) {
+    target.copy(DEFAULT_TARGET);
+    return;
+  }
 
   const planet = SHATTERED_SYSTEM.planets.find((item) => item.id === id);
-  if (planet) return staticOrbitPosition(planet.orbitRadius, planet.inclination);
+  if (planet) {
+    writeOrbitPosition(
+      target,
+      planet.orbitRadius,
+      planet.orbitSpeed,
+      elapsedTime,
+      planet.inclination,
+      phaseForId(planet.id),
+    );
+    return;
+  }
 
   const moon = SHATTERED_SYSTEM.moons.find((item) => item.id === id);
   if (moon) {
     const parent = SHATTERED_SYSTEM.planets.find(
       (item) => item.id === moon.parentId,
     );
-    if (!parent) return DEFAULT_TARGET;
-    return staticOrbitPosition(
-      parent.orbitRadius + moon.orbitRadius,
+
+    if (!parent) {
+      target.copy(DEFAULT_TARGET);
+      return;
+    }
+
+    writeOrbitPosition(
+      parentTarget,
+      parent.orbitRadius,
+      parent.orbitSpeed,
+      elapsedTime,
       parent.inclination,
+      phaseForId(parent.id),
     );
+    writeOrbitPosition(
+      target,
+      moon.orbitRadius,
+      moon.orbitSpeed,
+      elapsedTime,
+      parent.inclination,
+      phaseForId(moon.id),
+    );
+    target.add(parentTarget);
+    return;
   }
 
   const structure = SHATTERED_SYSTEM.megastructures.find(
     (item) => item.id === id,
   );
-  if (structure) return staticOrbitPosition(structure.orbitRadius, 0);
+  if (structure) {
+    writeOrbitPosition(
+      target,
+      structure.orbitRadius,
+      structure.orbitSpeed,
+      elapsedTime,
+      0,
+      phaseForId(structure.id),
+    );
+    return;
+  }
 
   const pathway = SHATTERED_SYSTEM.pathways.find((item) => item.id === id);
   if (pathway) {
-    const angle = (pathway.arcStart + pathway.arcEnd) / 2;
-    return new THREE.Vector3(
+    const midpoint = (pathway.arcStart + pathway.arcEnd) / 2;
+    const angle =
+      midpoint + elapsedTime * 0.012 + phaseForId(pathway.id) * 0.05;
+
+    target.set(
       Math.cos(angle) * pathway.radius,
       1.4,
       Math.sin(angle) * pathway.radius,
     );
+    return;
   }
 
-  return DEFAULT_TARGET;
+  target.copy(DEFAULT_TARGET);
 }
 
 export interface SystemCameraProps {
@@ -61,6 +147,9 @@ export interface SystemCameraProps {
 
 export function SystemCamera({ reducedMotion = false }: SystemCameraProps) {
   const controlsRef = useRef<OrbitControlsImpl>(null);
+  const activeFocusRef = useRef<string | null>(null);
+  const guidingRef = useRef(false);
+  const guideStartedAtRef = useRef(0);
   const focusedSystemNodeId = useGlobalStore(
     (state) => state.focusedSystemNodeId,
   );
@@ -68,26 +157,54 @@ export function SystemCamera({ reducedMotion = false }: SystemCameraProps) {
   const scratch = useMemo(
     () => ({
       target: new THREE.Vector3(),
+      parentTarget: new THREE.Vector3(),
       camera: new THREE.Vector3(),
-      offset: new THREE.Vector3(0, 3.2, 8),
     }),
     [],
   );
 
-  useFrame(({ camera }, delta) => {
-    const focusTarget = findFocusPosition(focusedSystemNodeId);
+  useFrame(({ camera, clock }, delta) => {
+    const controls = controlsRef.current;
+
+    if (focusedSystemNodeId !== activeFocusRef.current) {
+      activeFocusRef.current = focusedSystemNodeId;
+      guidingRef.current = Boolean(focusedSystemNodeId && !reducedMotion);
+      guideStartedAtRef.current = clock.elapsedTime;
+    }
+
+    writeFocusPosition(
+      focusedSystemNodeId,
+      clock.elapsedTime,
+      scratch.target,
+      scratch.parentTarget,
+    );
 
     if (!focusedSystemNodeId || reducedMotion) {
-      controlsRef.current?.target.lerp(DEFAULT_TARGET, 0.035);
+      guidingRef.current = false;
+      controls?.target.lerp(DEFAULT_TARGET, 0.035);
+      controls?.update();
       return;
     }
 
-    scratch.target.copy(focusTarget);
-    scratch.camera.copy(focusTarget).add(scratch.offset);
+    controls?.target.lerp(scratch.target, Math.min(delta * 2.1, 0.1));
 
-    camera.position.lerp(scratch.camera, Math.min(delta * 1.8, 0.08));
-    controlsRef.current?.target.lerp(scratch.target, Math.min(delta * 2.1, 0.1));
-    controlsRef.current?.update();
+    if (guidingRef.current) {
+      scratch.camera.copy(scratch.target).add(FOCUS_OFFSET);
+      camera.position.lerp(scratch.camera, Math.min(delta * 1.8, 0.08));
+
+      const cameraSettled = camera.position.distanceTo(scratch.camera) < 0.08;
+      const targetSettled = controls
+        ? controls.target.distanceTo(scratch.target) < 0.05
+        : true;
+      const guideExpired =
+        clock.elapsedTime - guideStartedAtRef.current > MAX_GUIDE_DURATION;
+
+      if (guideExpired || (cameraSettled && targetSettled)) {
+        guidingRef.current = false;
+      }
+    }
+
+    controls?.update();
   });
 
   return (
@@ -109,6 +226,9 @@ export function SystemCamera({ reducedMotion = false }: SystemCameraProps) {
         panSpeed={0.45}
         autoRotate={!reducedMotion && !focusedSystemNodeId}
         autoRotateSpeed={0.18}
+        onStart={() => {
+          guidingRef.current = false;
+        }}
         minDistance={4}
         maxDistance={78}
         minPolarAngle={Math.PI / 8}

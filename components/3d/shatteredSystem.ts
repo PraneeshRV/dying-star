@@ -114,10 +114,38 @@ export const FOCUSABLE_SYSTEM_NODE_IDS = [
 ] as const;
 
 export function sectionForNode(id: string): SectionMapping | undefined {
-  return SECTION_MAPPINGS.find((section) => section.anchorId === id);
+  const directSection = SECTION_MAPPINGS.find(
+    (section) => section.anchorId === id,
+  );
+
+  if (directSection) {
+    return directSection;
+  }
+
+  const node =
+    SHATTERED_SYSTEM.planets.find((planet) => planet.id === id) ??
+    SHATTERED_SYSTEM.moons.find((moon) => moon.id === id) ??
+    SHATTERED_SYSTEM.megastructures.find((structure) => structure.id === id) ??
+    SHATTERED_SYSTEM.pathways.find((pathway) => pathway.id === id);
+
+  return node
+    ? SECTION_MAPPINGS.find((section) => section.id === node.sectionId)
+    : undefined;
 }
 
 export function scrollToSection(sectionId: SectionId) {
+  if (sectionId === "resume") {
+    if (typeof window !== "undefined") {
+      window.location.href = "/resume";
+    }
+
+    return;
+  }
+
+  if (typeof document === "undefined") {
+    return;
+  }
+
   document
     .getElementById(sectionId)
     ?.scrollIntoView({ behavior: "smooth", block: "start" });

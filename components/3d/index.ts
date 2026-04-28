@@ -24,4 +24,5 @@ export { OrbitalPlanets } from "./OrbitalPlanets";
 export { SpaceCanvas } from "./SpaceCanvas";
 export type { StarfieldProps } from "./Starfield";
 export { Starfield } from "./Starfield";
+export { SystemCamera } from "./SystemCamera";
 export { WebGLErrorBoundary } from "./WebGLErrorBoundary";

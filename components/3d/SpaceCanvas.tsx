@@ -1,7 +1,6 @@
 "use client";
 
 import { getGPUTier } from "@pmndrs/detect-gpu";
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { Suspense, useEffect, useState } from "react";
@@ -12,6 +11,7 @@ import {
   OrbitalPlanets,
   Starfield,
 } from "./index";
+import { SystemCamera } from "./SystemCamera";
 
 /**
  * SpaceCanvas — The primary 3D environment for the Dying Star portfolio.
@@ -50,7 +50,7 @@ export function SpaceCanvas() {
         }}
       >
         <color attach="background" args={["#000005"]} />
-        <PerspectiveCamera makeDefault position={[0, 4, 18]} fov={55} />
+        <SystemCamera reducedMotion={false} />
 
         {/* Environment Lighting */}
         <ambientLight intensity={0.35} />
@@ -80,17 +80,6 @@ export function SpaceCanvas() {
             </EffectComposer>
           )}
         </Suspense>
-
-        {/* Subtle camera movement */}
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          rotateSpeed={0.3}
-          autoRotate
-          autoRotateSpeed={0.4}
-          minPolarAngle={Math.PI / 3}
-          maxPolarAngle={Math.PI / 1.5}
-        />
       </Canvas>
     </div>
   );

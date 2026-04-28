@@ -1,19 +1,19 @@
 "use client";
 
 /* ═══════════════════════════════════════════════════
-   DysonSphere — wireframe + partial panels
+   DysonSphere — damaged shell remnant + debris
    ─────────────────────────────────────────────────
-   - Outer wireframe icosahedron (structural grid)
-   - Partial filled panels (~55% of faces) layered
-     underneath for "under construction" megastructure
+   - Outer structural grid with a visibly missing sector
+   - Mostly intact filled panels outside the destroyed arc
+   - Instanced debris locked to the damaged shell rotation
    - Counter-rotating inner wireframe for depth
    - Subtle opacity pulse (breathing)
-   - Panel geometry built once in useMemo
+   - Memoized geometries are disposed on replacement/unmount
    ═══════════════════════════════════════════════════ */
 
 import { Icosahedron } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 
 export interface DysonSphereProps {
@@ -30,9 +30,17 @@ export interface DysonSphereProps {
   debrisCount?: number;
 }
 
+const DAMAGE_CENTER = Math.PI * 0.18;
+
 function seededUnit(seed: number) {
   const x = Math.sin(seed * 127.1) * 43758.5453;
   return x - Math.floor(x);
+}
+
+function angularDistance(angle: number, center: number) {
+  return Math.abs(
+    Math.atan2(Math.sin(angle - center), Math.cos(angle - center)),
+  );
 }
 
 export function DysonSphere({
@@ -45,14 +53,22 @@ export function DysonSphere({
   destroyedFraction = 0.33,
   debrisCount = 180,
 }: DysonSphereProps) {
-  const outerRef = useRef<THREE.Mesh>(null);
+  const outerRef = useRef<THREE.LineSegments>(null);
   const innerRef = useRef<THREE.Mesh>(null);
   const panelRef = useRef<THREE.Mesh>(null);
-  const outerMatRef = useRef<THREE.MeshBasicMaterial>(null);
+  const debrisRef = useRef<THREE.InstancedMesh>(null);
+  const outerMatRef = useRef<THREE.LineBasicMaterial>(null);
   const innerMatRef = useRef<THREE.MeshBasicMaterial>(null);
   const panelMatRef = useRef<THREE.MeshBasicMaterial>(null);
+  const clampedPanelFill = THREE.MathUtils.clamp(panelFill, 0, 1);
+  const clampedDestroyedFraction = THREE.MathUtils.clamp(
+    destroyedFraction,
+    0,
+    1,
+  );
+  const clampedDebrisCount = Math.max(0, Math.floor(debrisCount));
 
-  // Build partial-panel geometry — randomly keep ~55% of faces
+  // Filled hull panels remain dense outside the destroyed sector.
   const panelGeometry = useMemo(() => {
     const base = new THREE.IcosahedronGeometry(radius, detail);
     // toNonIndexed so every 3 vertices = 1 face
@@ -70,20 +86,12 @@ export function DysonSphere({
     const indices: number[] = [];
     for (let i = 0; i < faceCount; i++) {
       const vx = srcPos.getX(i * 3);
-      const vy = srcPos.getY(i * 3);
       const vz = srcPos.getZ(i * 3);
       const angle = Math.atan2(vz, vx);
-      const damageCenter = Math.PI * 0.18;
-      const damageWidth = Math.PI * destroyedFraction * 1.55;
-      const angularDistance = Math.abs(
-        Math.atan2(
-          Math.sin(angle - damageCenter),
-          Math.cos(angle - damageCenter),
-        ),
-      );
-      const inDamageArc = angularDistance < damageWidth;
-      const erosion = inDamageArc ? 0.82 : 0.18;
-      const keepPanel = seededRandom(i) < panelFill * (1 - erosion);
+      const damageWidth = Math.PI * clampedDestroyedFraction;
+      const inDamageArc = angularDistance(angle, DAMAGE_CENTER) < damageWidth;
+      const erosion = inDamageArc ? 0.86 : 0;
+      const keepPanel = seededRandom(i) < clampedPanelFill * (1 - erosion);
 
       if (keepPanel) {
         indices.push(i * 3, i * 3 + 1, i * 3 + 2);
@@ -106,13 +114,59 @@ export function DysonSphere({
     nonIndexed.dispose();
 
     return filled;
-  }, [radius, detail, panelFill, destroyedFraction]);
+  }, [radius, detail, clampedPanelFill, clampedDestroyedFraction]);
+
+  const outerWireGeometry = useMemo(() => {
+    const base = new THREE.IcosahedronGeometry(radius, detail);
+    const nonIndexed = base.toNonIndexed();
+    const srcPos = nonIndexed.attributes.position;
+    const faceCount = srcPos.count / 3;
+    const linePositions: number[] = [];
+    const damageWidth = Math.PI * clampedDestroyedFraction;
+
+    const pushEdge = (from: number, to: number) => {
+      linePositions.push(
+        srcPos.getX(from),
+        srcPos.getY(from),
+        srcPos.getZ(from),
+        srcPos.getX(to),
+        srcPos.getY(to),
+        srcPos.getZ(to),
+      );
+    };
+
+    for (let i = 0; i < faceCount; i++) {
+      const a = i * 3;
+      const cx = (srcPos.getX(a) + srcPos.getX(a + 1) + srcPos.getX(a + 2)) / 3;
+      const cz = (srcPos.getZ(a) + srcPos.getZ(a + 1) + srcPos.getZ(a + 2)) / 3;
+      const angle = Math.atan2(cz, cx);
+      const inDamageArc = angularDistance(angle, DAMAGE_CENTER) < damageWidth;
+      const keepBrokenFragment = inDamageArc && seededUnit(i + 300) < 0.1;
+
+      if (!inDamageArc || keepBrokenFragment) {
+        pushEdge(a, a + 1);
+        pushEdge(a + 1, a + 2);
+        pushEdge(a + 2, a);
+      }
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(linePositions, 3),
+    );
+
+    base.dispose();
+    nonIndexed.dispose();
+
+    return geometry;
+  }, [radius, detail, clampedDestroyedFraction]);
 
   const debris = useMemo(() => {
-    return Array.from({ length: debrisCount }, (_, index) => {
-      const t = index / debrisCount;
+    return Array.from({ length: clampedDebrisCount }, (_, index) => {
+      const t = index / Math.max(1, clampedDebrisCount);
       const angle =
-        Math.PI * 0.18 + (t - 0.5) * Math.PI * destroyedFraction * 2.1;
+        DAMAGE_CENTER + (t - 0.5) * Math.PI * clampedDestroyedFraction * 2.1;
       const distance = radius * (0.9 + seededUnit(index + 900) * 0.42);
       return {
         id: `dyson-debris-${index}`,
@@ -124,7 +178,55 @@ export function DysonSphere({
         size: 0.035 + seededUnit(index + 1500) * 0.12,
       };
     });
-  }, [debrisCount, destroyedFraction, radius]);
+  }, [clampedDebrisCount, clampedDestroyedFraction, radius]);
+
+  useEffect(() => {
+    return () => {
+      const geometry = panelGeometry;
+      window.setTimeout(() => {
+        if (panelRef.current?.geometry !== geometry) {
+          geometry.dispose();
+        }
+      }, 0);
+    };
+  }, [panelGeometry]);
+
+  useEffect(() => {
+    return () => {
+      const geometry = outerWireGeometry;
+      window.setTimeout(() => {
+        if (outerRef.current?.geometry !== geometry) {
+          geometry.dispose();
+        }
+      }, 0);
+    };
+  }, [outerWireGeometry]);
+
+  useEffect(() => {
+    if (!debrisRef.current) return;
+
+    const matrix = new THREE.Matrix4();
+    const position = new THREE.Vector3();
+    const rotation = new THREE.Euler();
+    const quaternion = new THREE.Quaternion();
+    const scale = new THREE.Vector3();
+
+    debris.forEach((piece, index) => {
+      position.fromArray(piece.position);
+      rotation.set(
+        seededUnit(index + 1800) * Math.PI,
+        seededUnit(index + 2100) * Math.PI,
+        seededUnit(index + 2400) * Math.PI,
+      );
+      quaternion.setFromEuler(rotation);
+      scale.set(piece.size, piece.size * 0.42, piece.size * 1.8);
+      matrix.compose(position, quaternion, scale);
+      debrisRef.current?.setMatrixAt(index, matrix);
+    });
+
+    debrisRef.current.instanceMatrix.needsUpdate = true;
+    debrisRef.current.computeBoundingSphere();
+  }, [debris]);
 
   useFrame((state, delta) => {
     const t = state.clock.elapsedTime;
@@ -142,6 +244,11 @@ export function DysonSphere({
       panelRef.current.scale.copy(outerRef.current.scale);
     }
 
+    if (debrisRef.current && outerRef.current) {
+      debrisRef.current.rotation.copy(outerRef.current.rotation);
+      debrisRef.current.scale.copy(outerRef.current.scale);
+    }
+
     if (innerRef.current) {
       innerRef.current.rotation.y -= delta * rotationSpeed * 0.6;
       innerRef.current.rotation.z += delta * rotationSpeed * 0.4;
@@ -156,7 +263,7 @@ export function DysonSphere({
 
   return (
     <group>
-      {/* Partial panels — "under construction" filled faces */}
+      {/* Filled remnant panels, sparse inside the destroyed arc. */}
       <mesh ref={panelRef} geometry={panelGeometry}>
         <meshBasicMaterial
           ref={panelMatRef}
@@ -169,30 +276,32 @@ export function DysonSphere({
         />
       </mesh>
 
-      {debris.map((piece) => (
-        <mesh key={piece.id} position={piece.position}>
-          <boxGeometry args={[piece.size, piece.size * 0.42, piece.size * 1.8]} />
+      {debris.length > 0 && (
+        <instancedMesh
+          ref={debrisRef}
+          args={[undefined, undefined, debris.length]}
+        >
+          <boxGeometry args={[1, 1, 1]} />
           <meshBasicMaterial
             color="#ff7a45"
             transparent
             opacity={0.55}
             toneMapped={false}
           />
-        </mesh>
-      ))}
+        </instancedMesh>
+      )}
 
-      {/* Outer wireframe shell */}
-      <Icosahedron ref={outerRef} args={[radius, detail]}>
-        <meshBasicMaterial
+      {/* Outer structural grid with the damaged sector removed. */}
+      <lineSegments ref={outerRef} geometry={outerWireGeometry}>
+        <lineBasicMaterial
           ref={outerMatRef}
           color={color}
-          wireframe
           transparent
           opacity={baseOpacity}
           depthWrite={false}
           toneMapped={false}
         />
-      </Icosahedron>
+      </lineSegments>
 
       {/* Inner counter-rotating wireframe for depth */}
       <Icosahedron ref={innerRef} args={[radius * 0.78, detail + 1]}>

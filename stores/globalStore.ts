@@ -18,6 +18,10 @@ interface GlobalState {
   gameActive: boolean;
   setGameActive: (v: boolean) => void;
 
+  /** Focused celestial body or relic in the 3D system */
+  focusedSystemNodeId: string | null;
+  setFocusedSystemNodeId: (id: string | null) => void;
+
   /** User prefers reduced motion */
   reducedMotion: boolean;
   setReducedMotion: (v: boolean) => void;
@@ -35,6 +39,9 @@ export const useGlobalStore = create<GlobalState>((set) => ({
 
   gameActive: false,
   setGameActive: (v) => set({ gameActive: v }),
+
+  focusedSystemNodeId: null,
+  setFocusedSystemNodeId: (id) => set({ focusedSystemNodeId: id }),
 
   reducedMotion: false,
   setReducedMotion: (v) => set({ reducedMotion: v }),

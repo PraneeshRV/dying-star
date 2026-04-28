@@ -5,6 +5,12 @@ import { useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import {
+  writeMegastructurePosition,
+  writeMoonWorldPosition,
+  writePathwayFocusPosition,
+  writePlanetPosition,
+} from "@/components/3d/orbitMath";
 import { SHATTERED_SYSTEM } from "@/components/3d/shatteredSystem";
 import { useGlobalStore } from "@/stores/globalStore";
 
@@ -12,47 +18,6 @@ const DEFAULT_TARGET = new THREE.Vector3(0, 0, 0);
 const DEFAULT_CAMERA = new THREE.Vector3(0, 8, 30);
 const FOCUS_OFFSET = new THREE.Vector3(0, 3.2, 8);
 const MAX_GUIDE_DURATION = 2.4;
-const TWO_PI = Math.PI * 2;
-
-function phaseOffsetForId(id: string) {
-  let hash = 0;
-
-  for (let index = 0; index < id.length; index++) {
-    hash = (hash * 31 + id.charCodeAt(index)) >>> 0;
-  }
-
-  return (hash / 0xffffffff) * TWO_PI;
-}
-
-const SYSTEM_NODE_PHASES = new Map(
-  [
-    ...SHATTERED_SYSTEM.planets,
-    ...SHATTERED_SYSTEM.moons,
-    ...SHATTERED_SYSTEM.megastructures,
-    ...SHATTERED_SYSTEM.pathways,
-  ].map((item) => [item.id, phaseOffsetForId(item.id)]),
-);
-
-function phaseForId(id: string) {
-  return SYSTEM_NODE_PHASES.get(id) ?? 0;
-}
-
-function writeOrbitPosition(
-  target: THREE.Vector3,
-  orbitRadius: number,
-  orbitSpeed: number,
-  elapsedTime: number,
-  inclination = 0,
-  phaseOffset = 0,
-) {
-  const angle = elapsedTime * orbitSpeed + phaseOffset;
-
-  target.set(
-    Math.cos(angle) * orbitRadius,
-    Math.sin(angle) * Math.sin(inclination) * orbitRadius * 0.22,
-    Math.sin(angle) * Math.cos(inclination) * orbitRadius,
-  );
-}
 
 function writeFocusPosition(
   id: string | null,
@@ -67,14 +32,7 @@ function writeFocusPosition(
 
   const planet = SHATTERED_SYSTEM.planets.find((item) => item.id === id);
   if (planet) {
-    writeOrbitPosition(
-      target,
-      planet.orbitRadius,
-      planet.orbitSpeed,
-      elapsedTime,
-      planet.inclination,
-      phaseForId(planet.id),
-    );
+    writePlanetPosition(target, planet, elapsedTime);
     return;
   }
 
@@ -89,23 +47,7 @@ function writeFocusPosition(
       return;
     }
 
-    writeOrbitPosition(
-      parentTarget,
-      parent.orbitRadius,
-      parent.orbitSpeed,
-      elapsedTime,
-      parent.inclination,
-      phaseForId(parent.id),
-    );
-    writeOrbitPosition(
-      target,
-      moon.orbitRadius,
-      moon.orbitSpeed,
-      elapsedTime,
-      parent.inclination,
-      phaseForId(moon.id),
-    );
-    target.add(parentTarget);
+    writeMoonWorldPosition(target, parentTarget, moon, parent, elapsedTime);
     return;
   }
 
@@ -113,28 +55,13 @@ function writeFocusPosition(
     (item) => item.id === id,
   );
   if (structure) {
-    writeOrbitPosition(
-      target,
-      structure.orbitRadius,
-      structure.orbitSpeed,
-      elapsedTime,
-      0,
-      phaseForId(structure.id),
-    );
+    writeMegastructurePosition(target, structure, elapsedTime);
     return;
   }
 
   const pathway = SHATTERED_SYSTEM.pathways.find((item) => item.id === id);
   if (pathway) {
-    const midpoint = (pathway.arcStart + pathway.arcEnd) / 2;
-    const angle =
-      midpoint + elapsedTime * 0.012 + phaseForId(pathway.id) * 0.05;
-
-    target.set(
-      Math.cos(angle) * pathway.radius,
-      1.4,
-      Math.sin(angle) * pathway.radius,
-    );
+    writePathwayFocusPosition(target, pathway);
     return;
   }
 
@@ -143,9 +70,13 @@ function writeFocusPosition(
 
 export interface SystemCameraProps {
   reducedMotion?: boolean;
+  speedMultiplier?: number;
 }
 
-export function SystemCamera({ reducedMotion = false }: SystemCameraProps) {
+export function SystemCamera({
+  reducedMotion = false,
+  speedMultiplier = 1,
+}: SystemCameraProps) {
   const controlsRef = useRef<OrbitControlsImpl>(null);
   const activeFocusRef = useRef<string | null>(null);
   const guidingRef = useRef(false);
@@ -174,7 +105,7 @@ export function SystemCamera({ reducedMotion = false }: SystemCameraProps) {
 
     writeFocusPosition(
       focusedSystemNodeId,
-      clock.elapsedTime,
+      clock.elapsedTime * speedMultiplier,
       scratch.target,
       scratch.parentTarget,
     );

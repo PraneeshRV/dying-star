@@ -5,6 +5,21 @@ import { fileURLToPath } from "node:url";
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const dataPath = join(root, "content/data/shattered-system.json");
 const system = JSON.parse(readFileSync(dataPath, "utf8"));
+const sourceFiles = {
+  camera: readFileSync(join(root, "components/3d/SystemCamera.tsx"), "utf8"),
+  orbitalBodies: readFileSync(
+    join(root, "components/3d/OrbitalBodies.tsx"),
+    "utf8",
+  ),
+  megastructures: readFileSync(
+    join(root, "components/3d/Megastructures.tsx"),
+    "utf8",
+  ),
+  pathways: readFileSync(
+    join(root, "components/3d/PathwayRemnants.tsx"),
+    "utf8",
+  ),
+};
 
 const requiredSections = [
   "about",
@@ -79,6 +94,10 @@ function assertExactCount(collection, label) {
     collection.length === expectedCounts[label],
     `expected ${expectedCounts[label]} ${label}, got ${collection.length}`,
   );
+}
+
+function assertSourceIncludes(source, expected, label) {
+  assert(source.includes(expected), `${label} must include ${expected}`);
 }
 
 function assertSceneBody(body, collectionName, sectionIds) {
@@ -226,6 +245,47 @@ for (const pathway of system.pathways) {
     `pathway ${pathway.id} arcEnd must be greater than arcStart`,
   );
 }
+
+assertSourceIncludes(
+  sourceFiles.camera,
+  "writePlanetPosition",
+  "SystemCamera focus math",
+);
+assertSourceIncludes(
+  sourceFiles.camera,
+  "writeMoonWorldPosition",
+  "SystemCamera focus math",
+);
+assertSourceIncludes(
+  sourceFiles.camera,
+  "writeMegastructurePosition",
+  "SystemCamera focus math",
+);
+assertSourceIncludes(
+  sourceFiles.camera,
+  "writePathwayFocusPosition",
+  "SystemCamera pathway focus math",
+);
+assertSourceIncludes(
+  sourceFiles.orbitalBodies,
+  "writePlanetPosition",
+  "OrbitalBodies planet render math",
+);
+assertSourceIncludes(
+  sourceFiles.orbitalBodies,
+  "writeMoonLocalPosition",
+  "OrbitalBodies moon render math",
+);
+assertSourceIncludes(
+  sourceFiles.megastructures,
+  "writeMegastructurePosition",
+  "Megastructures render math",
+);
+assertSourceIncludes(
+  sourceFiles.pathways,
+  "writePathwayPoint",
+  "PathwayRemnants render math",
+);
 
 console.log("shattered-system: data contract valid");
 console.log(`planets=${system.planets.length}`);

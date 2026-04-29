@@ -9,7 +9,8 @@
     "lint": "biome check",
     "format": "biome format --write",
     "verify:system": "node scripts/verify-shattered-system.mjs",
-    "prepare": "husky"
+    "verify": "npm run verify:system && npm run lint && tsc --noEmit && npm run build",
+    "prepare": "node scripts/prepare-husky.mjs"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,json,css}": [

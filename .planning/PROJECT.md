@@ -2,9 +2,9 @@
 
 ## What This Is
 
-`dying-star` is Praneesh R V's cybersecurity portfolio: a dark, immersive, space/quasar themed Next.js site that turns a resume into an explorable technical experience. It is for recruiters, security peers, CTF collaborators, and anyone evaluating Praneesh's work across cybersecurity, CTFs, infrastructure, Linux, and project building.
+`dying-star` is Praneesh R V's cybersecurity portfolio: a dark, immersive, post-apocalyptic intergalactic archive built around the remains of a shattered neutron-star civilization. It turns a resume into an explorable tactical system with a damaged Dyson sphere, ruined planets, moons, megastructures, pathway remnants, and portfolio sections mapped to celestial bodies. It is for recruiters, security peers, CTF collaborators, and anyone evaluating Praneesh's work across cybersecurity, CTFs, infrastructure, Linux, and project building.
 
-The product is not a generic landing page. It should feel like a polished cyber observatory: readable and professional first, then memorable through 3D space visuals, terminal interactions, CTF easter eggs, and technical writing.
+The product is not a generic landing page. It should feel like a polished recovered-archive interface: readable and professional first, then memorable through 3D space visuals, tactical labels, CTF easter eggs, and technical writing.
 
 ## Core Value
 
@@ -16,22 +16,24 @@ Visitors must quickly understand Praneesh's cybersecurity credibility and have a
 
 - [x] Next.js 16 App Router scaffold with TypeScript, Tailwind v4, Biome, strict typing, and npm scripts is present.
 - [x] Design system primitives are present: boot loader, custom cursor, glitch text, typewriter text, button/card styling, glass/glow utilities, and floating navigation.
-- [x] 3D hero scene is present with React Three Fiber, adaptive starfield/constellation, neutron star, accretion disk, jets, Dyson sphere, orbital planets, bloom, and WebGL error fallback.
-- [x] Main home sections have a first implementation: hero, about, projects, skills, experience, CTF, and contact.
+- [x] 3D hero scene is present with React Three Fiber, adaptive starfield/constellation, realistic neutron-star core, 33% destroyed Dyson sphere, orbital planets, moons, megastructures, pathway remnants, bloom, guided camera controls, WebGL preflight, and deterministic fallback.
+- [x] Main home sections have a first implementation: hero, about, projects, skills, experience, certifications, CTF, blog preview, and contact.
 - [x] Static data exists for projects, CTF achievements, profile, skills, experience, and certifications.
 - [x] `/resume` route and `public/resume.pdf` are present.
-- [x] Production build and production browser smoke pass for `/`, canvas presence, `/resume`, and console errors.
+- [x] Production build and production browser smoke pass for `/`, canvas/fallback presence, desktop/mobile interactions, reduced motion, `/resume`, and console errors.
+- [x] Launch metadata basics are present: canonical metadata, sitemap, robots, manifest, JSON-LD, generated Open Graph image, and generated Twitter image.
+- [x] README and environment docs explain local development, production preview, verification, and Vercel-style deployment settings.
 
 ### Active
 
 - [ ] Finish the M3 section pass with certifications UI, stronger project content, responsive polish, and a real contact path.
 - [ ] Replace the mailto contact shell with a Resend-backed API route using validation, rate limiting, and safe secret handling.
-- [ ] Resolve or document the `next dev` reliability issue while preserving the healthy `next build` and `next start` path.
+- [ ] Resolve the `next dev` reliability issue if it remains reproducible; README currently documents production preview as the release source of truth.
 - [ ] Add an animation layer that improves the experience without harming reduced-motion, accessibility, or mobile performance.
 - [ ] Add the terminal overlay with useful portfolio commands, fake challenge tokens only, and accessible non-keyboard triggers.
 - [ ] Add Packet Runner as an optional progressive enhancement with local persistence only for v1.
 - [ ] Add the blog/MDX system with sample posts, Shiki highlighting, RSS, and SEO metadata.
-- [ ] Complete launch polish: sitemap, robots, metadata, OG assets, Vercel Analytics, Lighthouse/accessibility/mobile checks, and production deployment readiness.
+- [ ] Complete remaining launch polish: Vercel Analytics, Lighthouse/accessibility checks, final domain wiring, and production deployment validation.
 
 ### Out of Scope
 
@@ -44,13 +46,13 @@ Visitors must quickly understand Praneesh's cybersecurity credibility and have a
 
 ## Context
 
-- The original vision lives in `docs/praneesh_portfolio_masterplan.md`, with refined implementation docs in `docs/PERFECTED_PLAN.md`, `docs/MODULE_BREAKDOWN.md`, `docs/OUTSOURCING_PLAN.md`, and `docs/task_plan.md`.
+- The original vision lives in `docs/praneesh_portfolio_masterplan.md`, while the current implementation direction is `Archive of the Shattered Star` and is summarized in `README.md` and `docs/task_plan.md`.
 - The repo is already a brownfield Next.js application, not a greenfield start. M0, M1, most of M2, and a first M3 pass are implemented.
 - The active tech stack is Next.js 16.2.4, React 19.2.4, TypeScript, Tailwind v4, Biome, React Three Fiber, Three.js, Zustand, motion, lucide-react, and npm with `package-lock.json`.
 - `AGENTS.md` requires reading local Next.js docs in `node_modules/next/dist/docs/` before changing Next-specific behavior.
 - There is no database today. Content is static JSON plus the copied resume PDF.
 - Production preview works with `npm run start`. During the latest implementation session, `npm run dev` with default Turbopack accepted the port but did not reach DOMContentLoaded within the smoke timeout.
-- The current preview server may be running on `http://127.0.0.1:3000/` from `npm run start`.
+- Local production preview should be run with `npm run build` followed by `npm run start`.
 
 ## Constraints
 
@@ -73,6 +75,9 @@ Visitors must quickly understand Praneesh's cybersecurity credibility and have a
 | Use Resend only for the contact endpoint | Plans already target Resend and it is enough for a public portfolio form | Pending |
 | Keep Packet Runner localStorage-only for v1 | Avoids early database/security scope and keeps the game optional | Pending |
 | Preserve fake-only CTF/easter egg content | Prevents accidental secret leakage and avoids confusing scanners | Pending |
+| Reframe the product as Archive of the Shattered Star | User approved a post-apocalyptic intergalactic civilization-remnant concept with a realistic neutron star, damaged Dyson sphere, planets, moons, and ruins | Good |
+| Keep contact mailto-only for the static launch | The secure Resend API needs validation and abuse controls, so mailto remains the production-safe fallback until that phase is implemented | Good |
+| Add metadata routes before public deployment | Sitemap, robots, manifest, OG/Twitter images, and JSON-LD are low-risk launch requirements for a static portfolio | Good |
 
 ## Evolution
 

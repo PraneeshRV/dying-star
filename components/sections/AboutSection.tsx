@@ -107,7 +107,7 @@ export function AboutSection() {
                 {PROFILE.operatorProfile.tertiary.join(", ")}.
               </p>
               <p className="text-green">
-                root@cosmos:~$ inspect --profile --quiet
+                archive@shattered-star:~$ inspect --profile --quiet
               </p>
             </div>
           </div>

@@ -7,17 +7,17 @@
 See: `.planning/PROJECT.md` (updated 2026-04-28)
 
 **Core value:** Visitors must quickly understand Praneesh's cybersecurity credibility and have a memorable, high-signal experience that makes the portfolio stand out.
-**Current focus:** Phase 2 - Contact API
+**Current focus:** Production readiness for Archive of the Shattered Star; next feature phase remains Contact API.
 
 ## Current Snapshot
 
-- Project: `dying-star`, a Next.js 16.2.4 / React 19 cybersecurity portfolio with a 3D space hero.
+- Project: `dying-star`, a Next.js 16.2.4 / React 19 cybersecurity portfolio with a post-apocalyptic shattered-star 3D archive hero.
 - Repository type: brownfield app initialized into GSD after `$gsd-map-codebase`.
-- Active implementation state: M0 and M1 are present; M2 is present with R3F canvas, starfield, constellation, neutron star/disk/jets, Dyson sphere, orbital planets, bloom, GPU scaling, and WebGL error fallback.
-- M3 content shell is implemented on the home page with stable sections: `home`, `about`, `projects`, `skills`, `experience`, `certifications`, `ctf`, and `contact`.
+- Active implementation state: the home page is reframed as `Archive of the Shattered Star`, with R3F canvas, fallback star archive, realistic neutron-star core, 33% destroyed Dyson sphere, orbital planets, moons, megastructures, pathway remnants, bloom, GPU scaling, guided focus controls, and WebGL/reduced-motion fallback behavior.
+- Content shell is implemented on the home page with stable sections: `home`, `about`, `projects`, `skills`, `experience`, `certifications`, `ctf`, `blog`, and `contact`.
 - Runtime routes now include `/`, `/resume`, and framework not-found.
 - Content source today: static JSON in `content/data/`; no database exists in the repo.
-- Planned integrations not implemented: Resend contact API, Supabase leaderboard, Vercel Analytics, blog/MDX, RSS, sitemap/robots.
+- Planned integrations not implemented: Resend contact API, Supabase leaderboard, Vercel Analytics, full blog/MDX, RSS, terminal overlay, and Packet Runner.
 
 ## Planning Artifacts
 
@@ -50,6 +50,8 @@ Last mapping commit: `9ad175d docs: map existing codebase`
 - Browser smoke against `npm run start` passes: home sections present, canvas present, `/resume` iframe/link present, zero console errors.
 - Phase 1 production smoke passed against a fresh `next start -p 3001` server at `1440x900`, `1280x800`, `768x1024`, `390x844`, and `360x740`.
 - Phase 1 smoke confirmed `#certifications` renders after `#experience` and before `#ctf`, flagship projects remain visible, project filters work, external links are safe, focus outline is visible, FloatingNav fits narrow mobile, and no horizontal overflow or console errors were detected.
+- Shattered-star production smoke passed against a fresh `next start` server for desktop canvas rendering, zoom, drag rotation, animation, hover labels, celestial click navigation, blog/contact nav, mobile layout/nav, and reduced-motion behavior.
+- Production metadata basics were added: canonical metadata, sitemap, robots, manifest, JSON-LD, generated Open Graph image, and generated Twitter image.
 - `npm run dev` with default Turbopack still accepts the port but did not reach DOMContentLoaded in the 45s Playwright smoke timeout. `npm run dev -- --webpack` returned HTML but did not hydrate the app shell within the smoke window. Production preview is validated.
 
 ## Fixes Applied In Latest Implementation Pass
@@ -73,7 +75,7 @@ Highest-impact blockers:
 
 - Replace mailto contact shell with the planned Resend API flow in Phase 2.
 - Investigate Next 16 dev-server hydration/response behavior; production build and `next start` are currently healthy.
-- Run visual/mobile screenshots for the full home page and tighten responsive details.
+- Run final production verification and deploy preview checks after the production-readiness pass.
 
 ## Session Continuity
 

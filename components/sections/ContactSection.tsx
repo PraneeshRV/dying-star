@@ -80,6 +80,8 @@ export function ContactSection() {
                 name="callsign"
                 type="text"
                 autoComplete="name"
+                maxLength={80}
+                required
                 className="rounded border border-green/20 bg-void px-4 py-3 text-text-primary outline-none transition placeholder:text-text-dim focus:border-green focus:box-glow-green"
                 placeholder="Your name"
               />
@@ -93,6 +95,8 @@ export function ContactSection() {
                 name="frequency"
                 type="email"
                 autoComplete="email"
+                maxLength={120}
+                required
                 className="rounded border border-green/20 bg-void px-4 py-3 text-text-primary outline-none transition placeholder:text-text-dim focus:border-green focus:box-glow-green"
                 placeholder="you@example.com"
               />
@@ -105,6 +109,8 @@ export function ContactSection() {
               <textarea
                 name="message"
                 rows={6}
+                maxLength={2000}
+                required
                 className="resize-y rounded border border-green/20 bg-void px-4 py-3 text-text-primary outline-none transition placeholder:text-text-dim focus:border-green focus:box-glow-green"
                 placeholder="Transmit payload"
               />

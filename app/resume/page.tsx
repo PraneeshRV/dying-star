@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
+import { SITE_DESCRIPTION } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Resume",
   description:
     "Resume for Praneesh R V, cybersecurity student, CTF player, and builder.",
+  alternates: {
+    canonical: "/resume",
+  },
+  openGraph: {
+    title: "Resume | Praneesh R V",
+    description: SITE_DESCRIPTION,
+    url: "/resume",
+  },
 };
 
 export default function ResumePage() {
@@ -14,7 +23,7 @@ export default function ResumePage() {
           <div className="relative z-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-text-secondary">
-                root@cosmos:/resume$ cat praneesh_r_v.pdf
+                archive@shattered-star:/resume$ cat praneesh_r_v.pdf
               </p>
               <h1 className="mt-3 font-[family-name:var(--font-orbitron)] text-3xl font-bold tracking-wider text-green glow-green sm:text-4xl">
                 RESUME ACCESS NODE

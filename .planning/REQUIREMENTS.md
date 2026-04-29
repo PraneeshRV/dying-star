@@ -16,8 +16,8 @@
 
 - [x] **SCENE-01**: Visitor sees a full-viewport space hero with R3F canvas, starfield, constellation, neutron star, accretion disk, jets, Dyson sphere, and planets.
 - [x] **SCENE-02**: Visitor receives a nonblank fallback if the WebGL subtree throws during render.
-- [ ] **SCENE-03**: Visitor on low-end GPU, no-WebGL, hidden-tab, mobile, or reduced-motion contexts receives an appropriate reduced/fallback experience before the page becomes unusable.
-- [ ] **SCENE-04**: Maintainer can validate the 3D scene with browser smoke or screenshot checks across desktop, mobile, and reduced-motion contexts.
+- [x] **SCENE-03**: Visitor on low-end GPU, no-WebGL, hidden-tab, mobile, or reduced-motion contexts receives an appropriate reduced/fallback experience before the page becomes unusable.
+- [x] **SCENE-04**: Maintainer can validate the 3D scene with browser smoke or screenshot checks across desktop, mobile, and reduced-motion contexts.
 
 ### Portfolio Content
 
@@ -62,13 +62,13 @@
 
 ### SEO, Analytics, and Launch
 
-- [ ] **SEO-01**: Search engines and social previews receive sitemap, robots, JSON-LD, canonical metadata, and OG assets.
+- [x] **SEO-01**: Search engines and social previews receive sitemap, robots, JSON-LD, canonical metadata, and OG assets.
 - [ ] **SEO-02**: Maintainer can inspect basic usage through Vercel Analytics without adding invasive tracking.
 - [x] **QA-01**: Maintainer can keep lint, typecheck, and production build passing after every phase.
 - [x] **QA-02**: Maintainer has a production browser smoke path that checks home sections, canvas, resume route, and console errors.
 - [ ] **QA-03**: Maintainer has Lighthouse, accessibility, keyboard, mobile, and cross-browser checks for launch.
 - [ ] **DEPLOY-01**: Site is connected to Vercel with the needed environment variables and domain settings.
-- [ ] **DEPLOY-02**: README or planning docs explain local preview, production preview, and deployment verification.
+- [x] **DEPLOY-02**: README or planning docs explain local preview, production preview, and deployment verification.
 
 ## v2 Requirements
 
@@ -103,8 +103,8 @@
 | FOUND-04 | Phase 0 | Complete |
 | SCENE-01 | Phase 0 | Complete |
 | SCENE-02 | Phase 0 | Complete |
-| SCENE-03 | Phase 3 | Pending |
-| SCENE-04 | Phase 3 | Pending |
+| SCENE-03 | Phase 3 | Complete |
+| SCENE-04 | Phase 3 | Complete |
 | CONT-01 | Phase 0 | Complete |
 | CONT-02 | Phase 0 | Complete |
 | CONT-03 | Phase 0 | Complete |
@@ -128,13 +128,13 @@
 | BLOG-01 | Phase 6 | Pending |
 | BLOG-02 | Phase 6 | Pending |
 | BLOG-03 | Phase 6 | Pending |
-| SEO-01 | Phase 7 | Pending |
+| SEO-01 | Phase 7 | Complete |
 | SEO-02 | Phase 7 | Pending |
 | QA-01 | Phase 0 | Complete |
 | QA-02 | Phase 0 | Complete |
 | QA-03 | Phase 7 | Pending |
 | DEPLOY-01 | Phase 7 | Pending |
-| DEPLOY-02 | Phase 7 | Pending |
+| DEPLOY-02 | Phase 7 | Complete |
 
 **Coverage:**
 - v1 requirements: 38 total

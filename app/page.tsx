@@ -8,10 +8,77 @@ import { CTFSection } from "@/components/sections/CTFSection";
 import { ExperienceSection } from "@/components/sections/ExperienceSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { SkillsSection } from "@/components/sections/SkillsSection";
+import profile from "@/content/data/profile.json";
+import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      description: SITE_DESCRIPTION,
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: profile.name,
+      url: SITE_URL,
+      email: `mailto:${profile.email}`,
+      jobTitle: profile.role,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: profile.identity.location,
+        addressCountry: "IN",
+      },
+      affiliation: {
+        "@type": "CollegeOrUniversity",
+        name: profile.identity.affiliation,
+      },
+      sameAs: [
+        profile.social.github,
+        profile.social.linkedin,
+        profile.social.website,
+      ],
+      knowsAbout: [
+        "Cybersecurity",
+        "Capture the Flag competitions",
+        "Web exploitation",
+        "OSINT",
+        "Digital forensics",
+        "Linux infrastructure",
+      ],
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": `${SITE_URL}/#profile`,
+      url: absoluteUrl("/"),
+      name: "Archive of the Shattered Star",
+      description: SITE_DESCRIPTION,
+      mainEntity: {
+        "@id": `${SITE_URL}/#person`,
+      },
+    },
+  ],
+};
+
+const structuredDataJson = JSON.stringify(structuredData).replace(
+  /</g,
+  "\\u003c",
+);
 
 export default function Home() {
   return (
     <main className="relative bg-void overflow-hidden">
+      <script
+        type="application/ld+json"
+        // JSON-LD is static/profile data and sanitized by escaping "<".
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: required by Next JSON-LD guidance
+        dangerouslySetInnerHTML={{ __html: structuredDataJson }}
+      />
       <section
         id="home"
         className="relative flex flex-col items-center justify-center min-h-dvh overflow-hidden"

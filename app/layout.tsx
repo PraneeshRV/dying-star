@@ -1,6 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import { Cinzel, DM_Sans, JetBrains_Mono, Orbitron } from "next/font/google";
+import { CustomCursor } from "@/components/ui/CustomCursor";
+import {
+  absoluteUrl,
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL,
+} from "@/lib/site";
 import "./globals.css";
+import { MainContent } from "./MainContent";
 
 /* ═══ Font Configuration (zero layout shift via next/font) ═══ */
 
@@ -36,41 +46,38 @@ const cinzel = Cinzel({
 
 export const metadata: Metadata = {
   title: {
-    default: "Archive of the Shattered Star — Praneesh R V",
+    default: SITE_TITLE,
     template: "%s | Praneesh R V",
   },
-  description:
-    "Praneesh R V's cybersecurity portfolio: CTF results, security projects, skills, and technical writeups presented as a post-apocalyptic shattered-star archive.",
-  keywords: [
-    "Praneesh R V",
-    "cybersecurity portfolio",
-    "CTF player India",
-    "web exploitation",
-    "OSINT",
-    "Arch Linux",
-    "security researcher",
-  ],
+  description: SITE_DESCRIPTION,
+  keywords: [...SITE_KEYWORDS],
   authors: [{ name: "Praneesh R V" }],
   creator: "Praneesh R V",
-  metadataBase: new URL("https://praneeshrv.me"),
+  metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://praneeshrv.me",
-    siteName: "Praneesh R V",
-    title: "Archive of the Shattered Star — Praneesh R V",
-    description:
-      "Praneesh R V's cybersecurity portfolio: CTF results, security projects, skills, and technical writeups presented as a post-apocalyptic shattered-star archive.",
+    url: absoluteUrl("/"),
+    siteName: SITE_NAME,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Archive of the Shattered Star - Praneesh R V cybersecurity portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Archive of the Shattered Star — Praneesh R V",
-    description:
-      "Praneesh R V's cybersecurity portfolio: CTF results, security projects, skills, and technical writeups presented as a post-apocalyptic shattered-star archive.",
-  },
-  robots: {
-    index: true,
-    follow: true,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: ["/twitter-image"],
   },
 };
 
@@ -81,9 +88,6 @@ export const viewport: Viewport = {
 };
 
 /* ═══ Root Layout ═══ */
-
-import { CustomCursor } from "@/components/ui/CustomCursor";
-import { MainContent } from "./MainContent";
 
 export default function RootLayout({
   children,

@@ -30,8 +30,8 @@ export type ButtonComponentProps = AnchorProps | ButtonProps;
  * Cybersecurity-styled action element with glassmorphism + neon glow.
  *
  * Renders an `<a>` when `href` is provided, otherwise a `<button>`.
- * - `primary` → Quasar Green border + glow
- * - `secondary` → Nebula Purple border + glow
+ * - `primary` -> Cherenkov cyan border + glow
+ * - `secondary` -> Gravity blue border + glow
  */
 export function Button(props: ButtonComponentProps) {
   const { variant = "primary", children, className } = props;

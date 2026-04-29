@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "404 — Signal Lost",
+  title: "404 - Signal Lost",
 };
 
 export default function NotFound() {
@@ -14,21 +14,21 @@ export default function NotFound() {
           <div className="w-3 h-3 rounded-full bg-orange" />
           <div className="w-3 h-3 rounded-full bg-green" />
           <span className="font-[family-name:var(--font-jetbrains-mono)] text-text-dim text-xs ml-2">
-            cosmos-terminal
+            archive-terminal
           </span>
         </div>
 
         <pre className="font-[family-name:var(--font-jetbrains-mono)] text-left text-sm leading-relaxed">
-          <span className="text-text-secondary">root@cosmos:~$</span>{" "}
+          <span className="text-text-secondary">archive@shattered-star:~$</span>{" "}
           <span className="text-green">find</span> /page{"\n"}
-          <span className="text-red">Error: 404.exe — Signal Lost</span>
+          <span className="text-red">Error: 404.exe - Signal Lost</span>
           {"\n\n"}
           <span className="text-text-dim">
-            {">"} The page you&apos;re looking for{"\n"}
-            {">"} is in another sea. 🏴‍☠️{"\n"}
+            {">"} The requested archive shard{"\n"}
+            {">"} was not recovered from this system.{"\n"}
           </span>
           {"\n"}
-          <span className="text-text-secondary">root@cosmos:~$</span>{" "}
+          <span className="text-text-secondary">archive@shattered-star:~$</span>{" "}
           <span className="text-green">cd</span> /home
           <span className="animate-pulse text-green">█</span>
         </pre>

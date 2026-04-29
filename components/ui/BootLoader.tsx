@@ -6,12 +6,12 @@ import { cn } from "@/lib/utils";
 import styles from "./BootLoader.module.css";
 
 const BOOT_LINES = [
-  "Initializing core systems...",
-  "Mounting /dev/void...",
-  "Bypassing firewall...",
-  "Establishing quantum link...",
+  "Initializing archive recovery...",
+  "Mounting /dev/shattered-star...",
+  "Calibrating Dyson breach map...",
+  "Establishing long-range relay...",
   "Loading neutron star renderer...",
-  "Connection established.",
+  "Archive link established.",
 ] as const;
 
 const BAR_SEGMENTS = 10;
@@ -115,8 +115,8 @@ export function BootLoader({ className, onComplete }: BootLoaderProps) {
         className={styles.terminal}
       >
         <div className={styles.header}>
-          <span>arch@dying-star tty1</span>
-          <span className={styles.prompt}>kernel: void-portfolio</span>
+          <span>archive@shattered-star tty1</span>
+          <span className={styles.prompt}>kernel: neutron-archive</span>
         </div>
 
         <pre className={styles.lines}>
@@ -138,7 +138,7 @@ export function BootLoader({ className, onComplete }: BootLoaderProps) {
 
         <div className={styles.progress}>
           <div className={styles.progressMeta}>
-            <span>neutron-renderer.service</span>
+            <span>shattered-renderer.service</span>
             <span>{progress}%</span>
           </div>
           <div className={styles.progressBar}>{progressBar}</div>

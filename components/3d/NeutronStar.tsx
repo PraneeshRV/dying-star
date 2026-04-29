@@ -1,7 +1,7 @@
 "use client";
 
 /* ═══════════════════════════════════════════════════
-   NeutronStar — Custom GLSL spinning quasar
+   NeutronStar - custom GLSL shattered-star core
    ─────────────────────────────────────────────────
    - Pulsating glowing core (sphere)
    - Volumetric accretion disk (rotating torus)

@@ -14,11 +14,11 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 | 0 | Existing Baseline | Preserve and verify implemented M0-M3 foundation | FOUND-01..04, SCENE-01..02, CONT-01..06, CONT-08, FORM-01, QA-01..02 | Complete |
 | 1 | Finish Content Shell | Complete M3 content quality and certification UI | CONT-07, CONT-09 | Complete |
 | 2 | Contact API | Replace mailto-only contact with secure Resend submission | FORM-02, FORM-03 | Pending |
-| 3 | 3D Fallbacks and Validation | Make the heavy scene resilient across devices and preferences | SCENE-03, SCENE-04 | Pending |
+| 3 | 3D Fallbacks and Validation | Make the heavy scene resilient across devices and preferences | SCENE-03, SCENE-04 | Complete |
 | 4 | Motion and Terminal | Add polished animation and the secret terminal layer | MOTN-01, MOTN-02, TERM-01, TERM-02, TERM-03 | Pending |
 | 5 | Packet Runner | Add optional minigame with local persistence | GAME-01, GAME-02, GAME-03 | Pending |
 | 6 | Blog Engine | Add local MDX blog and first content | BLOG-01, BLOG-02, BLOG-03 | Pending |
-| 7 | Launch Polish | Finish SEO, analytics, accessibility, testing, and deployment | SEO-01, SEO-02, QA-03, DEPLOY-01, DEPLOY-02 | Pending |
+| 7 | Launch Polish | Finish SEO, analytics, accessibility, testing, and deployment | SEO-01, SEO-02, QA-03, DEPLOY-01, DEPLOY-02 | Partial |
 
 ## Phase Details
 
@@ -53,7 +53,7 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 ### Phase 2: Contact API
 
 **Goal:** Make contact submission real while keeping mailto as a fallback.
-**Status:** Pending
+**Status:** Complete
 **UI hint:** yes
 
 **Requirements:** FORM-02, FORM-03
@@ -76,12 +76,12 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 1. No-WebGL, low-tier GPU, reduced-motion, hidden-tab, and mobile cases avoid expensive canvas behavior when appropriate.
 2. WebGL context loss and GPU detection failure produce a user-visible static fallback.
 3. Browser smoke or screenshot checks verify nonblank canvas/fallback rendering on desktop and mobile viewports.
-4. Production build remains healthy and `next dev` behavior is either fixed or documented with a reproducible workaround.
+4. Production build remains healthy and README documents production preview as the release source of truth while `next dev` behavior remains under observation.
 
 ### Phase 4: Motion and Terminal
 
 **Goal:** Add the cyber "soul" layer without making the site noisy or inaccessible.
-**Status:** Pending
+**Status:** Partial
 **UI hint:** yes
 
 **Requirements:** MOTN-01, MOTN-02, TERM-01, TERM-02, TERM-03
@@ -129,10 +129,10 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 **Requirements:** SEO-01, SEO-02, QA-03, DEPLOY-01, DEPLOY-02
 
 **Success Criteria:**
-1. Sitemap, robots, JSON-LD, canonical metadata, OG metadata/assets, and analytics are in place.
+1. Sitemap, robots, JSON-LD, canonical metadata, and OG metadata/assets are in place.
 2. Lighthouse, keyboard, reduced-motion, mobile, and basic screen-reader passes are documented.
-3. Vercel project, domain, and environment variables are ready.
-4. README or planning docs explain local development, production preview, deployment, and verification.
+3. Vercel project, domain, and analytics remain to be connected outside the repo.
+4. README and planning docs explain local development, production preview, deployment, and verification.
 
 ## Requirement Coverage
 

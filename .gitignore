@@ -23,6 +23,10 @@
 # misc
 .DS_Store
 *.pem
+.codex
+.playwright-mcp/
+.superpowers/
+visual-system-preview*.png
 
 # debug
 npm-debug.log*

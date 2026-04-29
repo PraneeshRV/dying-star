@@ -1,116 +1,90 @@
-<div align="center">
-  <img src="https://raw.githubusercontent.com/PraneeshRV/dying-star/main/public/favicon.ico" width="80" height="80" alt="Logo" />
+# dying-star
 
-  # dying-star (Praneesh R V Portfolio)
-  
-  *The void speaks in packets.*
-  
-  A dark, 3D-immersive, high-performance cybersecurity portfolio built with Next.js 16, Tailwind v4, and React Three Fiber.
-</div>
+Praneesh R V's cybersecurity portfolio, rebuilt as **Archive of the Shattered Star**: a post-apocalyptic intergalactic archive with a realistic animated neutron-star scene, damaged Dyson shell, ruined planets, moons, megastructures, and tactical portfolio sections.
 
----
+## Current Status
 
-## 🚀 Mission Status
+The production portfolio shell is implemented and verified. The current site includes:
 
-**Current Phase:** Scaffold & Design System (M0-M1)  
-**Overall Completion:** ![Progress](https://geps.dev/progress/15?dangerColor=8B5CF6&warningColor=00FF88&successColor=00FF41)  
+- Next.js 16 App Router, React 19, TypeScript strict mode, Tailwind v4, Biome, and npm lockfile.
+- Full home route with hero, About, Projects, Skills, Experience, Certifications, CTF, Blog preview, and Contact sections.
+- Interactive 3D scene with zoom, drag, guided focus, rotating/revolving celestial bodies, damaged Dyson sphere sectors, moons, pathways, and ruins.
+- Production SEO basics: metadata, canonical URLs, sitemap, robots, manifest, generated Open Graph/Twitter images, and JSON-LD structured data.
+- `/resume` route plus `/resume.pdf` static asset.
 
-> **Note:** This repository is actively under construction following the M0-M8 architecture module plan.
+Pending roadmap items remain intentionally out of scope for the current static launch: Resend contact API, full MDX blog engine, terminal overlay, Packet Runner minigame, analytics, and domain/Vercel project wiring.
 
----
+## Requirements
 
-## 🏗️ Architecture Modules
+- Node.js `>=20.9.0`
+- npm with the committed `package-lock.json`
 
-### 🟢 M0: Scaffold & Foundation (100%)
-- [x] Next.js 16 App Router + Turbopack
-- [x] Tailwind CSS v4 (@theme tokens)
-- [x] Biome setup + Husky pre-commit hooks
-- [x] Zustand Global Store
-- [x] Typographic scale (Orbitron, DM Sans, JetBrains Mono, Cinzel)
+## Local Development
 
-### 🟡 M1: Design System (10%)
-- [x] Glassmorphism & Glow Utilities
-- [x] Custom `not-found.tsx` with terminal aesthetic
-- [ ] GlitchText & Custom Cursor
-- [ ] Core React Components (Buttons, Cards, Navigation)
-- [ ] Terminal Boot Loading Screen
+```bash
+npm install
+npm run dev
+```
 
-### 🔴 M2: 3D Space Scene (0%)
-- [ ] React Three Fiber Canvas Setup
-- [ ] Neutron Star Shader (GLSL)
-- [ ] Adaptive Starfield Particle System
-- [ ] Planetary Orbits & Dyson Sphere Wireframe
+The production path is the source of truth for release checks:
 
-### 🔴 M3: Core Sections (0%)
-- [ ] Hero (Typewriter Overlay)
-- [ ] About (Cockpit HUD)
-- [ ] Projects (3D Tilt Cards)
-- [ ] Skills (Interactive Constellation Graph)
-- [ ] Experience (Warp-Speed Timeline)
+```bash
+npm run build
+npm run start
+```
 
-### 🔴 M4: Animation Layer (0%)
-- [ ] GSAP ScrollTriggers
-- [ ] CSS Scroll-Driven Animations
-- [ ] Hover Micro-interactions
+If `next dev` behaves differently from the production server, verify against `npm run build` plus `npm run start` before treating it as a product bug.
 
-### 🔴 M5: Terminal Module (0%)
-- [ ] xterm.js Integration
-- [ ] Custom Command Interpreter (15+ commands)
-- [ ] OSINT / Anime Easter Eggs
+## Verification
 
-### 🔴 M6: Minigame — Packet Runner (0%)
-- [ ] HTML5 Canvas Game Loop
-- [ ] Collision Detection & Scoring
-- [ ] LocalStorage Leaderboard
+Run the full non-browser gate:
 
-### 🔴 M7: Blog Engine (0%)
-- [ ] MDX Setup (Velite)
-- [ ] Shiki Syntax Highlighting
-- [ ] RSS Generation
+```bash
+npm run verify
+```
 
-### 🔴 M8: Polish & Launch (0%)
-- [ ] Accessibility & Lighthouse Audit
-- [ ] SEO & OpenGraph Optimization
-- [ ] Mobile & Safari Testing
+Equivalent expanded commands:
 
----
+```bash
+npm run verify:system
+npm run lint
+tsc --noEmit
+npm run build
+```
 
-## 🛠️ Tech Stack
+For UI/runtime changes, also run a production browser smoke against `npm run start`. The current smoke coverage checks desktop and mobile rendering, canvas/fallback behavior, zoom/drag, animation, reduced motion, section navigation, and resume/contact/blog reachability.
 
-- **Framework:** Next.js 16 (App Router)
-- **Styling:** Tailwind CSS v4
-- **3D / WebGL:** Three.js + React Three Fiber + Drei
-- **Animation:** GSAP + Motion + CSS Transitions
-- **State Management:** Zustand
-- **Tooling:** Biome (Lint/Format), TypeScript, Husky
+## Deployment
 
----
+Recommended Vercel settings:
 
-## 💻 Local Development
+- Framework preset: Next.js
+- Install command: `npm install`
+- Build command: `npm run build`
+- Output: managed by Next.js/Vercel
+- Node version: `>=20.9.0`
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/PraneeshRV/dying-star.git
-   cd dying-star
-   ```
+No environment variables are required for the current static/mailto build.
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+Optional:
 
-3. **Start development server**
-   ```bash
-   npm run dev
-   ```
+```bash
+SITE_URL=https://praneeshrv.me
+```
 
-4. **Run linters & formatters**
-   ```bash
-   npm run lint
-   npm run format
-   ```
+Use `SITE_URL` only if the deployment domain differs from the default canonical domain. Future Contact API work may add a server-only `RESEND_API_KEY`; it is not used today.
 
----
-<div align="center">
-  <sub>Built by <a href="https://github.com/PraneeshRV">Praneesh R V</a> • root@cosmos:~$ whoami</sub>
-</div>
+## Project Structure
+
+- `app/` - App Router routes, metadata routes, global styles, and generated OG image routes.
+- `components/3d/` - React Three Fiber scene objects, camera controls, orbit math, and tactical labels.
+- `components/sections/` - Portfolio content sections.
+- `components/ui/` - Reusable UI primitives.
+- `content/data/` - Static portfolio and shattered-system data.
+- `scripts/` - Verification and local setup helpers.
+
+## Production Notes
+
+- The boot screen is an overlay; route content remains present in initial HTML for SEO and no-JS resilience.
+- The WebGL scene preflights browser support and falls back to a deterministic static star archive for no-WebGL, reduced-motion, or context-loss paths.
+- The contact form is mailto-based for the current launch. Treat the future Resend API as a separate secured phase.

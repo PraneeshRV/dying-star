@@ -26,6 +26,9 @@ export interface OrbitalBodiesProps {
   renderMoons?: boolean;
 }
 
+const PLANET_HIT_RADIUS_MULTIPLIER = 3.2;
+const MOON_HIT_RADIUS_MULTIPLIER = 4.8;
+
 export function OrbitalBodies({
   speedMultiplier = 1,
   renderMoons = true,
@@ -240,32 +243,39 @@ function PlanetBody({
   );
 
   return (
-    <mesh
-      ref={refSetter}
-      onClick={handleClick}
-      onPointerOut={() => {
-        setHovered(false);
-      }}
-      onPointerOver={(event) => {
-        event.stopPropagation();
-        setHovered(true);
-      }}
-    >
-      <sphereGeometry args={[planet.size, 24, 18]} />
-      <meshStandardMaterial
-        color={planet.color}
-        emissive={planet.emissive}
-        emissiveIntensity={hovered ? 0.82 : 0.42}
-        metalness={0.72}
-        roughness={0.46}
-      />
+    <group>
+      <mesh ref={refSetter}>
+        <sphereGeometry args={[planet.size, 24, 18]} />
+        <meshStandardMaterial
+          color={planet.color}
+          emissive={planet.emissive}
+          emissiveIntensity={hovered ? 0.82 : 0.42}
+          metalness={0.72}
+          roughness={0.46}
+        />
+      </mesh>
+      <mesh
+        onClick={handleClick}
+        onPointerOut={() => {
+          setHovered(false);
+        }}
+        onPointerOver={(event) => {
+          event.stopPropagation();
+          setHovered(true);
+        }}
+      >
+        <sphereGeometry
+          args={[planet.size * PLANET_HIT_RADIUS_MULTIPLIER, 16, 12]}
+        />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+      </mesh>
       <TacticalLabel
         color={planet.emissive}
         subtitle={planet.scan}
         title={planet.name}
         visible={hovered}
       />
-    </mesh>
+    </group>
   );
 }
 
@@ -292,31 +302,38 @@ function MoonBody({
   );
 
   return (
-    <mesh
-      ref={refSetter}
-      onClick={handleClick}
-      onPointerOut={() => {
-        setHovered(false);
-      }}
-      onPointerOver={(event) => {
-        event.stopPropagation();
-        setHovered(true);
-      }}
-    >
-      <sphereGeometry args={[moon.size, 14, 10]} />
-      <meshStandardMaterial
-        color={moon.color}
-        emissive={moon.emissive}
-        emissiveIntensity={hovered ? 0.9 : 0.48}
-        metalness={0.68}
-        roughness={0.52}
-      />
+    <group>
+      <mesh ref={refSetter}>
+        <sphereGeometry args={[moon.size, 14, 10]} />
+        <meshStandardMaterial
+          color={moon.color}
+          emissive={moon.emissive}
+          emissiveIntensity={hovered ? 0.9 : 0.48}
+          metalness={0.68}
+          roughness={0.52}
+        />
+      </mesh>
+      <mesh
+        onClick={handleClick}
+        onPointerOut={() => {
+          setHovered(false);
+        }}
+        onPointerOver={(event) => {
+          event.stopPropagation();
+          setHovered(true);
+        }}
+      >
+        <sphereGeometry
+          args={[moon.size * MOON_HIT_RADIUS_MULTIPLIER, 12, 8]}
+        />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+      </mesh>
       <TacticalLabel
         color={moon.emissive}
         subtitle={moon.scan}
         title={moon.name}
         visible={hovered}
       />
-    </mesh>
+    </group>
   );
 }

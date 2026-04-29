@@ -20,13 +20,9 @@ export function MainContent({ children }: { children: React.ReactNode }) {
       {!loadingComplete && (
         <BootLoader onComplete={() => setLoadingComplete(true)} />
       )}
-      <div
-        className={`flex-1 flex flex-col transition-opacity duration-1000 ${
-          loadingComplete ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {children}
-      </div>
+      {loadingComplete && (
+        <div className="flex flex-1 flex-col">{children}</div>
+      )}
       {loadingComplete && <FloatingNav />}
     </>
   );

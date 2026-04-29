@@ -23,7 +23,7 @@ export default function Home() {
         </WebGLErrorBoundary>
 
         {/* Hero Content */}
-        <div className="relative z-10 text-center px-6">
+        <div className="pointer-events-none relative z-10 px-6 text-center">
           {/* Name */}
           <h1 className="font-[family-name:var(--font-orbitron)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-wider text-text-primary glow-green mb-4">
             PRANEESH R V
@@ -44,7 +44,7 @@ export default function Home() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="pointer-events-auto flex flex-col justify-center gap-4 sm:flex-row">
             <a
               href="#about"
               className="glass-terminal px-8 py-3 font-[family-name:var(--font-jetbrains-mono)] text-green text-sm uppercase tracking-widest

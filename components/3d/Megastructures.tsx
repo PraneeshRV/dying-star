@@ -23,6 +23,8 @@ export interface MegastructuresProps {
   speedMultiplier?: number;
 }
 
+const STRUCTURE_HIT_RADIUS = 1.18;
+
 export function Megastructures({ speedMultiplier = 1 }: MegastructuresProps) {
   const structureRefs = useRef<(Group | null)[]>([]);
   const orbitRings = useMemo(
@@ -134,18 +136,21 @@ function StructureNode({
   );
 
   return (
-    <group
-      ref={refSetter}
-      onClick={handleClick}
-      onPointerOut={() => {
-        setHovered(false);
-      }}
-      onPointerOver={(event) => {
-        event.stopPropagation();
-        setHovered(true);
-      }}
-    >
+    <group ref={refSetter}>
       <StructureGeometry structure={structure} />
+      <mesh
+        onClick={handleClick}
+        onPointerOut={() => {
+          setHovered(false);
+        }}
+        onPointerOver={(event) => {
+          event.stopPropagation();
+          setHovered(true);
+        }}
+      >
+        <sphereGeometry args={[STRUCTURE_HIT_RADIUS, 16, 12]} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+      </mesh>
       <TacticalLabel
         color={structure.emissive}
         subtitle={structure.scan}

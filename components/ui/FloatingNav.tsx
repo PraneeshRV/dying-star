@@ -77,6 +77,8 @@ export function FloatingNav({
       // indicator. Otherwise auto-hide on scroll down, reveal on scroll up.
       if (current < HERO_REVEAL_OFFSET) {
         setVisible(false);
+      } else if (lastScrollY.current < HERO_REVEAL_OFFSET) {
+        setVisible(true);
       } else if (Math.abs(delta) > SCROLL_HIDE_THRESHOLD) {
         setVisible(delta < 0);
       }

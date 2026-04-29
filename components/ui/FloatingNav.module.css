@@ -172,6 +172,22 @@
 
 /* Mobile: shrink slightly */
 @media (max-width: 480px) {
+  .wrapper {
+    justify-content: flex-start;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    pointer-events: auto;
+    scrollbar-width: none;
+  }
+  .wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  .wrapper > * {
+    max-width: none;
+  }
+  .dock {
+    flex: 0 0 max-content;
+  }
   .item {
     width: 2.5rem;
     height: 2.5rem;
@@ -181,12 +197,6 @@
     height: 1rem;
   }
   .tooltip {
-    display: none;
-  }
-}
-
-@media (max-width: 380px) {
-  .hideOnNarrow {
     display: none;
   }
 }

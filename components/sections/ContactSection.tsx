@@ -40,7 +40,7 @@ export function ContactSection() {
       <div className="relative z-10 mx-auto grid max-w-[var(--content-max-width)] gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div>
           <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-blue">
-            deep space comms array
+            long-range comms array
           </p>
           <GlitchText
             as="h2"

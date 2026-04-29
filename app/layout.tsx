@@ -36,11 +36,11 @@ const cinzel = Cinzel({
 
 export const metadata: Metadata = {
   title: {
-    default: "Praneesh R V — Cybersecurity Portfolio",
+    default: "Archive of the Shattered Star — Praneesh R V",
     template: "%s | Praneesh R V",
   },
   description:
-    "Cybersecurity student, CTF competitor (Top 10 India), Arch Linux evangelist. Explore my projects, skills, and the void between packets.",
+    "Praneesh R V's cybersecurity portfolio: CTF results, security projects, skills, and technical writeups presented as a post-apocalyptic shattered-star archive.",
   keywords: [
     "Praneesh R V",
     "cybersecurity portfolio",
@@ -58,15 +58,15 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://praneeshrv.me",
     siteName: "Praneesh R V",
-    title: "Praneesh R V — Cybersecurity Portfolio",
+    title: "Archive of the Shattered Star — Praneesh R V",
     description:
-      "The void speaks in packets. Cybersecurity student, CTF competitor, builder.",
+      "Praneesh R V's cybersecurity portfolio: CTF results, security projects, skills, and technical writeups presented as a post-apocalyptic shattered-star archive.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Praneesh R V — Cybersecurity Portfolio",
+    title: "Archive of the Shattered Star — Praneesh R V",
     description:
-      "The void speaks in packets. Cybersecurity student, CTF competitor, builder.",
+      "Praneesh R V's cybersecurity portfolio: CTF results, security projects, skills, and technical writeups presented as a post-apocalyptic shattered-star archive.",
   },
   robots: {
     index: true,
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000005",
+  themeColor: "#030406",
   width: "device-width",
   initialScale: 1,
 };

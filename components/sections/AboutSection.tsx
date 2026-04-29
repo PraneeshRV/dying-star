@@ -79,7 +79,7 @@ export function AboutSection() {
             </div>
             <div>
               <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-blue">
-                cockpit hud / about
+                operator record / about
               </p>
               <GlitchText
                 as="h2"

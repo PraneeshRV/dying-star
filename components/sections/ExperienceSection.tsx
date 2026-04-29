@@ -26,7 +26,7 @@ export function ExperienceSection() {
       <div className="relative z-10 mx-auto max-w-[var(--content-max-width)]">
         <div className="mb-14 max-w-3xl">
           <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-gold">
-            warp corridor / checkpoints
+            signal chronology / experience
           </p>
           <GlitchText
             as="h2"

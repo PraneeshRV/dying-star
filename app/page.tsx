@@ -1,6 +1,7 @@
 import { SpaceCanvas, WebGLErrorBoundary } from "@/components/3d";
 import { StarFallback } from "@/components/fallbacks/StarFallback";
 import { AboutSection } from "@/components/sections/AboutSection";
+import { BlogPreviewSection } from "@/components/sections/BlogPreviewSection";
 import { CertificationsSection } from "@/components/sections/CertificationsSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { CTFSection } from "@/components/sections/CTFSection";
@@ -29,14 +30,17 @@ export default function Home() {
           </h1>
 
           {/* Tagline */}
-          <p className="font-[family-name:var(--font-jetbrains-mono)] text-green text-sm sm:text-base md:text-lg tracking-widest mb-8">
-            <span className="text-text-secondary">root@cosmos:~$</span>{" "}
-            <span className="text-green">whoami</span>
+          <p className="font-[family-name:var(--font-jetbrains-mono)] text-cherenkov text-sm sm:text-base md:text-lg tracking-widest mb-8">
+            <span className="text-text-secondary">
+              archive@shattered-star:~$
+            </span>{" "}
+            <span className="text-cherenkov">scan operator-record</span>
           </p>
 
           {/* Role */}
           <p className="font-[family-name:var(--font-dm-sans)] text-text-secondary text-lg sm:text-xl md:text-2xl mb-12">
-            Cybersecurity Student · CTF Player · Arch Evangelist · Builder
+            Cybersecurity Student · CTF Player · Builder · Recovered System
+            Operator
           </p>
 
           {/* CTA Buttons */}
@@ -47,7 +51,7 @@ export default function Home() {
               hover:box-glow-green transition-all duration-[var(--duration-normal)] hover:scale-105
               focus-visible:outline-2 focus-visible:outline-green focus-visible:outline-offset-2"
             >
-              ./explore.sh
+              Recover archive
             </a>
             <a
               href="/resume"
@@ -55,7 +59,7 @@ export default function Home() {
               hover:box-glow-purple transition-all duration-[var(--duration-normal)] hover:scale-105
               focus-visible:outline-2 focus-visible:outline-purple focus-visible:outline-offset-2"
             >
-              view resume
+              view dossier
             </a>
           </div>
         </div>
@@ -71,13 +75,14 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="relative z-10 bg-[linear-gradient(180deg,rgba(0,0,5,0)_0%,#000005_7rem,#000005_100%)]">
+      <div className="relative z-10 bg-[linear-gradient(180deg,rgba(3,4,6,0)_0%,#030406_7rem,#030406_100%)]">
         <AboutSection />
         <ProjectsSection />
         <SkillsSection />
         <ExperienceSection />
         <CertificationsSection />
         <CTFSection />
+        <BlogPreviewSection />
         <ContactSection />
       </div>
     </main>

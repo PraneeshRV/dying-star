@@ -61,7 +61,7 @@ export function CTFSection() {
         <div className="mb-12 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-red">
-              neon trophy room
+              breach archive / ctf
             </p>
             <GlitchText
               as="h2"

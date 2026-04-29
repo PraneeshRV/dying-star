@@ -99,7 +99,7 @@ export function SkillsSection() {
       <div className="mx-auto w-full max-w-[var(--content-max-width)]">
         <div className="mb-10">
           <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-purple-hot">
-            constellation / skills
+            knowledge matrix / skills
           </p>
           <GlitchText
             as="h2"

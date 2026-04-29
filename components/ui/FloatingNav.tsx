@@ -2,6 +2,7 @@
 
 import {
   Award,
+  BookOpen,
   Briefcase,
   Cpu,
   Flag,
@@ -19,7 +20,6 @@ type NavItem = {
   id: string;
   label: string;
   Icon: typeof Home;
-  hideOnNarrow?: boolean;
 };
 
 const NAV_ITEMS: readonly NavItem[] = [
@@ -32,9 +32,9 @@ const NAV_ITEMS: readonly NavItem[] = [
     id: "certifications",
     label: "Certifications",
     Icon: Award,
-    hideOnNarrow: true,
   },
   { id: "ctf", label: "CTF", Icon: Flag },
+  { id: "blog", label: "Blog", Icon: BookOpen },
   { id: "contact", label: "Contact", Icon: Mail },
 ] as const;
 
@@ -169,18 +169,14 @@ export function FloatingNav({
           }}
         >
           <nav className={styles.dock} aria-label="Section navigation">
-            {items.map(({ id, label, Icon, hideOnNarrow }) => {
+            {items.map(({ id, label, Icon }) => {
               const isActive = activeId === id;
               return (
                 <a
                   key={id}
                   href={`#${id}`}
                   onClick={(e) => handleClick(e, id)}
-                  className={cn(
-                    styles.item,
-                    hideOnNarrow && styles.hideOnNarrow,
-                    isActive && styles.itemActive,
-                  )}
+                  className={cn(styles.item, isActive && styles.itemActive)}
                   aria-label={`Navigate to ${label} section`}
                   aria-current={isActive ? "page" : undefined}
                 >

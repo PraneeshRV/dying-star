@@ -27,7 +27,7 @@ export function CertificationsSection() {
       <div className="mx-auto w-full max-w-[var(--content-max-width)]">
         <div className="mb-10 max-w-3xl">
           <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-green">
-            credential vault / certifications
+            authority seals / certifications
           </p>
           <GlitchText
             as="h2"

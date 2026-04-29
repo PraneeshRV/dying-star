@@ -52,7 +52,7 @@ export function ProjectsSection() {
         <div className="mb-8 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-green">
-              docking bay / projects
+              recovered blueprints / projects
             </p>
             <GlitchText
               as="h2"

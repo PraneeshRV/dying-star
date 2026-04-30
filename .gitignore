@@ -27,6 +27,11 @@
 .playwright-mcp/
 .superpowers/
 visual-system-preview*.png
+CLAUDE.md
+claude.md
+AGENTS.md
+agents.md
+/docs/
 
 # debug
 npm-debug.log*

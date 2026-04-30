@@ -10,9 +10,10 @@ The production portfolio shell is implemented and verified. The current site inc
 - Full home route with hero, About, Projects, Skills, Experience, Certifications, CTF, Blog preview, and Contact sections.
 - Interactive 3D scene with zoom, drag, guided focus, rotating/revolving celestial bodies, damaged Dyson sphere sectors, moons, pathways, and ruins.
 - Production SEO basics: metadata, canonical URLs, sitemap, robots, manifest, generated Open Graph/Twitter images, and JSON-LD structured data.
+- Vercel Analytics via `@vercel/analytics/next`.
 - `/resume` route plus `/resume.pdf` static asset.
 
-Pending roadmap items remain intentionally out of scope for the current static launch: Resend contact API, full MDX blog engine, terminal overlay, Packet Runner minigame, analytics, and domain/Vercel project wiring.
+Pending roadmap items remain intentionally out of scope for the current static launch: Resend contact API, full MDX blog engine, terminal overlay, Packet Runner minigame, and domain/Vercel project wiring.
 
 ## Requirements
 
@@ -88,3 +89,4 @@ Use `SITE_URL` only if the deployment domain differs from the default canonical 
 - The boot screen is an overlay; route content remains present in initial HTML for SEO and no-JS resilience.
 - The WebGL scene preflights browser support and falls back to a deterministic static star archive for no-WebGL, reduced-motion, or context-loss paths.
 - The contact form is mailto-based for the current launch. Treat the future Resend API as a separate secured phase.
+- Vercel Analytics is mounted in the root layout and starts reporting once the project is deployed on Vercel with Analytics enabled.

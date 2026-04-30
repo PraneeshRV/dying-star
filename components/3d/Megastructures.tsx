@@ -23,7 +23,7 @@ export interface MegastructuresProps {
   speedMultiplier?: number;
 }
 
-const STRUCTURE_HIT_RADIUS = 1.18;
+const STRUCTURE_HIT_RADIUS = 1.65;
 
 export function Megastructures({ speedMultiplier = 1 }: MegastructuresProps) {
   const structureRefs = useRef<(Group | null)[]>([]);
@@ -126,8 +126,8 @@ function StructureNode({
   );
   useCursorHover(hovered);
 
-  const handleClick = useCallback(
-    (event: ThreeEvent<MouseEvent>) => {
+  const handleSelect = useCallback(
+    (event: ThreeEvent<MouseEvent | PointerEvent>) => {
       event.stopPropagation();
       setFocusedSystemNodeId(structure.id);
       scrollToSection(structure.sectionId);
@@ -139,7 +139,8 @@ function StructureNode({
     <group ref={refSetter}>
       <StructureGeometry structure={structure} />
       <mesh
-        onClick={handleClick}
+        onClick={handleSelect}
+        onPointerDown={handleSelect}
         onPointerOut={() => {
           setHovered(false);
         }}

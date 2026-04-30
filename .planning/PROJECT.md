@@ -33,7 +33,7 @@ Visitors must quickly understand Praneesh's cybersecurity credibility and have a
 - [ ] Add the terminal overlay with useful portfolio commands, fake challenge tokens only, and accessible non-keyboard triggers.
 - [ ] Add Packet Runner as an optional progressive enhancement with local persistence only for v1.
 - [ ] Add the blog/MDX system with sample posts, Shiki highlighting, RSS, and SEO metadata.
-- [ ] Complete remaining launch polish: Vercel Analytics, Lighthouse/accessibility checks, final domain wiring, and production deployment validation.
+- [ ] Complete remaining launch polish: Lighthouse/accessibility checks, final domain wiring, and production deployment validation.
 
 ### Out of Scope
 

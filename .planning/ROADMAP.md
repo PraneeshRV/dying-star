@@ -131,7 +131,7 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 **Success Criteria:**
 1. Sitemap, robots, JSON-LD, canonical metadata, and OG metadata/assets are in place.
 2. Lighthouse, keyboard, reduced-motion, mobile, and basic screen-reader passes are documented.
-3. Vercel project, domain, and analytics remain to be connected outside the repo.
+3. Vercel project and domain remain to be connected outside the repo.
 4. README and planning docs explain local development, production preview, deployment, and verification.
 
 ## Requirement Coverage

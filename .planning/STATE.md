@@ -17,7 +17,7 @@ See: `.planning/PROJECT.md` (updated 2026-04-28)
 - Content shell is implemented on the home page with stable sections: `home`, `about`, `projects`, `skills`, `experience`, `certifications`, `ctf`, `blog`, and `contact`.
 - Runtime routes now include `/`, `/resume`, and framework not-found.
 - Content source today: static JSON in `content/data/`; no database exists in the repo.
-- Planned integrations not implemented: Resend contact API, Supabase leaderboard, Vercel Analytics, full blog/MDX, RSS, terminal overlay, and Packet Runner.
+- Planned integrations not implemented: Resend contact API, Supabase leaderboard, full blog/MDX, RSS, terminal overlay, and Packet Runner.
 
 ## Planning Artifacts
 
@@ -52,6 +52,7 @@ Last mapping commit: `9ad175d docs: map existing codebase`
 - Phase 1 smoke confirmed `#certifications` renders after `#experience` and before `#ctf`, flagship projects remain visible, project filters work, external links are safe, focus outline is visible, FloatingNav fits narrow mobile, and no horizontal overflow or console errors were detected.
 - Shattered-star production smoke passed against a fresh `next start` server for desktop canvas rendering, zoom, drag rotation, animation, hover labels, celestial click navigation, blog/contact nav, mobile layout/nav, and reduced-motion behavior.
 - Production metadata basics were added: canonical metadata, sitemap, robots, manifest, JSON-LD, generated Open Graph image, and generated Twitter image.
+- Vercel Analytics was mounted through `@vercel/analytics/next`.
 - `npm run dev` with default Turbopack still accepts the port but did not reach DOMContentLoaded in the 45s Playwright smoke timeout. `npm run dev -- --webpack` returned HTML but did not hydrate the app shell within the smoke window. Production preview is validated.
 
 ## Fixes Applied In Latest Implementation Pass

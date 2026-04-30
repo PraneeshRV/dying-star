@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Cinzel, DM_Sans, JetBrains_Mono, Orbitron } from "next/font/google";
 import { CustomCursor } from "@/components/ui/CustomCursor";
@@ -105,6 +106,7 @@ export default function RootLayout({
       >
         <CustomCursor />
         <MainContent>{children}</MainContent>
+        <Analytics />
       </body>
     </html>
   );

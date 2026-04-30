@@ -17,6 +17,7 @@ Production readiness and deployment polish.
 - Scalable/zoomable/movable/observable scene controls with rotating and revolving celestial bodies.
 - Data contract verification for `content/data/shattered-system.json`.
 - Production SEO basics: canonical metadata, sitemap, robots, manifest, generated OG/Twitter images, and JSON-LD.
+- Vercel Analytics mounted in the root layout.
 - WebGL and reduced-motion fallback path.
 
 ## Production Gate
@@ -55,4 +56,4 @@ Recommended Vercel settings:
 - Full MDX blog engine with RSS and highlighted code.
 - Terminal overlay with fake-only easter eggs.
 - Optional Packet Runner minigame.
-- Analytics and final domain wiring.
+- Final domain wiring and deployed analytics confirmation.

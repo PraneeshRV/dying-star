@@ -63,7 +63,7 @@
 ### SEO, Analytics, and Launch
 
 - [x] **SEO-01**: Search engines and social previews receive sitemap, robots, JSON-LD, canonical metadata, and OG assets.
-- [ ] **SEO-02**: Maintainer can inspect basic usage through Vercel Analytics without adding invasive tracking.
+- [x] **SEO-02**: Maintainer can inspect basic usage through Vercel Analytics without adding invasive tracking.
 - [x] **QA-01**: Maintainer can keep lint, typecheck, and production build passing after every phase.
 - [x] **QA-02**: Maintainer has a production browser smoke path that checks home sections, canvas, resume route, and console errors.
 - [ ] **QA-03**: Maintainer has Lighthouse, accessibility, keyboard, mobile, and cross-browser checks for launch.
@@ -129,7 +129,7 @@
 | BLOG-02 | Phase 6 | Pending |
 | BLOG-03 | Phase 6 | Pending |
 | SEO-01 | Phase 7 | Complete |
-| SEO-02 | Phase 7 | Pending |
+| SEO-02 | Phase 7 | Complete |
 | QA-01 | Phase 0 | Complete |
 | QA-02 | Phase 0 | Complete |
 | QA-03 | Phase 7 | Pending |

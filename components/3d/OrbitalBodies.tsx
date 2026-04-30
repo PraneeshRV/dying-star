@@ -26,8 +26,8 @@ export interface OrbitalBodiesProps {
   renderMoons?: boolean;
 }
 
-const PLANET_HIT_RADIUS_MULTIPLIER = 3.2;
-const MOON_HIT_RADIUS_MULTIPLIER = 4.8;
+const PLANET_HIT_RADIUS_MULTIPLIER = 4.4;
+const MOON_HIT_RADIUS_MULTIPLIER = 6.4;
 
 export function OrbitalBodies({
   speedMultiplier = 1,
@@ -233,8 +233,8 @@ function PlanetBody({
   );
   useCursorHover(hovered);
 
-  const handleClick = useCallback(
-    (event: ThreeEvent<MouseEvent>) => {
+  const handleSelect = useCallback(
+    (event: ThreeEvent<MouseEvent | PointerEvent>) => {
       event.stopPropagation();
       setFocusedSystemNodeId(planet.id);
       scrollToSection(planet.sectionId);
@@ -255,7 +255,8 @@ function PlanetBody({
         />
       </mesh>
       <mesh
-        onClick={handleClick}
+        onClick={handleSelect}
+        onPointerDown={handleSelect}
         onPointerOut={() => {
           setHovered(false);
         }}
@@ -292,8 +293,8 @@ function MoonBody({
   );
   useCursorHover(hovered);
 
-  const handleClick = useCallback(
-    (event: ThreeEvent<MouseEvent>) => {
+  const handleSelect = useCallback(
+    (event: ThreeEvent<MouseEvent | PointerEvent>) => {
       event.stopPropagation();
       setFocusedSystemNodeId(moon.id);
       scrollToSection(moon.sectionId);
@@ -314,7 +315,8 @@ function MoonBody({
         />
       </mesh>
       <mesh
-        onClick={handleClick}
+        onClick={handleSelect}
+        onPointerDown={handleSelect}
         onPointerOut={() => {
           setHovered(false);
         }}

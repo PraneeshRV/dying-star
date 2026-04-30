@@ -11,12 +11,15 @@
   - Added WebGL preflight, reduced-motion fallback, context-loss fallback, and GPU detection error handling before mounting the heavy 3D scene.
   - Hid the floating section nav on non-home routes.
   - Updated README and environment documentation for production preview and Vercel deployment.
+  - Added Vercel Analytics to the root layout.
+  - Increased 3D celestial hit areas and selected bodies on pointer-down to make visit navigation reliable while objects are moving.
 - Verification:
   - `npm run verify:system` passed.
   - `npm run lint` passed.
   - `npx tsc --noEmit` passed.
   - `npm run build` passed and generated `/`, `/_not-found`, `/manifest.webmanifest`, `/opengraph-image`, `/resume`, `/robots.txt`, `/sitemap.xml`, and `/twitter-image`.
   - Production browser smoke against `npm run start -- -p 3001` passed for no-JS content, metadata routes, desktop canvas interactions, mobile layout/navigation, reduced-motion fallback, and section navigation.
+  - Re-ran production browser smoke after adding Vercel Analytics and fixing moving-body click reliability; it passed.
 
 ## Session: 2026-04-27
 

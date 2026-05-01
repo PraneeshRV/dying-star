@@ -1,5 +1,12 @@
 import { existsSync, readFileSync, statSync } from "node:fs";
-import { dirname, extname, join } from "node:path";
+import {
+  dirname,
+  extname,
+  isAbsolute,
+  join,
+  relative,
+  resolve,
+} from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -12,7 +19,6 @@ const sourceTypes = new Set([
   "authored",
 ]);
 const runtimeFormats = new Set(["procedural", "glb", "ktx2", "webp", "avif"]);
-const maxCommittedAssetBytes = 500 * 1024;
 
 function fail(message) {
   console.error(`space-assets invalid: ${message}`);
@@ -55,7 +61,49 @@ function readJson(path, label) {
   return JSON.parse(readFileSync(path, "utf8"));
 }
 
-function validateAsset(asset) {
+function isExternalRuntimePath(path) {
+  try {
+    const url = new URL(path);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+function resolveRuntimePath(asset) {
+  assert(
+    !isExternalRuntimePath(asset.runtimePath) ||
+      asset.sourceType === "external",
+    `asset ${asset.id} external runtimePath requires external sourceType`,
+  );
+
+  if (isExternalRuntimePath(asset.runtimePath)) {
+    return null;
+  }
+
+  assert(
+    !isAbsolute(asset.runtimePath),
+    `asset ${asset.id} runtimePath must be repo-relative`,
+  );
+  assert(
+    !asset.runtimePath.split(/[\\/]+/).includes(".."),
+    `asset ${asset.id} runtimePath must not contain path traversal`,
+  );
+
+  const localPath = resolve(root, asset.runtimePath);
+  const rootRelativePath = relative(root, localPath);
+
+  assert(
+    rootRelativePath !== "" &&
+      !rootRelativePath.startsWith("..") &&
+      !isAbsolute(rootRelativePath),
+    `asset ${asset.id} runtimePath must stay inside the repository`,
+  );
+
+  return localPath;
+}
+
+function validateAsset(asset, maxCommittedAssetBytes) {
   assertObject(asset, "asset entry");
   assertString(asset.id, "asset id");
   assertString(asset.sourceType, `asset ${asset.id} sourceType`);
@@ -85,23 +133,31 @@ function validateAsset(asset) {
     assertString(asset.transformations, `asset ${asset.id} transformations`);
   }
 
-  if (asset.runtimePath.startsWith("/")) {
-    const localPath = join(root, asset.runtimePath.slice(1));
+  const localPath = resolveRuntimePath(asset);
 
-    if (existsSync(localPath)) {
-      const stats = statSync(localPath);
-      assert(
-        stats.size <= maxCommittedAssetBytes,
-        `asset ${asset.id} exceeds committed file budget at ${stats.size} bytes`,
-      );
-      const extension = extname(localPath).slice(1);
-      assert(
-        extension === asset.runtimeFormat ||
-          asset.runtimeFormat === "procedural",
-        `asset ${asset.id} runtimeFormat does not match file extension`,
-      );
-    }
+  if (localPath === null) {
+    return;
   }
+
+  assert(
+    existsSync(localPath),
+    `asset ${asset.id} runtimePath file is missing`,
+  );
+
+  const stats = statSync(localPath);
+  assert(
+    stats.isFile(),
+    `asset ${asset.id} runtimePath must point to a committed file`,
+  );
+  assert(
+    stats.size <= maxCommittedAssetBytes,
+    `asset ${asset.id} exceeds committed file budget at ${stats.size} bytes`,
+  );
+  const extension = extname(localPath).slice(1);
+  assert(
+    extension === asset.runtimeFormat || asset.runtimeFormat === "procedural",
+    `asset ${asset.id} runtimeFormat does not match file extension`,
+  );
 }
 
 const ledger = readJson(ledgerPath, "space-asset-ledger");
@@ -116,13 +172,16 @@ assertNumber(
 );
 assertNumber(ledger.policy.maxLazyGlbKb, "maxLazyGlbKb");
 assertNumber(ledger.policy.maxRuntimeKtx2Kb, "maxRuntimeKtx2Kb");
+assertNumber(ledger.policy.maxHighDetailLazyPackKb, "maxHighDetailLazyPackKb");
+assertNumber(ledger.policy.maxCommittedAssetKb, "maxCommittedAssetKb");
 assertString(ledger.policy.cdnFailureFallback, "cdnFailureFallback");
 assertArray(ledger.assets, "asset ledger assets");
 
+const maxCommittedAssetBytes = ledger.policy.maxCommittedAssetKb * 1024;
 const seenIds = new Set();
 
 for (const asset of ledger.assets) {
-  validateAsset(asset);
+  validateAsset(asset, maxCommittedAssetBytes);
   assert(!seenIds.has(asset.id), `duplicate asset id ${asset.id}`);
   seenIds.add(asset.id);
 }

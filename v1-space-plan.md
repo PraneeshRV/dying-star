@@ -9,6 +9,14 @@
 
 **Suggested implementation order:** Textures → Atmosphere → Lighting/VFX → Camera → LOD/Performance
 
+**Implementation status:** Complete for the `v0.2.5` release track.
+
+- Phase 1/2 shipped with committed procedural texture generation for Earth, Mars, ice, and gas-giant profiles; Earth includes night lights and moving cloud shell; all realistic planets use atmosphere shells.
+- Phase 3 shipped with Zustand camera mode state, GSAP focus transitions, click-to-orbit selection, `F`/double-click free-fly entry, WASD drift, pointer-lock mouse look, and Escape/empty-space return to overview.
+- Phase 4 shipped with a dense color-varied procedural starfield, central star lighting, Bloom, SSAO, star sparkles, animated gas-giant bands, and a Cassini-gap ring shader.
+- Phase 5 shipped with camera-distance LOD, high-detail displacement near the surface, GPU/mobile quality gates, no-WebGL/reduced-motion/context-loss fallbacks, and `/public/textures/` ignored so future large KTX2/CDN assets do not bloat git.
+- Verification used `npm run verify:system`, `npm run lint`, `npx tsc --noEmit`, `npm run build`, and a production Playwright smoke against `npm run start -- -p 3001`.
+
 ---
 
 ## Phase 1 — Photorealistic Planet Surfaces

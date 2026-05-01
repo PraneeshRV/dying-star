@@ -113,6 +113,7 @@ const currentBodies = new Set([
 const seenSystemIds = new Set();
 const seenSections = new Set();
 const scopedIds = new Set();
+const seenRouteIds = new Set();
 
 for (const system of galaxy.systems) {
   assertObject(system, "system entry");
@@ -187,6 +188,8 @@ for (const sectionId of requiredGalaxySections) {
 for (const route of galaxy.routes) {
   assertObject(route, "route entry");
   assertString(route.id, "route id");
+  assert(!seenRouteIds.has(route.id), `duplicate route id ${route.id}`);
+  seenRouteIds.add(route.id);
   assertString(route.fromSystemId, `route ${route.id} fromSystemId`);
   assertString(route.toSystemId, `route ${route.id} toSystemId`);
   assert(

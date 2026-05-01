@@ -29,6 +29,27 @@ export interface SectionMapping {
   anchorId: string;
 }
 
+export type PlanetRealismProfile = "earth" | "mars";
+
+export interface PlanetAtmosphereConfig {
+  color: string;
+  falloff: number;
+  mie: number;
+  opacity: number;
+  rayleigh: number;
+  shellScale: number;
+}
+
+export interface PlanetRealismConfig {
+  profile: PlanetRealismProfile;
+  diffuseMap: string;
+  normalMap: string;
+  roughnessMap: string;
+  nightMap?: string;
+  cloudMap?: string;
+  atmosphere?: PlanetAtmosphereConfig;
+}
+
 export interface PlanetConfig {
   id: string;
   name: string;
@@ -43,6 +64,7 @@ export interface PlanetConfig {
   emissive: string;
   status: string;
   scan: string;
+  realism?: PlanetRealismConfig;
 }
 
 export interface MoonConfig {

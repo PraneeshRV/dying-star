@@ -100,10 +100,24 @@
       "rotationSpeed": 0.29,
       "size": 0.5,
       "inclination": -0.12,
-      "color": "#8a3f2d",
+      "color": "#a35633",
       "emissive": "#ff7a45",
       "status": "thermal scars active",
-      "scan": "Foundry continents remain hot beneath collapsed orbital yards."
+      "scan": "Foundry continents remain hot beneath collapsed orbital yards.",
+      "realism": {
+        "profile": "mars",
+        "diffuseMap": "procedural:mars-diffuse-v1",
+        "normalMap": "procedural:mars-normal-v1",
+        "roughnessMap": "procedural:mars-roughness-v1",
+        "atmosphere": {
+          "color": "#f08b62",
+          "opacity": 0.18,
+          "rayleigh": 0.42,
+          "mie": 0.18,
+          "falloff": 2.9,
+          "shellScale": 1.045
+        }
+      }
     },
     {
       "id": "garden-glass",
@@ -113,12 +127,28 @@
       "orbitRadius": 10.4,
       "orbitSpeed": 0.052,
       "rotationSpeed": 0.2,
-      "size": 0.46,
+      "size": 0.58,
       "inclination": 0.16,
-      "color": "#34484f",
-      "emissive": "#b8894d",
+      "color": "#2f6371",
+      "emissive": "#58f3ff",
       "status": "biosphere lost",
-      "scan": "Former garden world with preserved city scars under ash and mineral glass."
+      "scan": "Former garden world with preserved city scars under ash and mineral glass.",
+      "realism": {
+        "profile": "earth",
+        "diffuseMap": "procedural:earth-diffuse-v1",
+        "normalMap": "procedural:earth-normal-v1",
+        "roughnessMap": "procedural:earth-roughness-v1",
+        "nightMap": "procedural:earth-night-v1",
+        "cloudMap": "procedural:earth-clouds-v1",
+        "atmosphere": {
+          "color": "#68b9ff",
+          "opacity": 0.36,
+          "rayleigh": 1.15,
+          "mie": 0.28,
+          "falloff": 2.65,
+          "shellScale": 1.06
+        }
+      }
     },
     {
       "id": "relay-planet",

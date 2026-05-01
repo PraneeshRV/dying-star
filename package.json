@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
-    "verify:system": "node scripts/verify-shattered-system.mjs",
+    "verify:system": "node scripts/verify-shattered-system.mjs && node scripts/verify-space-realism.mjs",
     "verify": "npm run verify:system && npm run lint && tsc --noEmit && npm run build",
     "prepare": "node scripts/prepare-husky.mjs"
   },

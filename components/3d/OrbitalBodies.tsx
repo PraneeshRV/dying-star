@@ -13,6 +13,7 @@ import {
   writeOrbitPositionAtAngle,
   writePlanetPosition,
 } from "./orbitMath";
+import { PlanetSurfaceLayer } from "./PlanetSurface";
 import {
   type MoonConfig,
   type PlanetConfig,
@@ -24,6 +25,7 @@ import { TacticalLabel } from "./TacticalLabel";
 export interface OrbitalBodiesProps {
   speedMultiplier?: number;
   renderMoons?: boolean;
+  tier?: number;
 }
 
 const PLANET_HIT_RADIUS_MULTIPLIER = 4.4;
@@ -32,9 +34,10 @@ const MOON_HIT_RADIUS_MULTIPLIER = 6.4;
 export function OrbitalBodies({
   speedMultiplier = 1,
   renderMoons = true,
+  tier = 2,
 }: OrbitalBodiesProps) {
   const planetGroupRefs = useRef<(Group | null)[]>([]);
-  const planetBodyRefs = useRef<(THREE.Mesh | null)[]>([]);
+  const planetBodyRefs = useRef<(Group | null)[]>([]);
   const moonGroupRefs = useRef<(Group | null)[]>([]);
   const moonBodyRefs = useRef<(THREE.Mesh | null)[]>([]);
   const moonsByParent = useMemo(() => {
@@ -148,6 +151,8 @@ export function OrbitalBodies({
             refSetter={(element) => {
               planetBodyRefs.current[planetIndex] = element;
             }}
+            speedMultiplier={speedMultiplier}
+            tier={tier}
           />
 
           {renderMoons
@@ -223,9 +228,13 @@ function useCursorHover(active: boolean) {
 function PlanetBody({
   planet,
   refSetter,
+  speedMultiplier,
+  tier,
 }: {
   planet: PlanetConfig;
-  refSetter: (element: THREE.Mesh | null) => void;
+  refSetter: (element: Group | null) => void;
+  speedMultiplier: number;
+  tier: number;
 }) {
   const [hovered, setHovered] = useState(false);
   const setFocusedSystemNodeId = useGlobalStore(
@@ -244,16 +253,14 @@ function PlanetBody({
 
   return (
     <group>
-      <mesh ref={refSetter}>
-        <sphereGeometry args={[planet.size, 24, 18]} />
-        <meshStandardMaterial
-          color={planet.color}
-          emissive={planet.emissive}
-          emissiveIntensity={hovered ? 0.82 : 0.42}
-          metalness={0.72}
-          roughness={0.46}
+      <group ref={refSetter}>
+        <PlanetSurfaceLayer
+          hovered={hovered}
+          planet={planet}
+          speedMultiplier={speedMultiplier}
+          tier={tier}
         />
-      </mesh>
+      </group>
       <mesh
         onClick={handleSelect}
         onPointerDown={handleSelect}

@@ -132,9 +132,14 @@ export function SpaceCanvas() {
           speedMultiplier={speedMultiplier}
         />
 
-        <ambientLight intensity={0.18} />
-        <pointLight position={[0, 0, 0]} intensity={4.2} color="#dceeff" />
-        <pointLight position={[-18, 7, 14]} intensity={0.55} color="#ff7a45" />
+        <ambientLight intensity={tier <= 1 ? 0.1 : 0.045} />
+        <pointLight
+          color="#dceeff"
+          decay={1.25}
+          distance={90}
+          intensity={tier <= 1 ? 4.2 : 6.2}
+          position={[0, 0, 0]}
+        />
 
         <Suspense fallback={null}>
           <Starfield
@@ -154,7 +159,11 @@ export function SpaceCanvas() {
             panelFill={0.67}
             timeScale={speedMultiplier}
           />
-          <OrbitalBodies speedMultiplier={speedMultiplier} renderMoons={true} />
+          <OrbitalBodies
+            speedMultiplier={speedMultiplier}
+            renderMoons={true}
+            tier={tier}
+          />
           <Megastructures speedMultiplier={speedMultiplier} />
 
           {useBloom && (

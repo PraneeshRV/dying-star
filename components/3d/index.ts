@@ -26,6 +26,7 @@ export { OrbitalBodies } from "./OrbitalBodies";
 export type { OrbitalPlanetsProps } from "./OrbitalPlanets";
 export { OrbitalPlanets } from "./OrbitalPlanets";
 export { PathwayRemnants } from "./PathwayRemnants";
+export { PlanetSurfaceLayer } from "./PlanetSurface";
 export { SpaceCanvas } from "./SpaceCanvas";
 export type { StarfieldProps } from "./Starfield";
 export { Starfield } from "./Starfield";

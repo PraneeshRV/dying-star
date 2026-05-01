@@ -43,6 +43,8 @@ const cinzel = Cinzel({
   weight: ["400", "500", "600", "700"],
 });
 
+const analyticsEnabled = process.env.VERCEL === "1";
+
 /* ═══ SEO Metadata ═══ */
 
 export const metadata: Metadata = {
@@ -106,7 +108,7 @@ export default function RootLayout({
       >
         <CustomCursor />
         <MainContent>{children}</MainContent>
-        <Analytics />
+        {analyticsEnabled ? <Analytics /> : null}
       </body>
     </html>
   );

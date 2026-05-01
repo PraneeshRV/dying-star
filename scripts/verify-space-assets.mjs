@@ -19,6 +19,7 @@ const sourceTypes = new Set([
   "authored",
 ]);
 const runtimeFormats = new Set(["procedural", "glb", "ktx2", "webp", "avif"]);
+const remoteRuntimeSourceTypes = new Set(["external", "generated", "authored"]);
 
 function fail(message) {
   console.error(`space-assets invalid: ${message}`);
@@ -61,23 +62,36 @@ function readJson(path, label) {
   return JSON.parse(readFileSync(path, "utf8"));
 }
 
-function isExternalRuntimePath(path) {
+function parseUrl(value) {
   try {
-    const url = new URL(path);
-    return url.protocol === "http:" || url.protocol === "https:";
+    return new URL(value);
   } catch {
-    return false;
+    return null;
   }
 }
 
-function resolveRuntimePath(asset) {
-  assert(
-    !isExternalRuntimePath(asset.runtimePath) ||
-      asset.sourceType === "external",
-    `asset ${asset.id} external runtimePath requires external sourceType`,
-  );
+function assertHttpsUrl(value, label) {
+  const url = parseUrl(value);
+  assert(url !== null, `${label} must be a valid absolute URL`);
+  assert(url.protocol === "https:", `${label} must use https`);
+}
 
-  if (isExternalRuntimePath(asset.runtimePath)) {
+function resolveRuntimePath(asset) {
+  const runtimeUrl = parseUrl(asset.runtimePath);
+
+  if (runtimeUrl !== null) {
+    assert(
+      runtimeUrl.protocol === "https:",
+      `asset ${asset.id} runtimePath must use https`,
+    );
+    assert(
+      remoteRuntimeSourceTypes.has(asset.sourceType),
+      `asset ${asset.id} remote runtimePath requires external, generated, or authored sourceType`,
+    );
+    assert(
+      asset.reviewStatus === "approved",
+      `asset ${asset.id} remote runtimePath requires approved reviewStatus`,
+    );
     return null;
   }
 
@@ -129,6 +143,8 @@ function validateAsset(asset, maxCommittedAssetBytes) {
   if (asset.sourceType !== "procedural") {
     assertString(asset.sourceUrl, `asset ${asset.id} sourceUrl`);
     assertString(asset.licenseUrl, `asset ${asset.id} licenseUrl`);
+    assertHttpsUrl(asset.sourceUrl, `asset ${asset.id} sourceUrl`);
+    assertHttpsUrl(asset.licenseUrl, `asset ${asset.id} licenseUrl`);
     assertString(asset.checksum, `asset ${asset.id} checksum`);
     assertString(asset.transformations, `asset ${asset.id} transformations`);
   }

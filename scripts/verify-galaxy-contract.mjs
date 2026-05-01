@@ -80,7 +80,10 @@ const galaxy = readJson(galaxyPath, "black-hole-galaxy");
 const shattered = readJson(shatteredPath, "shattered-system");
 
 assertObject(galaxy, "galaxy");
-assert(galaxy.id === "black-hole-galaxy", "galaxy id must be black-hole-galaxy");
+assert(
+  galaxy.id === "black-hole-galaxy",
+  "galaxy id must be black-hole-galaxy",
+);
 assertString(galaxy.name, "galaxy name");
 assertObject(galaxy.center, "galaxy center");
 assert(galaxy.center.id === "null-archive", "center id must be null-archive");
@@ -97,7 +100,9 @@ assert(
   `expected ${requiredSystemIds.length} systems, got ${galaxy.systems.length}`,
 );
 
-const currentSections = new Set(shattered.sections.map((section) => section.id));
+const currentSections = new Set(
+  shattered.sections.map((section) => section.id),
+);
 const currentBodies = new Set([
   ...shattered.planets.map((planet) => planet.id),
   ...shattered.moons.map((moon) => moon.id),
@@ -132,7 +137,10 @@ for (const system of galaxy.systems) {
     `system ${system.id} orbit inclination`,
   );
   assertFiniteNumber(system.orbit.phase, `system ${system.id} orbit phase`);
-  assert(["full", "impostor", "fallback"].includes(system.detailMode), `system ${system.id} detailMode is invalid`);
+  assert(
+    ["full", "impostor", "fallback"].includes(system.detailMode),
+    `system ${system.id} detailMode is invalid`,
+  );
   assertObject(system.palette, `system ${system.id} palette`);
   assertHexColor(system.palette.primary, `system ${system.id} palette primary`);
   assertHexColor(system.palette.accent, `system ${system.id} palette accent`);

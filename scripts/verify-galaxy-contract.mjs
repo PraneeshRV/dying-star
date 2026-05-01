@@ -20,6 +20,12 @@ const requiredGalaxySections = [
 ];
 
 const requiredSystemIds = ["identity", "build", "proof", "transmission"];
+const requiredRouteIds = [
+  "identity-build-route",
+  "build-proof-route",
+  "proof-transmission-route",
+  "transmission-identity-route",
+];
 const allowedRouteKinds = [
   "hyperlane-scar",
   "signal-corridor",
@@ -105,6 +111,10 @@ assertArray(galaxy.routes, "galaxy routes");
 assert(
   galaxy.systems.length === requiredSystemIds.length,
   `expected ${requiredSystemIds.length} systems, got ${galaxy.systems.length}`,
+);
+assert(
+  galaxy.routes.length === requiredRouteIds.length,
+  `expected ${requiredRouteIds.length} routes, got ${galaxy.routes.length}`,
 );
 
 const currentSections = new Set(
@@ -195,6 +205,10 @@ for (const sectionId of requiredGalaxySections) {
 for (const route of galaxy.routes) {
   assertObject(route, "route entry");
   assertString(route.id, "route id");
+  assert(
+    requiredRouteIds.includes(route.id),
+    `unexpected route id ${route.id}`,
+  );
   assert(!seenRouteIds.has(route.id), `duplicate route id ${route.id}`);
   seenRouteIds.add(route.id);
   assertString(route.fromSystemId, `route ${route.id} fromSystemId`);
@@ -213,6 +227,10 @@ for (const route of galaxy.routes) {
     `route ${route.id} kind is invalid`,
   );
   assertHexColor(route.color, `route ${route.id} color`);
+}
+
+for (const routeId of requiredRouteIds) {
+  assert(seenRouteIds.has(routeId), `missing route ${routeId}`);
 }
 
 console.log(

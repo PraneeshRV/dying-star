@@ -26,6 +26,18 @@ const requiredRouteIds = [
   "proof-transmission-route",
   "transmission-identity-route",
 ];
+const requiredRouteTopology = new Map([
+  ["identity-build-route", { fromSystemId: "identity", toSystemId: "build" }],
+  ["build-proof-route", { fromSystemId: "build", toSystemId: "proof" }],
+  [
+    "proof-transmission-route",
+    { fromSystemId: "proof", toSystemId: "transmission" },
+  ],
+  [
+    "transmission-identity-route",
+    { fromSystemId: "transmission", toSystemId: "identity" },
+  ],
+]);
 const allowedRouteKinds = [
   "hyperlane-scar",
   "signal-corridor",
@@ -213,6 +225,19 @@ for (const route of galaxy.routes) {
   seenRouteIds.add(route.id);
   assertString(route.fromSystemId, `route ${route.id} fromSystemId`);
   assertString(route.toSystemId, `route ${route.id} toSystemId`);
+  const expectedRouteTopology = requiredRouteTopology.get(route.id);
+  assert(
+    expectedRouteTopology !== undefined,
+    `missing route topology for ${route.id}`,
+  );
+  assert(
+    route.fromSystemId === expectedRouteTopology.fromSystemId,
+    `route ${route.id} fromSystemId must be ${expectedRouteTopology.fromSystemId}`,
+  );
+  assert(
+    route.toSystemId === expectedRouteTopology.toSystemId,
+    `route ${route.id} toSystemId must be ${expectedRouteTopology.toSystemId}`,
+  );
   assert(
     seenSystemIds.has(route.fromSystemId),
     `route ${route.id} points from missing system ${route.fromSystemId}`,

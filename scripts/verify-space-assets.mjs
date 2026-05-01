@@ -51,7 +51,7 @@ function assertNumber(value, label) {
 }
 
 function readJson(path, label) {
-  assert(existsSync(path), `${label} file is missing at ${path}`);
+  assert(existsSync(path), `${label} file is missing`);
   return JSON.parse(readFileSync(path, "utf8"));
 }
 

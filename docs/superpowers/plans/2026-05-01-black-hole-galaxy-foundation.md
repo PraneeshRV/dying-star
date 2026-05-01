@@ -51,7 +51,7 @@ It does not render the black hole, add GLB assets, add KTX2 loaders, rewrite the
 
 - Create: `scripts/verify-galaxy-contract.mjs`
 
-- [ ] **Step 1: Write the failing verifier**
+- [x] **Step 1: Write the failing verifier**
 
 Create `scripts/verify-galaxy-contract.mjs` with this content:
 
@@ -256,7 +256,7 @@ console.log(
 );
 ```
 
-- [ ] **Step 2: Run the verifier to confirm it fails**
+- [x] **Step 2: Run the verifier to confirm it fails**
 
 Run:
 
@@ -280,7 +280,7 @@ The absolute path after `missing at` may differ.
 - Create: `components/3d/galaxyConfig.ts`
 - Modify: `components/3d/index.ts`
 
-- [ ] **Step 1: Add the galaxy JSON contract**
+- [x] **Step 1: Add the galaxy JSON contract**
 
 Create `content/data/black-hole-galaxy.json` with this content:
 
@@ -447,7 +447,7 @@ Create `content/data/black-hole-galaxy.json` with this content:
 }
 ```
 
-- [ ] **Step 2: Add the TypeScript adapter**
+- [x] **Step 2: Add the TypeScript adapter**
 
 Create `components/3d/galaxyConfig.ts` with this content:
 
@@ -553,7 +553,7 @@ export function allGalaxySectionIds() {
 }
 ```
 
-- [ ] **Step 3: Export the adapter**
+- [x] **Step 3: Export the adapter**
 
 Modify `components/3d/index.ts` by adding this export near the other 3D exports:
 
@@ -579,7 +579,7 @@ export type {
 } from "./galaxyConfig";
 ```
 
-- [ ] **Step 4: Run contract verifier**
+- [x] **Step 4: Run contract verifier**
 
 Run:
 
@@ -595,7 +595,7 @@ galaxy-contract ok: 4 systems, 10 sections, 23 scoped nodes
 
 If the scoped node count differs because the JSON was changed intentionally, confirm every `primaryNodeIds` entry resolves before accepting the result.
 
-- [ ] **Step 5: Typecheck the adapter**
+- [x] **Step 5: Typecheck the adapter**
 
 Run:
 
@@ -605,7 +605,7 @@ npx tsc --noEmit
 
 Expected: command exits with code `0`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 Run:
 
@@ -623,7 +623,7 @@ Expected: commit succeeds.
 - Create: `content/data/space-asset-ledger.json`
 - Create: `scripts/verify-space-assets.mjs`
 
-- [ ] **Step 1: Write the failing asset verifier**
+- [x] **Step 1: Write the failing asset verifier**
 
 Create `scripts/verify-space-assets.mjs` with this content:
 
@@ -745,7 +745,7 @@ for (const asset of ledger.assets) {
 console.log(`space-assets ok: ${ledger.assets.length} ledger entries`);
 ```
 
-- [ ] **Step 2: Run the verifier to confirm it fails**
+- [x] **Step 2: Run the verifier to confirm it fails**
 
 Run:
 
@@ -761,7 +761,7 @@ space-assets invalid: space-asset-ledger file is missing
 
 The absolute path after `missing at` may differ.
 
-- [ ] **Step 3: Add the ledger**
+- [x] **Step 3: Add the ledger**
 
 Create `content/data/space-asset-ledger.json` with this content:
 
@@ -812,7 +812,7 @@ Create `content/data/space-asset-ledger.json` with this content:
 }
 ```
 
-- [ ] **Step 4: Run the asset verifier**
+- [x] **Step 4: Run the asset verifier**
 
 Run:
 
@@ -826,7 +826,7 @@ Expected:
 space-assets ok: 3 ledger entries
 ```
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 Run:
 
@@ -843,7 +843,7 @@ Expected: commit succeeds.
 
 - Modify: `package.json`
 
-- [ ] **Step 1: Update `verify:system`**
+- [x] **Step 1: Update `verify:system`**
 
 Change the `verify:system` script in `package.json` to:
 
@@ -851,7 +851,7 @@ Change the `verify:system` script in `package.json` to:
 "verify:system": "node scripts/verify-shattered-system.mjs && node scripts/verify-space-realism.mjs && node scripts/verify-galaxy-contract.mjs && node scripts/verify-space-assets.mjs"
 ```
 
-- [ ] **Step 2: Run system verification**
+- [x] **Step 2: Run system verification**
 
 Run:
 
@@ -868,7 +868,7 @@ space-assets ok: 3 ledger entries
 
 The existing shattered-system and space-realism verifiers should also pass.
 
-- [ ] **Step 3: Run full non-browser gate**
+- [x] **Step 3: Run full non-browser gate**
 
 Run:
 
@@ -880,7 +880,7 @@ npm run build
 
 Expected: all three commands exit with code `0`.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 Run:
 
@@ -897,7 +897,7 @@ Expected: commit succeeds.
 
 - Modify: `docs/superpowers/plans/2026-05-01-black-hole-galaxy-foundation.md`
 
-- [ ] **Step 1: Mark completed task checkboxes during execution**
+- [x] **Step 1: Mark completed task checkboxes during execution**
 
 As each task is executed, change its checkboxes from:
 
@@ -913,7 +913,7 @@ to:
 
 This keeps the plan file as a durable execution record.
 
-- [ ] **Step 2: Add the final execution note**
+- [x] **Step 2: Add the final execution note**
 
 Append this section to the end of the plan after all tasks pass:
 
@@ -928,7 +928,7 @@ Append this section to the end of the plan after all tasks pass:
 - Next implementation plan: isolated `CentralBlackHole` renderer and fallback.
 ```
 
-- [ ] **Step 3: Commit the updated execution record**
+- [x] **Step 3: Commit the updated execution record**
 
 Run:
 
@@ -938,6 +938,15 @@ git commit -m "docs: record galaxy foundation execution"
 ```
 
 Expected: commit succeeds.
+
+## Execution Result
+
+- Galaxy config added and verified.
+- Galaxy TypeScript adapter added and typechecked.
+- Asset ledger added and verified.
+- `npm run verify:system` includes galaxy and asset verifiers.
+- Full verification completed: `npm run lint`, `npx tsc --noEmit`, `npm run build`.
+- Next implementation plan: isolated `CentralBlackHole` renderer and fallback.
 
 ## Verification Summary
 

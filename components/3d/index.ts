@@ -17,6 +17,25 @@ export type { ConstellationProps } from "./Constellation";
 export { Constellation } from "./Constellation";
 export type { DysonSphereProps } from "./DysonSphere";
 export { DysonSphere } from "./DysonSphere";
+export type {
+  BlackHoleCenterConfig,
+  GalaxyConfig,
+  GalaxyDetailMode,
+  GalaxyOrbitConfig,
+  GalaxySectionId,
+  GalaxySystemConfig,
+  GalaxySystemId,
+  InterSystemRouteConfig,
+  ScopedSystemNodeId,
+} from "./galaxyConfig";
+export {
+  allGalaxySectionIds,
+  findGalaxySystemForSection,
+  GALAXY_CONFIG,
+  isGalaxySystemId,
+  makeScopedNodeId,
+  parseScopedNodeId,
+} from "./galaxyConfig";
 export type { MegastructuresProps } from "./Megastructures";
 export { Megastructures } from "./Megastructures";
 export type { NeutronStarProps } from "./NeutronStar";

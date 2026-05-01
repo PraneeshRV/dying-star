@@ -20,6 +20,12 @@ const requiredGalaxySections = [
 ];
 
 const requiredSystemIds = ["identity", "build", "proof", "transmission"];
+const allowedRouteKinds = [
+  "hyperlane-scar",
+  "signal-corridor",
+  "distress-signal",
+  "return-arc",
+];
 const hexColorPattern = /^#[0-9a-fA-F]{6}$/;
 
 function fail(message) {
@@ -89,6 +95,7 @@ assertObject(galaxy.center, "galaxy center");
 assert(galaxy.center.id === "null-archive", "center id must be null-archive");
 assert(galaxy.center.kind === "black-hole", "center kind must be black-hole");
 assertString(galaxy.center.name, "center name");
+assertString(galaxy.center.description, "center description");
 assertString(galaxy.center.plainLabel, "center plainLabel");
 assertString(galaxy.center.loreLabel, "center loreLabel");
 assertString(galaxy.center.fallback, "center fallback");
@@ -201,6 +208,10 @@ for (const route of galaxy.routes) {
     `route ${route.id} points to missing system ${route.toSystemId}`,
   );
   assertString(route.kind, `route ${route.id} kind`);
+  assert(
+    allowedRouteKinds.includes(route.kind),
+    `route ${route.id} kind is invalid`,
+  );
   assertHexColor(route.color, `route ${route.id} color`);
 }
 

@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import type { GPUTier } from "@/types";
 
+export type SystemCameraMode = "overview" | "orbiting" | "freefly";
+
 interface GlobalState {
   /** Whether the initial loading screen has completed */
   loadingComplete: boolean;
@@ -22,6 +24,10 @@ interface GlobalState {
   focusedSystemNodeId: string | null;
   setFocusedSystemNodeId: (id: string | null) => void;
 
+  /** 3D system camera interaction mode */
+  cameraMode: SystemCameraMode;
+  setCameraMode: (mode: SystemCameraMode) => void;
+
   /** User prefers reduced motion */
   reducedMotion: boolean;
   setReducedMotion: (v: boolean) => void;
@@ -42,6 +48,9 @@ export const useGlobalStore = create<GlobalState>((set) => ({
 
   focusedSystemNodeId: null,
   setFocusedSystemNodeId: (id) => set({ focusedSystemNodeId: id }),
+
+  cameraMode: "overview",
+  setCameraMode: (mode) => set({ cameraMode: mode }),
 
   reducedMotion: false,
   setReducedMotion: (v) => set({ reducedMotion: v }),

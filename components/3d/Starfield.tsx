@@ -16,8 +16,10 @@ import * as THREE from "three";
 const STAR_VERT = /* glsl */ `
   attribute float aPhase;
   attribute float aSize;
+  attribute vec3 aColor;
   uniform float uTime;
   uniform float uPixelRatio;
+  varying vec3 vColor;
   varying float vTwinkle;
 
   void main() {
@@ -26,6 +28,7 @@ const STAR_VERT = /* glsl */ `
     float twinkle = 0.55 + 0.45 * sin(t * 1.6);
     twinkle *= 0.85 + 0.15 * sin(t * 5.3 + aPhase * 7.0);
     vTwinkle = twinkle;
+    vColor = aColor;
 
     vec4 mv = modelViewMatrix * vec4(position, 1.0);
     gl_Position = projectionMatrix * mv;
@@ -38,6 +41,7 @@ const STAR_VERT = /* glsl */ `
 const STAR_FRAG = /* glsl */ `
   precision mediump float;
   uniform vec3 uColor;
+  varying vec3 vColor;
   varying float vTwinkle;
 
   void main() {
@@ -50,7 +54,7 @@ const STAR_FRAG = /* glsl */ `
     float halo = smoothstep(0.5, 0.15, d) * 0.6;
     float a = (core + halo) * vTwinkle;
 
-    gl_FragColor = vec4(uColor, a);
+    gl_FragColor = vec4(uColor * vColor, a);
   }
 `;
 
@@ -79,17 +83,21 @@ export function Starfield({
 }: StarfieldProps) {
   const matRef = useRef<THREE.ShaderMaterial>(null);
 
-  const { positions, phases, sizes } = useMemo(() => {
+  const { colors, positions, phases, sizes } = useMemo(() => {
+    const colors = new Float32Array(count * 3);
     const positions = new Float32Array(count * 3);
     const phases = new Float32Array(count);
     const sizes = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
-      // Uniformly distribute on a spherical shell
+      // Mix a realistic galactic plane band with deep-field stars.
       const u = seededUnit(i + 101);
       const v = seededUnit(i + 211);
       const theta = u * Math.PI * 2;
-      const phi = Math.acos(2 * v - 1);
+      const inGalacticBand = seededUnit(i + 811) < 0.38;
+      const phi = inGalacticBand
+        ? Math.PI / 2 + (v - 0.5) * 0.34 + Math.sin(theta * 2.0) * 0.045
+        : Math.acos(2 * v - 1);
       const r = innerRadius + seededUnit(i + 307) * (outerRadius - innerRadius);
 
       const sinPhi = Math.sin(phi);
@@ -102,9 +110,16 @@ export function Starfield({
       // Size distribution skewed toward small stars, occasional bright ones
       const rs = seededUnit(i + 503);
       sizes[i] = rs < 0.92 ? 0.6 + rs * 1.2 : 1.6 + seededUnit(i + 601) * 1.8;
+
+      const temp = seededUnit(i + 709);
+      const warmth = temp < 0.16 ? 0.22 : temp > 0.88 ? -0.18 : 0;
+      const bandBoost = inGalacticBand ? 1.16 : 1;
+      colors[i * 3 + 0] = (1 + warmth) * bandBoost;
+      colors[i * 3 + 1] = (0.96 + Math.abs(warmth) * 0.12) * bandBoost;
+      colors[i * 3 + 2] = (1 - warmth * 0.35) * bandBoost;
     }
 
-    return { positions, phases, sizes };
+    return { colors, positions, phases, sizes };
   }, [count, innerRadius, outerRadius]);
 
   const uniforms = useMemo(
@@ -143,6 +158,11 @@ export function Starfield({
         <bufferAttribute
           attach="attributes-aSize"
           args={[sizes, 1]}
+          count={count}
+        />
+        <bufferAttribute
+          attach="attributes-aColor"
+          args={[colors, 3]}
           count={count}
         />
       </bufferGeometry>

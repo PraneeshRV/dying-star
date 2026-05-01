@@ -29,7 +29,7 @@ export interface SectionMapping {
   anchorId: string;
 }
 
-export type PlanetRealismProfile = "earth" | "mars";
+export type PlanetRealismProfile = "earth" | "gas-giant" | "ice" | "mars";
 
 export interface PlanetAtmosphereConfig {
   color: string;
@@ -50,6 +50,15 @@ export interface PlanetRealismConfig {
   atmosphere?: PlanetAtmosphereConfig;
 }
 
+export interface PlanetRingConfig {
+  color: string;
+  gap: number;
+  innerRadius: number;
+  opacity: number;
+  outerRadius: number;
+  tilt: number;
+}
+
 export interface PlanetConfig {
   id: string;
   name: string;
@@ -65,6 +74,7 @@ export interface PlanetConfig {
   status: string;
   scan: string;
   realism?: PlanetRealismConfig;
+  rings?: PlanetRingConfig;
 }
 
 export interface MoonConfig {

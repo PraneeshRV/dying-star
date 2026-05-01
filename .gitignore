@@ -27,6 +27,7 @@
 .playwright-mcp/
 .superpowers/
 visual-system-preview*.png
+/public/textures/
 CLAUDE.md
 claude.md
 AGENTS.md

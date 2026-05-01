@@ -1,8 +1,13 @@
 "use client";
 
-import { useFrame } from "@react-three/fiber";
-import { useEffect, useMemo, useRef } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
+import type { RefObject } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
+import {
+  GAS_GIANT_FRAGMENT_SHADER,
+  GAS_GIANT_VERTEX_SHADER,
+} from "@/shaders/gasGiantSurface";
 import {
   ATMOSPHERE_FRAGMENT_SHADER,
   ATMOSPHERE_VERTEX_SHADER,
@@ -12,8 +17,13 @@ import {
 import type { PlanetConfig, PlanetRealismProfile } from "./shatteredSystem";
 
 const STAR_LIGHT_POSITION = new THREE.Vector3(0, 0, 0);
-const LOW_TIER_TEXTURE_SIZE = 512;
-const HIGH_TIER_TEXTURE_SIZE = 1024;
+const TEXTURE_SIZE_BY_LOD = {
+  high: 1024,
+  low: 384,
+  mid: 768,
+} as const;
+
+type PlanetLod = keyof typeof TEXTURE_SIZE_BY_LOD;
 
 interface PlanetSurfaceLayerProps {
   hovered: boolean;
@@ -25,6 +35,7 @@ interface PlanetSurfaceLayerProps {
 interface ProceduralTextureSet {
   cloud: THREE.DataTexture | null;
   diffuse: THREE.DataTexture;
+  height: THREE.DataTexture;
   night: THREE.DataTexture | null;
   normal: THREE.DataTexture;
   roughness: THREE.DataTexture;
@@ -38,6 +49,44 @@ interface PixelSample {
   roughness: number;
 }
 
+const RING_VERTEX_SHADER = /* glsl */ `
+  varying vec3 vPosition;
+
+  void main() {
+    vPosition = position;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const RING_FRAGMENT_SHADER = /* glsl */ `
+  precision mediump float;
+
+  uniform float gap;
+  uniform float innerRadius;
+  uniform float opacity;
+  uniform float outerRadius;
+  uniform vec3 ringColor;
+
+  varying vec3 vPosition;
+
+  float hash(float n) {
+    return fract(sin(n) * 43758.5453123);
+  }
+
+  void main() {
+    float radial = length(vPosition.xy);
+    float normalized = clamp((radial - innerRadius) / (outerRadius - innerRadius), 0.0, 1.0);
+    float edgeFade = smoothstep(0.0, 0.12, normalized) * (1.0 - smoothstep(0.84, 1.0, normalized));
+    float cassiniCenter = mix(0.2, 0.82, gap);
+    float cassini = smoothstep(0.018, 0.065, abs(normalized - cassiniCenter));
+    float strata = 0.72 + 0.28 * sin(normalized * 88.0) + 0.08 * hash(floor(normalized * 160.0));
+    float alpha = edgeFade * mix(0.2, 1.0, cassini) * opacity * strata;
+    vec3 ice = mix(ringColor * 0.55, ringColor * 1.28, smoothstep(0.18, 0.78, normalized));
+
+    gl_FragColor = vec4(ice, alpha);
+  }
+`;
+
 export function PlanetSurfaceLayer({
   hovered,
   planet,
@@ -50,16 +99,19 @@ export function PlanetSurfaceLayer({
 
   if (!realism) {
     return (
-      <mesh>
-        <sphereGeometry args={[planet.size, segmentCount, ringCount]} />
-        <meshStandardMaterial
-          color={planet.color}
-          emissive={planet.emissive}
-          emissiveIntensity={hovered ? 0.82 : 0.42}
-          metalness={0.72}
-          roughness={0.46}
-        />
-      </mesh>
+      <>
+        <mesh>
+          <sphereGeometry args={[planet.size, segmentCount, ringCount]} />
+          <meshStandardMaterial
+            color={planet.color}
+            emissive={planet.emissive}
+            emissiveIntensity={hovered ? 0.82 : 0.42}
+            metalness={0.72}
+            roughness={0.46}
+          />
+        </mesh>
+        {planet.rings ? <PlanetRingSystem planet={planet} tier={tier} /> : null}
+      </>
     );
   }
 
@@ -71,9 +123,10 @@ export function PlanetSurfaceLayer({
         speedMultiplier={speedMultiplier}
         tier={tier}
       />
-      {realism.atmosphere ? (
+      {tier > 1 && realism.atmosphere ? (
         <AtmosphereShell planet={planet} tier={tier} />
       ) : null}
+      {planet.rings ? <PlanetRingSystem planet={planet} tier={tier} /> : null}
     </>
   );
 }
@@ -85,11 +138,44 @@ function RealisticPlanetSurface({
   tier,
 }: PlanetSurfaceLayerProps) {
   const realism = planet.realism;
-  const textureSize =
-    tier <= 1 ? LOW_TIER_TEXTURE_SIZE : HIGH_TIER_TEXTURE_SIZE;
+
+  if (realism?.profile === "gas-giant") {
+    return (
+      <GasGiantSurface
+        hovered={hovered}
+        planet={planet}
+        speedMultiplier={speedMultiplier}
+        tier={tier}
+      />
+    );
+  }
+
+  return (
+    <TexturedPlanetSurface
+      hovered={hovered}
+      planet={planet}
+      speedMultiplier={speedMultiplier}
+      tier={tier}
+    />
+  );
+}
+
+function TexturedPlanetSurface({
+  hovered,
+  planet,
+  speedMultiplier,
+  tier,
+}: PlanetSurfaceLayerProps) {
+  const realism = planet.realism;
+  const meshRef = useRef<THREE.Mesh>(null);
+  const lod = usePlanetLOD(meshRef, planet.size, tier);
+  const textureSize = TEXTURE_SIZE_BY_LOD[lod];
   const textures = useProceduralPlanetTextures(realism?.profile, textureSize);
-  const segmentCount = tier <= 1 ? 48 : 96;
-  const ringCount = tier <= 1 ? 28 : 56;
+  const segmentCount =
+    tier <= 1 ? 36 : lod === "high" ? 144 : lod === "mid" ? 88 : 56;
+  const ringCount =
+    tier <= 1 ? 22 : lod === "high" ? 88 : lod === "mid" ? 52 : 32;
+  const useDisplacement = tier > 1 && lod === "high";
 
   if (!realism || !textures) {
     return null;
@@ -97,17 +183,19 @@ function RealisticPlanetSurface({
 
   return (
     <>
-      <mesh>
+      <mesh castShadow receiveShadow ref={meshRef}>
         <sphereGeometry args={[planet.size, segmentCount, ringCount]} />
         <meshStandardMaterial
           color={planet.color}
+          displacementMap={useDisplacement ? textures.height : undefined}
+          displacementScale={useDisplacement ? planet.size * 0.035 : 0}
           emissive={planet.emissive}
           emissiveIntensity={hovered ? 0.18 : 0.04}
           map={textures.diffuse}
           metalness={realism.profile === "earth" ? 0.06 : 0.02}
           normalMap={textures.normal}
           normalScale={
-            realism.profile === "earth"
+            realism.profile === "earth" || realism.profile === "ice"
               ? new THREE.Vector2(0.62, 0.62)
               : new THREE.Vector2(0.9, 0.9)
           }
@@ -129,6 +217,98 @@ function RealisticPlanetSurface({
         />
       ) : null}
     </>
+  );
+}
+
+function GasGiantSurface({
+  hovered,
+  planet,
+  speedMultiplier,
+  tier,
+}: PlanetSurfaceLayerProps) {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const materialRef = useRef<THREE.ShaderMaterial>(null);
+  const lod = usePlanetLOD(meshRef, planet.size, tier);
+  const segmentCount =
+    tier <= 1 ? 40 : lod === "high" ? 128 : lod === "mid" ? 88 : 56;
+  const ringCount =
+    tier <= 1 ? 24 : lod === "high" ? 72 : lod === "mid" ? 52 : 32;
+  const uniforms = useMemo(
+    () => ({
+      baseColor: { value: new THREE.Color(planet.color) },
+      emissiveColor: { value: new THREE.Color(planet.emissive) },
+      hoverBoost: { value: hovered ? 1 : 0 },
+      sunPosition: { value: STAR_LIGHT_POSITION },
+      uTime: { value: 0 },
+    }),
+    [hovered, planet.color, planet.emissive],
+  );
+
+  useFrame((state) => {
+    if (!materialRef.current) {
+      return;
+    }
+
+    materialRef.current.uniforms.uTime.value =
+      state.clock.elapsedTime * speedMultiplier;
+    materialRef.current.uniforms.hoverBoost.value = hovered ? 1 : 0;
+  });
+
+  return (
+    <mesh castShadow receiveShadow ref={meshRef}>
+      <sphereGeometry args={[planet.size, segmentCount, ringCount]} />
+      <shaderMaterial
+        fragmentShader={GAS_GIANT_FRAGMENT_SHADER}
+        ref={materialRef}
+        uniforms={uniforms}
+        vertexShader={GAS_GIANT_VERTEX_SHADER}
+      />
+    </mesh>
+  );
+}
+
+function PlanetRingSystem({
+  planet,
+  tier,
+}: {
+  planet: PlanetConfig;
+  tier: number;
+}) {
+  const rings = planet.rings;
+  const uniforms = useMemo(
+    () => ({
+      ringColor: { value: new THREE.Color(rings?.color ?? planet.emissive) },
+      gap: { value: rings?.gap ?? 0.58 },
+      innerRadius: { value: planet.size * (rings?.innerRadius ?? 1.2) },
+      opacity: { value: tier <= 1 ? 0.28 : (rings?.opacity ?? 0.5) },
+      outerRadius: { value: planet.size * (rings?.outerRadius ?? 1.9) },
+    }),
+    [planet.emissive, planet.size, rings, tier],
+  );
+
+  if (!rings) {
+    return null;
+  }
+
+  return (
+    <mesh receiveShadow rotation={[Math.PI / 2 + rings.tilt, 0, -Math.PI / 9]}>
+      <ringGeometry
+        args={[
+          planet.size * rings.innerRadius,
+          planet.size * rings.outerRadius,
+          tier <= 1 ? 72 : 192,
+          1,
+        ]}
+      />
+      <shaderMaterial
+        depthWrite={false}
+        fragmentShader={RING_FRAGMENT_SHADER}
+        side={THREE.DoubleSide}
+        transparent
+        uniforms={uniforms}
+        vertexShader={RING_VERTEX_SHADER}
+      />
+    </mesh>
   );
 }
 
@@ -246,6 +426,48 @@ function PlanetCloudLayer({
   );
 }
 
+function usePlanetLOD(
+  meshRef: RefObject<THREE.Mesh | null>,
+  planetRadius: number,
+  tier: number,
+) {
+  const { camera } = useThree();
+  const [lod, setLod] = useState<PlanetLod>(tier >= 3 ? "mid" : "low");
+  const lodRef = useRef<PlanetLod>(lod);
+  const worldPosition = useMemo(() => new THREE.Vector3(), []);
+
+  useFrame(() => {
+    if (tier <= 1) {
+      if (lodRef.current !== "low") {
+        lodRef.current = "low";
+        setLod("low");
+      }
+      return;
+    }
+
+    if (!meshRef.current) {
+      return;
+    }
+
+    meshRef.current.getWorldPosition(worldPosition);
+    const normalizedDistance =
+      camera.position.distanceTo(worldPosition) / Math.max(planetRadius, 0.01);
+    const nextLod =
+      normalizedDistance > 40
+        ? "low"
+        : normalizedDistance > 10
+          ? "mid"
+          : "high";
+
+    if (lodRef.current !== nextLod) {
+      lodRef.current = nextLod;
+      setLod(nextLod);
+    }
+  });
+
+  return lod;
+}
+
 function useProceduralPlanetTextures(
   profile: PlanetRealismProfile | undefined,
   size: number,
@@ -262,6 +484,7 @@ function useProceduralPlanetTextures(
     return () => {
       if (!textures) return;
       textures.diffuse.dispose();
+      textures.height.dispose();
       textures.normal.dispose();
       textures.roughness.dispose();
       textures.night?.dispose();
@@ -278,6 +501,7 @@ function buildProceduralTextureSet(
 ): ProceduralTextureSet {
   const height = width / 2;
   const diffuse = new Uint8Array(width * height * 4);
+  const heightMap = new Uint8Array(width * height * 4);
   const normal = new Uint8Array(width * height * 4);
   const roughness = new Uint8Array(width * height * 4);
   const night = profile === "earth" ? new Uint8Array(width * height * 4) : null;
@@ -289,10 +513,10 @@ function buildProceduralTextureSet(
       const u = x / width;
       const v = y / height;
       const index = (y * width + x) * 4;
-      const sample =
-        profile === "earth" ? sampleEarthPixel(u, v) : sampleMarsPixel(u, v);
+      const sample = samplePlanetPixel(profile, u, v);
 
       writeRgb(diffuse, index, sample.diffuse, 255);
+      writeGreyscale(heightMap, index, sample.height);
       writeGreyscale(roughness, index, sample.roughness);
       heights[y * width + x] = sample.height;
 
@@ -316,10 +540,31 @@ function buildProceduralTextureSet(
   return {
     cloud: cloud ? createDataTexture(cloud, width, height, true) : null,
     diffuse: createDataTexture(diffuse, width, height, true),
+    height: createDataTexture(heightMap, width, height, false),
     night: night ? createDataTexture(night, width, height, true) : null,
     normal: createDataTexture(normal, width, height, false),
     roughness: createDataTexture(roughness, width, height, false),
   };
+}
+
+function samplePlanetPixel(
+  profile: PlanetRealismProfile,
+  u: number,
+  v: number,
+) {
+  if (profile === "earth") {
+    return sampleEarthPixel(u, v);
+  }
+
+  if (profile === "mars") {
+    return sampleMarsPixel(u, v);
+  }
+
+  if (profile === "gas-giant") {
+    return sampleGasGiantPixel(u, v);
+  }
+
+  return sampleIcePixel(u, v);
 }
 
 function sampleEarthPixel(u: number, v: number): PixelSample {
@@ -407,6 +652,46 @@ function sampleMarsPixel(u: number, v: number): PixelSample {
     height: 0.31 + ridge * 0.28 + valley * 0.1 - crater * 0.18 + polar * 0.07,
     night: [0, 0, 0],
     roughness: 0.72 + dust * 0.18 + crater * 0.08,
+  };
+}
+
+function sampleGasGiantPixel(u: number, v: number): PixelSample {
+  const latitude = (v - 0.5) * Math.PI;
+  const band = Math.sin(latitude * 18.0 + fbm(u * 4.0, v * 10.0, 4, 331));
+  const shear = fbm(u * 18.0 + band * 0.25, v * 7.0, 4, 349);
+  const storm =
+    smoothstep(0.18, 0.0, Math.hypot(u - 0.68, (v - 0.43) * 2.4)) * 0.85;
+  const coolBand = mixColor([28, 53, 93], [89, 139, 180], shear);
+  const warmBand = mixColor([138, 103, 68], [222, 184, 118], shear);
+  const diffuse = mixColor(coolBand, warmBand, band * 0.5 + 0.5);
+  const stormColor = mixColor(diffuse, [232, 195, 138], storm);
+
+  return {
+    cloudAlpha: 0,
+    diffuse: stormColor,
+    height: 0.45 + band * 0.08 + shear * 0.08 + storm * 0.12,
+    night: [0, 0, 0],
+    roughness: 0.64 + shear * 0.12,
+  };
+}
+
+function sampleIcePixel(u: number, v: number): PixelSample {
+  const latitude = (0.5 - v) * Math.PI;
+  const fracture = fbm(u * 22.0, v * 12.0, 5, 421);
+  const plates = fbm(u * 7.0 + 1.1, v * 4.0 - 0.6, 4, 439);
+  const oceanUnderIce = fbm(u * 3.2, v * 2.0, 4, 457);
+  const ridge = smoothstep(0.58, 0.78, fracture);
+  const polar = Math.abs(Math.sin(latitude));
+  const blueIce = mixColor([91, 148, 177], [184, 224, 232], plates);
+  const deep = mixColor([19, 44, 68], [74, 127, 152], oceanUnderIce);
+  const diffuse = mixColor(deep, blueIce, 0.66 + polar * 0.22);
+
+  return {
+    cloudAlpha: 0,
+    diffuse: mixColor(diffuse, [238, 245, 241], ridge * 0.58),
+    height: 0.28 + plates * 0.2 + ridge * 0.22,
+    night: [0, 0, 0],
+    roughness: 0.54 + ridge * 0.3 + polar * 0.12,
   };
 }
 

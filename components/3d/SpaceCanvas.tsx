@@ -2,7 +2,7 @@
 
 import { getGPUTier } from "@pmndrs/detect-gpu";
 import { Canvas } from "@react-three/fiber";
-import { Bloom, EffectComposer } from "@react-three/postprocessing";
+import { Bloom, EffectComposer, SSAO } from "@react-three/postprocessing";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import type { WebGLRenderer } from "three";
 import { StarFallback } from "@/components/fallbacks/StarFallback";
@@ -43,8 +43,14 @@ export function SpaceCanvas() {
   const loadingComplete = useGlobalStore((state) => state.loadingComplete);
   const [tier, setTier] = useState<number>(2);
   const [renderMode, setRenderMode] = useState<RenderMode>("fallback");
+  const [compactViewport, setCompactViewport] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
   const reducedMotion = useReducedMotion();
+  const cameraMode = useGlobalStore((state) => state.cameraMode);
+  const setCameraMode = useGlobalStore((state) => state.setCameraMode);
+  const setFocusedSystemNodeId = useGlobalStore(
+    (state) => state.setFocusedSystemNodeId,
+  );
 
   useEffect(() => {
     const updateVisibility = () => {
@@ -55,6 +61,19 @@ export function SpaceCanvas() {
     document.addEventListener("visibilitychange", updateVisibility);
     return () => {
       document.removeEventListener("visibilitychange", updateVisibility);
+    };
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 720px)");
+    const updateViewport = () => {
+      setCompactViewport(media.matches);
+    };
+
+    updateViewport();
+    media.addEventListener("change", updateViewport);
+    return () => {
+      media.removeEventListener("change", updateViewport);
     };
   }, []);
 
@@ -108,10 +127,27 @@ export function SpaceCanvas() {
   }
 
   // Performance scaling based on GPU tier (tier 0 = detection failed → treat as low-end)
-  const starCount = tier <= 1 ? 800 : tier === 2 ? 2000 : 3500;
-  const constellationCount = tier <= 1 ? 250 : tier === 2 ? 500 : 750;
+  const starCount = compactViewport
+    ? tier <= 1
+      ? 1200
+      : 6000
+    : tier <= 1
+      ? 2200
+      : tier === 2
+        ? 18000
+        : 50000;
+  const constellationCount = compactViewport
+    ? tier <= 1
+      ? 180
+      : 360
+    : tier <= 1
+      ? 250
+      : tier === 2
+        ? 500
+        : 750;
   const speedMultiplier = !pageVisible ? 0 : tier <= 1 ? 0.35 : 1;
   const useBloom = tier > 1 && !reducedMotion;
+  const useSSAO = tier >= 2 && !compactViewport && !reducedMotion;
 
   return (
     <div className="absolute inset-0 z-0 bg-void">
@@ -125,6 +161,15 @@ export function SpaceCanvas() {
           alpha: false,
         }}
         onCreated={handleCanvasCreated}
+        onPointerMissed={() => {
+          if (cameraMode === "freefly") {
+            return;
+          }
+
+          setFocusedSystemNodeId(null);
+          setCameraMode("overview");
+        }}
+        shadows={tier > 1}
       >
         <color attach="background" args={["#030406"]} />
         <SystemCamera
@@ -132,13 +177,17 @@ export function SpaceCanvas() {
           speedMultiplier={speedMultiplier}
         />
 
-        <ambientLight intensity={tier <= 1 ? 0.1 : 0.045} />
+        <ambientLight intensity={tier <= 1 ? 0.05 : 0.018} />
         <pointLight
+          castShadow={tier > 1}
           color="#dceeff"
           decay={1.25}
           distance={90}
-          intensity={tier <= 1 ? 4.2 : 6.2}
+          intensity={tier <= 1 ? 4.6 : 7.8}
           position={[0, 0, 0]}
+          shadow-bias={-0.0001}
+          shadow-mapSize-height={tier >= 3 ? 1024 : 512}
+          shadow-mapSize-width={tier >= 3 ? 1024 : 512}
         />
 
         <Suspense fallback={null}>
@@ -166,18 +215,51 @@ export function SpaceCanvas() {
           />
           <Megastructures speedMultiplier={speedMultiplier} />
 
-          {useBloom && (
-            <EffectComposer enableNormalPass={false}>
-              <Bloom
-                intensity={1.15}
-                luminanceThreshold={0.22}
-                luminanceSmoothing={0.82}
-                mipmapBlur
-              />
-            </EffectComposer>
-          )}
+          {useBloom ? (
+            <SpacePostProcessing tier={tier} useSSAO={useSSAO} />
+          ) : null}
         </Suspense>
       </Canvas>
     </div>
+  );
+}
+
+function SpacePostProcessing({
+  tier,
+  useSSAO,
+}: {
+  tier: number;
+  useSSAO: boolean;
+}) {
+  if (useSSAO) {
+    return (
+      <EffectComposer enableNormalPass>
+        <Bloom
+          intensity={tier >= 3 ? 1.35 : 1.05}
+          luminanceThreshold={0.24}
+          luminanceSmoothing={0.82}
+          mipmapBlur
+        />
+        <SSAO
+          bias={0.18}
+          intensity={0.42}
+          luminanceInfluence={0.68}
+          radius={0.42}
+          rings={4}
+          samples={18}
+        />
+      </EffectComposer>
+    );
+  }
+
+  return (
+    <EffectComposer enableNormalPass={false}>
+      <Bloom
+        intensity={tier >= 3 ? 1.35 : 1.05}
+        luminanceThreshold={0.24}
+        luminanceSmoothing={0.82}
+        mipmapBlur
+      />
+    </EffectComposer>
   );
 }

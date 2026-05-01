@@ -240,15 +240,17 @@ function PlanetBody({
   const setFocusedSystemNodeId = useGlobalStore(
     (state) => state.setFocusedSystemNodeId,
   );
+  const setCameraMode = useGlobalStore((state) => state.setCameraMode);
   useCursorHover(hovered);
 
   const handleSelect = useCallback(
     (event: ThreeEvent<MouseEvent | PointerEvent>) => {
       event.stopPropagation();
       setFocusedSystemNodeId(planet.id);
+      setCameraMode("orbiting");
       scrollToSection(planet.sectionId);
     },
-    [planet.id, planet.sectionId, setFocusedSystemNodeId],
+    [planet.id, planet.sectionId, setCameraMode, setFocusedSystemNodeId],
   );
 
   return (
@@ -298,15 +300,17 @@ function MoonBody({
   const setFocusedSystemNodeId = useGlobalStore(
     (state) => state.setFocusedSystemNodeId,
   );
+  const setCameraMode = useGlobalStore((state) => state.setCameraMode);
   useCursorHover(hovered);
 
   const handleSelect = useCallback(
     (event: ThreeEvent<MouseEvent | PointerEvent>) => {
       event.stopPropagation();
       setFocusedSystemNodeId(moon.id);
+      setCameraMode("orbiting");
       scrollToSection(moon.sectionId);
     },
-    [moon.id, moon.sectionId, setFocusedSystemNodeId],
+    [moon.id, moon.sectionId, setCameraMode, setFocusedSystemNodeId],
   );
 
   return (

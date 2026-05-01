@@ -13,6 +13,7 @@
    - Materials use additive blending for the glow without depth-write fighting.
    ═══════════════════════════════════════════════════ */
 
+import { Sparkles } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
@@ -335,6 +336,15 @@ export function NeutronStar({
           toneMapped={false}
         />
       </mesh>
+
+      <Sparkles
+        color={primaryColor}
+        count={56}
+        opacity={0.72}
+        scale={5.6}
+        size={2.4}
+        speed={0.18 * timeScale}
+      />
 
       <mesh rotation={[Math.PI / 2.4, 0, Math.PI / 7]}>
         <torusGeometry args={[1.75, 0.015, 8, 192]} />

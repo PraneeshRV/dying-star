@@ -163,7 +163,21 @@
       "color": "#1f3550",
       "emissive": "#6fa8ff",
       "status": "beacon fragments aligned",
-      "scan": "Broken beacon chain records the chronology of outbound signals."
+      "scan": "Broken beacon chain records the chronology of outbound signals.",
+      "realism": {
+        "profile": "gas-giant",
+        "diffuseMap": "procedural:gas-giant-diffuse-v1",
+        "normalMap": "procedural:gas-giant-normal-v1",
+        "roughnessMap": "procedural:gas-giant-roughness-v1",
+        "atmosphere": {
+          "color": "#82b8ff",
+          "opacity": 0.28,
+          "rayleigh": 0.68,
+          "mie": 0.36,
+          "falloff": 2.25,
+          "shellScale": 1.075
+        }
+      }
     },
     {
       "id": "tomb-world",
@@ -208,7 +222,15 @@
       "color": "#20232d",
       "emissive": "#c7d0d8",
       "status": "authority seals readable",
-      "scan": "Command rings preserve authority records and formal clearance fragments."
+      "scan": "Command rings preserve authority records and formal clearance fragments.",
+      "rings": {
+        "color": "#d8c58c",
+        "innerRadius": 1.18,
+        "outerRadius": 1.92,
+        "gap": 0.58,
+        "opacity": 0.52,
+        "tilt": 0.38
+      }
     },
     {
       "id": "ocean-vault",
@@ -223,7 +245,21 @@
       "color": "#213b4f",
       "emissive": "#6fa8ff",
       "status": "relay aperture damaged",
-      "scan": "Frozen sea hides the surviving long-range communication aperture."
+      "scan": "Frozen sea hides the surviving long-range communication aperture.",
+      "realism": {
+        "profile": "ice",
+        "diffuseMap": "procedural:ice-diffuse-v1",
+        "normalMap": "procedural:ice-normal-v1",
+        "roughnessMap": "procedural:ice-roughness-v1",
+        "atmosphere": {
+          "color": "#9ed6ff",
+          "opacity": 0.16,
+          "rayleigh": 0.48,
+          "mie": 0.12,
+          "falloff": 3.1,
+          "shellScale": 1.04
+        }
+      }
     }
   ],
   "moons": [

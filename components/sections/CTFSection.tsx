@@ -7,12 +7,12 @@ import achievements from "@/content/data/ctf-achievements.json";
 import type { CTFAchievement } from "@/types";
 
 const CTF_ACHIEVEMENTS = achievements as CTFAchievement[];
-const TARGET_FLAGS = 137;
+const TARGET_CTFS = 61;
 const TEAM_STATS = [
-  ["Rank", "Top 15 finishes"],
-  ["CTFs Competed", String(CTF_ACHIEVEMENTS.length)],
-  ["Scope", "Web / Forensics / Infra"],
-  ["Specialties", "Linux, deploys, triage"],
+  ["Team", "Team Hunter"],
+  ["India Rank", "#8"],
+  ["Global Rank", "#102"],
+  ["Events", "61+"],
 ] as const;
 
 export function CTFSection() {
@@ -26,13 +26,13 @@ export function CTFSection() {
   );
 
   useEffect(() => {
-    const step = Math.max(1, Math.ceil(TARGET_FLAGS / 36));
+    const step = Math.max(1, Math.ceil(TARGET_CTFS / 36));
     const timer = window.setInterval(() => {
       setFlagCount((current) => {
         const next = current + step;
-        if (next >= TARGET_FLAGS) {
+        if (next >= TARGET_CTFS) {
           window.clearInterval(timer);
-          return TARGET_FLAGS;
+          return TARGET_CTFS;
         }
         return next;
       });
@@ -83,7 +83,7 @@ export function CTFSection() {
           >
             <span>
               <span className="block font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-text-secondary">
-                flags submitted
+                team events
               </span>
               <span className="mt-1 block font-[family-name:var(--font-display)] text-4xl font-bold text-green glow-green">
                 {flagCount}

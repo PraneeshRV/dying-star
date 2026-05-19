@@ -9,12 +9,39 @@
     "focus": ["VAPT", "reporting", "methodology", "hands-on labs"]
   },
   {
+    "id": "ethical-hacker-cisco",
+    "title": "Ethical Hacker",
+    "issuer": "Cisco",
+    "status": "completed",
+    "year": "2025",
+    "description": "Security learning track covering ethical hacking foundations, vulnerability discovery, and defensive awareness.",
+    "focus": ["ethical hacking", "vulnerability basics", "security practice"]
+  },
+  {
+    "id": "fortinet-nse-1-2",
+    "title": "NSE 1 & 2",
+    "issuer": "Fortinet",
+    "status": "completed",
+    "year": "2025",
+    "description": "Foundational Fortinet security awareness and network security training.",
+    "focus": ["network security", "security awareness", "Fortinet"]
+  },
+  {
+    "id": "google-cybersecurity-professional",
+    "title": "Google Cybersecurity Professional Certificate",
+    "issuer": "Coursera",
+    "status": "completed",
+    "year": "2025",
+    "description": "Professional certificate covering security foundations, Linux, SQL, network security, detection, incident response, and Python for security tasks.",
+    "focus": ["security foundations", "Linux", "detection", "incident response"]
+  },
+  {
     "id": "btech-cse-cybersecurity",
     "title": "B.Tech CSE Cybersecurity",
     "issuer": "Amrita Vishwa Vidyapeetham",
     "status": "in-progress",
     "year": "2023-2027",
-    "description": "Academic cybersecurity program covering computer science foundations, networks, systems, and security practice.",
+    "description": "Cybersecurity undergraduate program covering computer science foundations, networks, systems, and security practice. Current CGPA: 7.71.",
     "focus": ["computer science", "cybersecurity", "networks", "systems"]
   }
 ]

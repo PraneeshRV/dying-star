@@ -2,40 +2,66 @@
   {
     "id": "redcalibur",
     "title": "RedCalibur",
-    "description": "In-progress AI-assisted VAPT automation framework for reconnaissance, findings triage, and report scaffolding during practical assessments.",
-    "techStack": ["Python", "AI/ML", "Security", "Docker"],
+    "description": "AI-assisted red teaming toolkit with a Next.js UI, FastAPI backend, Python core library, 12 security tools, Gemini-assisted analysis, and report artifacts for authorized security testing.",
+    "techStack": ["Python", "FastAPI", "Next.js", "Gemini", "VAPT"],
     "category": "security",
     "status": "wip",
     "role": "Builder",
     "year": "2026",
-    "scope": "VAPT automation",
-    "proofLabel": "GitHub profile",
-    "sourceUrl": "https://github.com/praneeshrv"
+    "scope": "AI-assisted VAPT automation",
+    "proofLabel": "GitHub",
+    "sourceUrl": "https://github.com/PraneeshRV/RedCalibur"
   },
   {
-    "id": "axec-cli",
-    "title": "Axec-CLI",
-    "description": "Rust CLI for installing, updating, and managing AppImages on Linux with a terminal-first workflow.",
-    "techStack": ["Rust", "Linux", "CLI", "AppImage"],
+    "id": "agentic-ai-security-ctf-challenges",
+    "title": "Agentic AI Security CTF Challenges",
+    "description": "Agentic AI red-teaming challenge set featuring Bureaucratic Loophole for JSON injection and Project Mnemosyne for shared-memory poisoning, plus scanner/reporting workflows for prompt, memory, and social-engineering payloads.",
+    "techStack": [
+      "Python",
+      "A2A",
+      "Prompt Injection",
+      "Memory Poisoning",
+      "AI Security"
+    ],
+    "category": "ctf",
+    "status": "active",
+    "role": "Challenge author",
+    "year": "2025",
+    "scope": "AI security challenge engineering",
+    "proofLabel": "GitHub",
+    "sourceUrl": "https://github.com/PraneeshRV/Agent-Redteaming-CTF-challs"
+  },
+  {
+    "id": "archive-of-the-shattered-star",
+    "title": "Archive of the Shattered Star",
+    "description": "Production portfolio site with a cybersecurity-themed interactive 3D archive, project and resume sections, WebGL fallback, reduced-motion handling, SEO metadata, sitemap, Open Graph images, JSON-LD, and Vercel Analytics.",
+    "techStack": [
+      "Next.js 16",
+      "TypeScript",
+      "React Three Fiber",
+      "Three.js",
+      "Vercel"
+    ],
     "category": "tools",
     "status": "active",
-    "role": "Maintainer",
-    "year": "2025",
-    "scope": "Linux utility",
-    "proofLabel": "GitHub profile",
-    "sourceUrl": "https://github.com/praneeshrv"
+    "role": "Builder",
+    "year": "2026",
+    "scope": "Portfolio engineering",
+    "proofLabel": "Live Site",
+    "sourceUrl": "https://praneeshrv.me",
+    "liveUrl": "https://praneeshrv.me"
   },
   {
-    "id": "l3monctf",
+    "id": "l3monctf-infrastructure",
     "title": "L3m0nCTF Infrastructure",
-    "description": "Organizer-built CTFd infrastructure on GCP with Docker, Nginx, and Linux operations for L3m0nCTF 2025.",
+    "description": "CTFd-based CTF platform operations for L3m0nCTF 2025, including GCP hosting, Dockerized challenge packaging, Stargaze theme work, challenge imports, live scoring, submissions, and participant-facing event operations.",
     "techStack": ["GCP", "Docker", "CTFd", "Nginx", "Linux"],
     "category": "infrastructure",
     "status": "active",
-    "role": "Infrastructure organizer",
+    "role": "Lead infrastructure organizer",
     "year": "2025",
-    "scope": "CTF platform ops",
-    "proofLabel": "GitHub profile",
-    "sourceUrl": "https://github.com/praneeshrv"
+    "scope": "CTF platform operations",
+    "proofLabel": "Team Hunter",
+    "sourceUrl": "https://team-hunter.tech/"
   }
 ]

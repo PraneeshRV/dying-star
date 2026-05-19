@@ -48,6 +48,17 @@ export interface TimelineEntry {
   title: string;
   description: string;
   type: "education" | "ctf" | "project" | "certification" | "milestone";
+  period?: string;
+  organization?: string;
+  location?: string;
+  role?: string;
+  impact?: string;
+  highlights?: string[];
+  tags?: string[];
+  links?: Array<{
+    label: string;
+    href: string;
+  }>;
 }
 
 /** CTF Achievement */

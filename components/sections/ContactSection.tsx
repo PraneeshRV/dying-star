@@ -49,8 +49,8 @@ export function ContactSection() {
             className="mt-4 block font-[family-name:var(--font-display)] text-3xl font-bold text-text-primary sm:text-5xl"
           />
           <p className="mt-5 max-w-xl text-base leading-7 text-text-secondary">
-            Open a signal for security projects, CTF collaboration,
-            infrastructure work, or research conversations.
+            Open a signal for AI security research, CTF collaboration,
+            infrastructure work, VAPT tooling, or security internship roles.
           </p>
 
           <div className="mt-10 glass-panel rounded-lg p-6">

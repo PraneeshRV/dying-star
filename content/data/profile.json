@@ -1,38 +1,57 @@
 {
   "name": "Praneesh R V",
-  "role": "Cybersecurity Student",
+  "role": "Cybersecurity Undergraduate",
   "location": "Coimbatore, India",
   "affiliation": "Amrita Vishwa Vidyapeetham",
   "clearance": "B.Tech CSE Cybersecurity",
   "tagline": "archive@shattered-star:~$ whoami",
-  "roles": ["Cybersecurity Student", "CTF Player", "Arch User", "Builder"],
-  "summary": "Cybersecurity student and CTF player building practical security tools, CTF infrastructure, and Linux-first workflows.",
+  "roles": [
+    "AI Red Teaming Researcher",
+    "CTF Player",
+    "Security Infrastructure Builder",
+    "Azure AI Intern"
+  ],
+  "summary": "Cybersecurity undergraduate at Amrita Vishwa Vidyapeetham, focused on VAPT and agentic AI red teaming. Researching LLM exploitation techniques at TIFAC CORE and building AI-assisted security tooling. Competes with Team Hunter, a CTFtime #8 India / #102 global team in 2026, and has organized and built CTF infrastructure for 200+ participants.",
   "email": "praneeshrv404@gmail.com",
   "identity": {
     "name": "Praneesh R V",
     "location": "Coimbatore, India",
     "affiliation": "Amrita Vishwa Vidyapeetham",
     "program": "B.Tech CSE Cybersecurity",
-    "graduation": "2027"
+    "graduation": "2027",
+    "cgpa": "7.71"
   },
   "operatorProfile": {
-    "primary": "CTF player with Team Hunter",
-    "secondary": ["Web Exploitation", "OSINT", "Digital Forensics"],
-    "tertiary": ["Infrastructure", "Linux", "Rust"],
+    "primary": "Agentic AI red teaming and CTF infrastructure",
+    "secondary": ["VAPT", "Web Exploitation", "OSINT", "Digital Forensics"],
+    "tertiary": [
+      "Azure IAM workflows",
+      "Dockerized security labs",
+      "Linux operations"
+    ],
     "team": "Team Hunter"
   },
   "personalLog": [
-    "Arch Linux user",
-    "Neovim and terminal workflow enthusiast",
-    "Currently building RedCalibur",
-    "Maintains Axec-CLI for Linux AppImage workflows",
-    "Built L3m0nCTF infrastructure with GCP, Docker, CTFd, Nginx, and Linux"
+    "AI Developer Intern at Joy IT Solutions building Azure-based recruitment agent pipelines",
+    "Researching LLM exploitation techniques at TIFAC CORE in Cybersecurity",
+    "Competes with Team Hunter, a CTFtime #8 India / #102 global team",
+    "Organized L3m0nCTF infrastructure for 200+ participants",
+    "Building RedCalibur for AI-assisted VAPT workflows"
   ],
-  "featuredProjects": ["RedCalibur", "Axec-CLI", "L3m0nCTF Infrastructure"],
-  "specialties": ["OSINT", "Digital Forensics", "Web Exploitation"],
+  "featuredProjects": [
+    "RedCalibur",
+    "Agentic AI Security CTF Challenges",
+    "Archive of the Shattered Star"
+  ],
+  "specialties": [
+    "Agentic AI Red Teaming",
+    "VAPT",
+    "Cloud IAM Workflows",
+    "CTF Infrastructure"
+  ],
   "social": {
-    "github": "https://github.com/praneeshrv",
-    "linkedin": "https://www.linkedin.com/in/praneeshrv",
+    "github": "https://github.com/PraneeshRV",
+    "linkedin": "https://www.linkedin.com/in/praneesh-r-v-3a81b221a/",
     "website": "https://praneeshrv.me"
   }
 }

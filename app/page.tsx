@@ -45,6 +45,11 @@ const structuredData = {
       ],
       knowsAbout: [
         "Cybersecurity",
+        "Agentic AI red teaming",
+        "AI security",
+        "VAPT",
+        "Cloud IAM workflows",
+        "Azure security workflows",
         "Capture the Flag competitions",
         "Web exploitation",
         "OSINT",
@@ -106,8 +111,8 @@ export default function Home() {
 
           {/* Role */}
           <p className="font-[family-name:var(--font-dm-sans)] text-text-secondary text-lg sm:text-xl md:text-2xl mb-12">
-            Cybersecurity Student · CTF Player · Builder · Recovered System
-            Operator
+            Cybersecurity Undergraduate · AI Red Teaming · VAPT · CTF
+            Infrastructure
           </p>
 
           {/* CTA Buttons */}

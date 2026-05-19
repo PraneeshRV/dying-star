@@ -5,14 +5,17 @@ export const SITE_URL = (
 export const SITE_NAME = "Praneesh R V";
 export const SITE_TITLE = "Archive of the Shattered Star - Praneesh R V";
 export const SITE_DESCRIPTION =
-  "Praneesh R V's cybersecurity portfolio: CTF results, security projects, skills, and technical writeups presented as a post-apocalyptic shattered-star archive.";
+  "Praneesh R V's cybersecurity portfolio: agentic AI red teaming, VAPT tooling, Azure/IAM internship work, CTF infrastructure, and Team Hunter competition results presented as an interactive shattered-star archive.";
 export const SITE_KEYWORDS = [
   "Praneesh R V",
   "cybersecurity portfolio",
   "CTF player India",
+  "agentic AI red teaming",
+  "AI security",
+  "VAPT",
+  "Azure IAM",
   "web exploitation",
   "OSINT",
-  "Arch Linux",
   "security researcher",
 ] as const;
 

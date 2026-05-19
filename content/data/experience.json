@@ -1,58 +1,369 @@
 [
   {
-    "id": "amrita-cse-cybersecurity",
+    "id": "github-public-start",
+    "year": "2020",
+    "period": "Jun 2020",
+    "title": "Started Public GitHub Workspace",
+    "organization": "GitHub",
+    "location": "Public profile",
+    "role": "Builder / learner",
+    "description": "Started publishing experiments and learning projects under the PraneeshRV GitHub profile, which later became the proof hub for security tooling, CTF infrastructure, AI-security work, and portfolio projects.",
+    "impact": "Built a public work trail that now includes RedCalibur, CTFd Stargaze, Agentic AI CTF challenges, L3m0nCTF archives, Zoink-4-u, and academic/security experiments.",
+    "highlights": [
+      "Public GitHub profile created in 2020 and currently used as the main proof link across resume and portfolio.",
+      "Kept personal repositories separate from organization/private work where ownership is unclear.",
+      "Uses GitHub as a public archive for project code, CTF artifacts, writeups, and learning experiments."
+    ],
+    "tags": ["GitHub", "Public Work", "Learning Archive"],
+    "links": [
+      {
+        "label": "GitHub Profile",
+        "href": "https://github.com/PraneeshRV"
+      }
+    ],
+    "type": "milestone"
+  },
+  {
+    "id": "sishya-class-xii",
     "year": "2023",
-    "title": "Enrolled at Amrita Vishwa Vidyapeetham",
-    "description": "Started B.Tech CSE with a cybersecurity focus, building fundamentals across programming, networks, Linux, and security practice.",
+    "period": "2023",
+    "title": "Completed Higher Secondary",
+    "organization": "Sishya School",
+    "location": "Hosur, India",
+    "role": "Class XII",
+    "description": "Completed higher secondary education before entering the cybersecurity undergraduate track.",
+    "impact": "Scored 87% in Class XII.",
+    "highlights": [
+      "Built the academic base needed for computer science and cybersecurity coursework.",
+      "Transitioned from school-level academics into a focused cybersecurity undergraduate program."
+    ],
+    "tags": ["Education", "Class XII", "87%"],
     "type": "education"
   },
   {
-    "id": "team-hunter",
-    "year": "2024",
-    "title": "Joined Team Hunter",
-    "description": "Started competing more seriously in CTFs with Team Hunter, focusing on OSINT, forensics, web exploitation, and practical problem solving.",
+    "id": "amrita-cse-cybersecurity",
+    "year": "2023-2027",
+    "period": "2023 - 2027",
+    "title": "B.Tech in Computer Science - Cybersecurity",
+    "organization": "Amrita Vishwa Vidyapeetham",
+    "location": "Coimbatore, India",
+    "role": "Cybersecurity undergraduate",
+    "description": "Studying Computer Science with a cybersecurity specialization, covering computer science fundamentals, networks, systems, programming, cloud, and security practice.",
+    "impact": "Current CGPA: 7.71.",
+    "highlights": [
+      "Academic focus spans security fundamentals, networks, systems, Linux workflows, and practical cybersecurity.",
+      "Uses university ecosystem for CTF collaboration, L3m0nCTF operations, and TIFAC CORE research exposure.",
+      "Aligning coursework with practical work in VAPT, agentic AI red teaming, and cloud/IAM workflows."
+    ],
+    "tags": ["Education", "Cybersecurity", "CGPA 7.71"],
+    "type": "education"
+  },
+  {
+    "id": "team-hunter-ctf",
+    "year": "2024-Present",
+    "period": "2024 - Present",
+    "title": "Competitive CTF Player",
+    "organization": "Team Hunter",
+    "location": "Amrita Vishwa Vidyapeetham",
+    "role": "CTF player",
+    "description": "Competing with Team Hunter across OSINT, digital forensics, web exploitation, cryptography, and misc challenges.",
+    "impact": "Team Hunter is publicly listed as a CTFtime #8 India / #102 global team in 2026 with 61+ events competed.",
+    "highlights": [
+      "Competed in 50+ national and international CTF competitions personally.",
+      "Works under time pressure with artifacts, logs, source code, network traces, web apps, and OSINT trails.",
+      "Primary strengths: OSINT, digital forensics, web exploitation, CTF triage, and writeup discipline."
+    ],
+    "tags": ["CTF", "Team Hunter", "OSINT", "Forensics", "Web Exploitation"],
+    "links": [
+      {
+        "label": "Team Hunter",
+        "href": "https://team-hunter.tech/"
+      },
+      {
+        "label": "CTFtime Team",
+        "href": "https://ctftime.org/team/375677"
+      }
+    ],
     "type": "ctf"
   },
   {
-    "id": "ctf-run",
-    "year": "2024",
-    "title": "Built CTF Competition Momentum",
-    "description": "Competed in dozens of CTF events and strengthened repeatable workflows for recon, triage, writeups, and teammate handoffs.",
-    "type": "milestone"
+    "id": "ctf-helper-llm",
+    "year": "2025",
+    "period": "Apr 2025",
+    "title": "CTF Helper LLM Experiment",
+    "organization": "Personal GitHub",
+    "location": "Public repository",
+    "role": "Builder",
+    "description": "Explored LLM-assisted workflows around CTF writeups and challenge-solving support before moving deeper into red teaming and AI-security tooling.",
+    "impact": "Early bridge between CTF practice and AI-assisted security workflows.",
+    "highlights": [
+      "Experimented with using CTF writeups as learning material for AI-assisted triage.",
+      "Helped shape later work on RedCalibur and agentic AI red teaming challenges.",
+      "Kept the project as a learning artifact rather than a flagship production tool."
+    ],
+    "tags": ["LLMs", "CTF", "Security Learning"],
+    "links": [
+      {
+        "label": "Repository",
+        "href": "https://github.com/PraneeshRV/CTF-Helper-LLM"
+      }
+    ],
+    "type": "project"
   },
   {
-    "id": "h7ctf-2025",
-    "year": "2025",
-    "title": "H7CTF 2025 Finalist",
-    "description": "Reached finals at H7CTF 2025 hosted by SRMIST and placed 14th among finalist teams.",
-    "type": "ctf"
+    "id": "redcalibur",
+    "year": "2025-Present",
+    "period": "Sep 2025 - Present",
+    "title": "RedCalibur",
+    "organization": "Personal Project",
+    "location": "Public GitHub",
+    "role": "Builder",
+    "description": "AI-assisted red teaming toolkit for authorized security testing, focused on reconnaissance, enumeration, vulnerability analysis, exploit research, payload support, and reporting.",
+    "impact": "Built as a full-stack security tool with a Next.js UI, FastAPI backend, Python core library, AI analysis panel, report artifacts, and 12 API-exposed tools.",
+    "highlights": [
+      "Implements recon and security utility endpoints for Nmap, subdomain enumeration, port scanning, WHOIS, DNS, vulnerability analysis, exploit/CVE search, payload generation, web crawl/header checks, phishing heuristics, password audit, and report generation.",
+      "Uses Google Gemini-assisted analysis for risk explanation, next-step suggestions, vulnerability impact/mitigation drafting, and report summaries.",
+      "Separates frontend, backend API, core Python library, reports, and logs so outputs are reviewable after runs.",
+      "Explicitly scoped for educational and authorized testing, with safe-use language and practical reporting workflows."
+    ],
+    "tags": ["Red Teaming", "VAPT", "FastAPI", "Next.js", "LLMs", "Reports"],
+    "links": [
+      {
+        "label": "RedCalibur",
+        "href": "https://github.com/PraneeshRV/RedCalibur"
+      }
+    ],
+    "type": "project"
   },
   {
-    "id": "pragyan-ctf-2025",
+    "id": "ctfd-stargaze-theme",
     "year": "2025",
-    "title": "Pragyan CTF 2025",
-    "description": "Placed 8th at Pragyan CTF 2025 hosted by NIT Trichy.",
-    "type": "ctf"
-  },
-  {
-    "id": "sih-2025",
-    "year": "2025",
-    "title": "Smart India Hackathon Internal Finals",
-    "description": "Reached internal finals with wipeITclean, a security-focused project around safer data handling and cleanup.",
-    "type": "milestone"
+    "period": "Dec 2025",
+    "title": "CTFd Stargaze Theme",
+    "organization": "L3m0nCTF / Personal GitHub",
+    "location": "Public repository",
+    "role": "Theme builder",
+    "description": "Built a custom CTFd theme for L3m0nCTF with a space-themed glassmorphism interface, Tailwind-powered homepage, responsive layouts, and interactive canvas effects.",
+    "impact": "Converted the CTF platform from a stock deployment into a branded event surface with custom homepage, challenge, team, profile, and scoreboard views.",
+    "highlights": [
+      "Implemented frosted glass panels, transparent tables, deep-space backgrounds, and lemon/lime accent styling.",
+      "Added dynamic star field and shooting-star canvas effects that react to user presence.",
+      "Packaged the theme for CTFd theme installation and configuration."
+    ],
+    "tags": ["CTFd", "Theme", "UI", "L3m0nCTF", "Tailwind"],
+    "links": [
+      {
+        "label": "CTFd Stargaze",
+        "href": "https://github.com/PraneeshRV/CTFd-stargaze-theme"
+      }
+    ],
+    "type": "project"
   },
   {
     "id": "l3monctf-2025",
     "year": "2025",
+    "period": "Dec 2025",
     "title": "L3m0nCTF 2025 Core Organizer",
-    "description": "Led infrastructure for L3m0nCTF 2025 using GCP, Docker, CTFd, Nginx, and Linux operations.",
+    "organization": "Amrita Vishwa Vidyapeetham",
+    "location": "Coimbatore, India",
+    "role": "Lead infrastructure engineer / challenge author",
+    "description": "Led infrastructure and operations for a 24-hour onsite CTF, combining CTFd platform work, GCP hosting, Dockerized challenge packaging, event operations, and custom challenge authoring.",
+    "impact": "Supported around 200 participants with GCP-hosted CTF infrastructure and authored challenges across Web, OSINT, Forensics, and AI Security.",
+    "highlights": [
+      "Operated GCP-hosted CTFd infrastructure with Dockerized vulnerable services and Linux/Nginx operational work.",
+      "Handled challenge imports, live scoring, submissions, custom theme work, and participant-facing operations.",
+      "Authored AI-security challenges around JSON injection, shared-memory poisoning, prompt injection, and confused-deputy behavior.",
+      "Published event/challenge artifacts across public GitHub repositories where appropriate."
+    ],
+    "tags": ["CTF Infrastructure", "GCP", "Docker", "CTFd", "AI Security"],
+    "links": [
+      {
+        "label": "L3m0nCTF Archive",
+        "href": "https://github.com/PraneeshRV/L3m0nCTF-archive"
+      },
+      {
+        "label": "Challenges",
+        "href": "https://github.com/PraneeshRV/L3m0nCTF2025-Challenges"
+      }
+    ],
     "type": "ctf"
   },
   {
-    "id": "redcalibur-wip",
-    "year": "WIP",
-    "title": "RedCalibur",
-    "description": "Building an AI-assisted VAPT automation framework while keeping the scope practical for learning, testing, and repeatable assessment workflows.",
+    "id": "agentic-ai-security-challenges",
+    "year": "2025-2026",
+    "period": "Dec 2025 - Feb 2026",
+    "title": "Agentic AI Security CTF Challenges",
+    "organization": "L3m0nCTF / Personal Research",
+    "location": "Public GitHub",
+    "role": "Challenge author / red teaming builder",
+    "description": "Built agentic AI security challenge environments and a red-teaming proof-of-concept around multi-agent trust failures, JSON injection, shared memory poisoning, and prompt attack categories.",
+    "impact": "Created two named CTF challenges, Bureaucratic Loophole and Project Mnemosyne, plus a scanner/reporting structure for testing attack payloads against challenge targets.",
+    "highlights": [
+      "Bureaucratic Loophole models a multi-agent A2A system with a trusted document processor, JSON validator, and command-executing vault vulnerable to JSON injection through template literals.",
+      "Project Mnemosyne models a shared-memory AI assistant where summarized memory can be poisoned and later used by a task router for privilege decisions.",
+      "Attack categories include prompt injection, JSON injection, memory poisoning, social engineering, and system prompt leakage.",
+      "The scanner report structure captures total attacks, successful attacks, flag captures, and attack success rate for challenge evaluation."
+    ],
+    "tags": [
+      "Agentic AI",
+      "Prompt Injection",
+      "A2A",
+      "Memory Poisoning",
+      "JSON Injection"
+    ],
+    "links": [
+      {
+        "label": "Agent Red Teaming Challenges",
+        "href": "https://github.com/PraneeshRV/Agent-Redteaming-CTF-challs"
+      }
+    ],
+    "type": "project"
+  },
+  {
+    "id": "h7ctf-2025",
+    "year": "2025",
+    "period": "2025",
+    "title": "H7CTF 2025 Finalist",
+    "organization": "Team Hunter / SRMIST Chennai",
+    "location": "Chennai, India",
+    "role": "Finalist",
+    "description": "Qualified with Team Hunter for the onsite H7CTF 2025 finals.",
+    "impact": "Qualified from a 2,500+ participant, 500+ team online qualifier and secured 14th out of 30 finalist teams.",
+    "highlights": [
+      "Competed through the online qualifier into the onsite final round.",
+      "Solved under finalist pressure with Team Hunter across CTF challenge categories.",
+      "Kept this as a high-signal finalist achievement in the public profile."
+    ],
+    "tags": ["CTF", "Finalist", "Team Hunter"],
+    "type": "ctf"
+  },
+  {
+    "id": "securin-ai-red-teaming",
+    "year": "2026",
+    "period": "2026",
+    "title": "Research Intern - AI Red Teaming",
+    "organization": "Securin Research / TIFAC CORE in Cybersecurity",
+    "location": "Amrita Vishwa Vidyapeetham",
+    "role": "Research intern",
+    "description": "Researched agentic AI red teaming through a Securin collaboration with TIFAC CORE in Cybersecurity, focusing on the ways LLM agents fail when tools, memory, identity, and delegation are involved.",
+    "impact": "Contributed merged Granzion Labs PRs adding four attack scenarios: token forgery, agent-card forgery, orchestrator task queue poisoning, and delegation-loop abuse.",
+    "highlights": [
+      "Studied MCP, A2A, memory poisoning, tool misuse, goal hijacking, JWT abuse, agent-card trust chains, and multi-agent orchestration risks.",
+      "Built OpenTelemetry/OpenInference proof-of-concepts for tracing LLM agent workflows with LangChain, Jaeger, Arize Phoenix, and GPT-backed agents.",
+      "Worked from scenario design into reproducible attack examples and tracing-oriented observability.",
+      "Connected CTF-style adversarial thinking to enterprise AI-agent risk modeling."
+    ],
+    "tags": ["AI Red Teaming", "MCP", "A2A", "OpenTelemetry", "Granzion Labs"],
+    "links": [
+      {
+        "label": "Granzion Labs Fork",
+        "href": "https://github.com/PraneeshRV/granzion-labs"
+      }
+    ],
+    "type": "project"
+  },
+  {
+    "id": "kictf-yugam-2026",
+    "year": "2026",
+    "period": "2026",
+    "title": "KICTF - Yugam 2026",
+    "organization": "Kumaraguru Institutions",
+    "location": "Coimbatore, India",
+    "role": "CTF competitor / writeup author",
+    "description": "Competed in KICTF - Yugam 2026 and received recognition for both placement and writeup quality.",
+    "impact": "Placed in the top 8 and received best write-up recognition in a national CTF with 50+ teams and 170+ participants.",
+    "highlights": [
+      "Produced the Ham44 writeup as a public artifact.",
+      "Showed both challenge-solving ability and post-solve explanation quality.",
+      "Useful proof point for OSINT/forensics discipline and structured technical communication."
+    ],
+    "tags": ["CTF", "Writeup", "Top 8", "Team Hunter"],
+    "links": [
+      {
+        "label": "Ham44 Writeup",
+        "href": "https://github.com/PraneeshRV/Ham44-Writeup-KICTF"
+      }
+    ],
+    "type": "ctf"
+  },
+  {
+    "id": "zoink-4-u",
+    "year": "2026",
+    "period": "Mar - Apr 2026",
+    "title": "Zoink-4-u - Guidewire DEVTrails Hackathon",
+    "organization": "Guidewire DEVTrails",
+    "location": "Hackathon prototype",
+    "role": "Team contributor",
+    "description": "Contributed to a parametric income-loss insurance prototype for food delivery partners in India, designed around external disruption triggers, fraud validation, risk scoring, dashboards, and payout simulation.",
+    "impact": "Public Phase 3 submission presents a WhatsApp + PWA model with 25+ triggers, fraud defense layers, rider analytics, admin dashboards, and Razorpay sandbox payout simulation.",
+    "highlights": [
+      "Worked with a product concept covering weather, AQI, traffic, civil disruption, platform downtime, risk scoring, and claim automation.",
+      "Contributed across prototype thinking for rider workflows, admin dashboards, fraud scoring, identity validation, and payout simulation.",
+      "Kept as a hackathon/prototype timeline item rather than a core cybersecurity resume project."
+    ],
+    "tags": ["Hackathon", "InsurTech", "FastAPI", "React", "Fraud Detection"],
+    "links": [
+      {
+        "label": "Zoink-4-u",
+        "href": "https://github.com/PraneeshRV/Zoink-4-u"
+      },
+      {
+        "label": "Live Prototype",
+        "href": "https://zoink4u.praneeshrv.me"
+      }
+    ],
+    "type": "project"
+  },
+  {
+    "id": "joy-it-ai-developer-intern",
+    "year": "2026-Present",
+    "period": "Apr 2026 - Present",
+    "title": "AI Developer Intern",
+    "organization": "Joy IT Solutions",
+    "location": "Remote",
+    "role": "AI Developer Intern",
+    "description": "Building a recruitment agent platform for document ingestion, resume parsing, candidate profile extraction, curated data lake transformation, and browser-extension-based recruiter workflows.",
+    "impact": "Hands-on enterprise internship work across C#, .NET, Azure DevOps, Azure Document Intelligence, Azure OpenAI GPT-4o, Azure AI Foundry, ADLS Gen2, Key Vault, Azure B2C, Swagger, REST APIs, JSON mapping, and parquet/data lake pipelines.",
+    "highlights": [
+      "Implemented DocumentConnector ingestion for PDF/DOCX/image resumes with native parsing, Azure Document Intelligence OCR, fallback behavior, idempotency, folder lifecycle handling, and raw data lake writes.",
+      "Integrated Azure OpenAI GPT-4o parsing to convert unstructured resume text into structured candidate profile JSON through canonical mapping and schema-driven processing.",
+      "Worked on curated profile transformation for skills, experience, education, certifications, and languages with optional-section handling, duplicate skip behavior, and parquet/data lake outputs.",
+      "Uses Azure Boards, Azure Repos, sprint user stories/tasks, PR-style development, Swagger API testing, Visual Studio debugging, and Key Vault-backed configuration.",
+      "Working on browser-extension authentication and backend communication using Azure B2C, OAuth 2.0 Authorization Code + PKCE, MSAL, access tokens, scopes, redirect URIs, and bearer-token API calls."
+    ],
+    "tags": [
+      "AI Internship",
+      "Azure",
+      "C#/.NET",
+      "Azure OpenAI",
+      "ADLS Gen2",
+      "IAM"
+    ],
+    "type": "project"
+  },
+  {
+    "id": "portfolio-shattered-star",
+    "year": "2026",
+    "period": "2026",
+    "title": "Archive of the Shattered Star",
+    "organization": "Personal Portfolio",
+    "location": "praneeshrv.me",
+    "role": "Designer / builder",
+    "description": "Built a production portfolio website as an interactive cybersecurity archive with a 3D shattered-star system, data-driven project sections, resume access, SEO metadata, and static content structured for maintainability.",
+    "impact": "Turns resume, CTF history, AI-security work, public GitHub projects, and internship experience into a memorable timeline-driven portfolio.",
+    "highlights": [
+      "Built with Next.js 16, React 19, TypeScript, Tailwind v4, React Three Fiber, Drei, Three.js, GSAP, and Vercel Analytics.",
+      "Includes WebGL support detection, GPU-tier quality scaling, reduced-motion handling, hidden-tab performance behavior, sitemap, robots, manifest, generated Open Graph/Twitter images, and JSON-LD structured data.",
+      "Uses static JSON content files so profile, projects, skills, certifications, achievements, and timeline can be updated without touching rendering logic.",
+      "Production build verified locally before publishing updates."
+    ],
+    "tags": ["Portfolio", "Next.js", "Three.js", "SEO", "Vercel"],
+    "links": [
+      {
+        "label": "Live Site",
+        "href": "https://praneeshrv.me"
+      }
+    ],
     "type": "project"
   }
 ]

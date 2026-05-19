@@ -98,8 +98,8 @@ export default function Image() {
             maxWidth: 690,
           }}
         >
-          Cybersecurity portfolio, CTF operations, security projects, and
-          recovered technical transmissions.
+          Agentic AI red teaming, VAPT tooling, Azure security workflows, and
+          CTF infrastructure.
         </div>
         <div
           style={{
@@ -114,9 +114,9 @@ export default function Image() {
         >
           <span>OSINT</span>
           <span>/</span>
-          <span>Web Exploit</span>
+          <span>AI Security</span>
           <span>/</span>
-          <span>Forensics</span>
+          <span>VAPT</span>
         </div>
       </div>
     </div>,

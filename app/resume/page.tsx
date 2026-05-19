@@ -4,7 +4,7 @@ import { SITE_DESCRIPTION } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Resume",
   description:
-    "Resume for Praneesh R V, cybersecurity student, CTF player, and builder.",
+    "Resume for Praneesh R V, cybersecurity undergraduate focused on agentic AI red teaming, VAPT, Azure security workflows, and CTF infrastructure.",
   alternates: {
     canonical: "/resume",
   },

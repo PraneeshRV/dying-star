@@ -219,16 +219,8 @@ function buildDebris() {
         ((index % 7) - 3) * 0.18,
         Math.sin(angle) * radius,
       ),
-      rotation: [index * 0.17, angle, index * 0.11] as [
-        number,
-        number,
-        number,
-      ],
-      scale: [0.28 + (index % 4) * 0.08, 1, 0.42] as [
-        number,
-        number,
-        number,
-      ],
+      rotation: [index * 0.17, angle, index * 0.11] as [number, number, number],
+      scale: [0.28 + (index % 4) * 0.08, 1, 0.42] as [number, number, number],
     };
   });
 }

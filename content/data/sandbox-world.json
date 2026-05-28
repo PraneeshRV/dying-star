@@ -39,11 +39,7 @@
       "id": "inspect-proof",
       "label": "Inspect three proof artifacts",
       "description": "Open details for three portfolio artifacts in the ruins field.",
-      "objectIds": [
-        "redcalibur-artifact",
-        "ctf-breach-vault",
-        "skills-array"
-      ]
+      "objectIds": ["redcalibur-artifact", "ctf-breach-vault", "skills-array"]
     },
     {
       "id": "open-archive-route",

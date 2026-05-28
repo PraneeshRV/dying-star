@@ -133,6 +133,13 @@
   text-transform: uppercase;
 }
 
+.controlHint {
+  color: var(--color-text-dim);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
 .actionGrid,
 .objectList,
 .objectives {

@@ -12,9 +12,9 @@ import {
   Starfield,
 } from "@/components/3d";
 import { StarFallback } from "@/components/fallbacks/StarFallback";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import type { SandboxControlMode } from "@/components/sandbox/sandboxWorld";
 import { findSandboxObject } from "@/components/sandbox/sandboxWorld";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { SandboxCamera } from "./SandboxCamera";
 import { SandboxObjects } from "./SandboxObjects";
 import { SandboxScannerPulse } from "./SandboxScannerPulse";

@@ -21,6 +21,7 @@ export interface SandboxHUDProps {
   onScan: () => void;
   onResetView: () => void;
   onToggleControlMode: () => void;
+  onAction: (action: SandboxAction) => void;
 }
 
 function objectiveComplete(
@@ -34,13 +35,20 @@ function objectiveComplete(
   );
 }
 
-function ActionLink({ action }: { action: SandboxAction }) {
+function ActionLink({
+  action,
+  onAction,
+}: {
+  action: SandboxAction;
+  onAction: (action: SandboxAction) => void;
+}) {
   const external = isExternalSandboxAction(action);
 
   return (
     <a
       href={action.href}
       className={styles.actionLink}
+      onClick={() => onAction(action)}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
     >
       {action.label}
@@ -59,7 +67,13 @@ export function SandboxHUD({
   onScan,
   onResetView,
   onToggleControlMode,
+  onAction,
 }: SandboxHUDProps) {
+  const controlHint =
+    controlMode === "freefly"
+      ? "WASD moves, Space/E rises, Shift/Q descends, Escape exits free flight."
+      : "Drag to orbit, scroll to zoom, select ruins from the scene or object archive.";
+
   return (
     <div className={styles.hud}>
       <header className={styles.topBar}>
@@ -92,9 +106,11 @@ export function SandboxHUD({
             <ActionLink
               key={`${selectedObject.id}-${action.label}-${action.href}`}
               action={action}
+              onAction={onAction}
             />
           ))}
         </div>
+        <p className={styles.controlHint}>{controlHint}</p>
       </aside>
 
       <section
@@ -161,7 +177,7 @@ export function SandboxHUD({
         </button>
         <button type="button" onClick={onToggleControlMode}>
           <Gauge aria-hidden="true" size={16} />
-          {controlMode === "guided" ? "Free flight" : "Guided"}
+          {controlMode === "guided" ? "Enter free flight" : "Exit free flight"}
         </button>
         <button type="button" onClick={onResetView}>
           <RotateCcw aria-hidden="true" size={16} />

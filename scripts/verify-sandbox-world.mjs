@@ -100,7 +100,10 @@ assertString(world.entry.focusObjectId, "entry focusObjectId");
 assertString(world.entry.introObjectiveId, "entry introObjectiveId");
 assertObject(world.controls, "controls");
 assert(world.controls.defaultMode === "guided", "defaultMode must be guided");
-assert(world.controls.freeFlightEnabled === true, "free flight must be enabled");
+assert(
+  world.controls.freeFlightEnabled === true,
+  "free flight must be enabled",
+);
 assertObject(world.palette, "palette");
 assertArray(world.zones, "zones");
 assertArray(world.objectives, "objectives");
@@ -172,7 +175,10 @@ for (const object of world.objects) {
       assert(action.href.startsWith("/"), "route action must use local path");
     }
     if (action.kind === "external") {
-      assert(action.href.startsWith("https://"), "external action must use https");
+      assert(
+        action.href.startsWith("https://"),
+        "external action must use https",
+      );
     }
   }
 }
@@ -186,7 +192,10 @@ const objectiveIds = new Set();
 for (const objective of world.objectives) {
   assertObject(objective, "objective");
   assertString(objective.id, "objective id");
-  assert(!objectiveIds.has(objective.id), `duplicate objective ${objective.id}`);
+  assert(
+    !objectiveIds.has(objective.id),
+    `duplicate objective ${objective.id}`,
+  );
   objectiveIds.add(objective.id);
   assertString(objective.label, `objective ${objective.id} label`);
   assertString(objective.description, `objective ${objective.id} description`);

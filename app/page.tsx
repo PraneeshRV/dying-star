@@ -116,7 +116,7 @@ export default function Home() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="pointer-events-auto flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="pointer-events-auto flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
             <a
               href="#about"
               className="glass-terminal px-8 py-3 font-[family-name:var(--font-jetbrains-mono)] text-green text-sm uppercase tracking-widest
@@ -132,6 +132,14 @@ export default function Home() {
               focus-visible:outline-2 focus-visible:outline-purple focus-visible:outline-offset-2"
             >
               view dossier
+            </a>
+            <a
+              href="/sandbox"
+              className="glass-panel px-8 py-3 font-[family-name:var(--font-jetbrains-mono)] text-oxidized text-sm uppercase tracking-widest
+              hover:shadow-[0_0_30px_rgba(184,137,77,0.28)] transition-all duration-[var(--duration-normal)] hover:scale-105
+              focus-visible:outline-2 focus-visible:outline-oxidized focus-visible:outline-offset-2"
+            >
+              enter sandbox
             </a>
           </div>
         </div>

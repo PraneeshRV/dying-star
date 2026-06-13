@@ -15,6 +15,7 @@ export interface SandboxHUDProps {
   selectedObjectId: string;
   scannerActive: boolean;
   controlMode: SandboxControlMode;
+  freeFlightAvailable: boolean;
   discoveredObjectIds: string[];
   completedObjectiveIds: string[];
   onSelectObject: (objectId: string) => void;
@@ -31,7 +32,8 @@ function objectiveComplete(
 ) {
   return (
     completedObjectiveIds.includes(objective.id) ||
-    objective.objectIds.every((id) => discoveredObjectIds.includes(id))
+    (objective.id === "inspect-proof" &&
+      objective.objectIds.every((id) => discoveredObjectIds.includes(id)))
   );
 }
 
@@ -61,6 +63,7 @@ export function SandboxHUD({
   selectedObjectId,
   scannerActive,
   controlMode,
+  freeFlightAvailable,
   discoveredObjectIds,
   completedObjectiveIds,
   onSelectObject,
@@ -69,8 +72,9 @@ export function SandboxHUD({
   onToggleControlMode,
   onAction,
 }: SandboxHUDProps) {
-  const controlHint =
-    controlMode === "freefly"
+  const controlHint = !freeFlightAvailable
+    ? "Touch orbit is enabled on this viewport. Free flight unlocks on keyboard-friendly screens."
+    : controlMode === "freefly"
       ? "WASD moves, Space/E rises, Shift/Q descends, Escape exits free flight."
       : "Drag to orbit, scroll to zoom, select ruins from the scene or object archive.";
 
@@ -175,9 +179,17 @@ export function SandboxHUD({
           <Crosshair aria-hidden="true" size={16} />
           Scan
         </button>
-        <button type="button" onClick={onToggleControlMode}>
+        <button
+          type="button"
+          onClick={onToggleControlMode}
+          disabled={!freeFlightAvailable}
+        >
           <Gauge aria-hidden="true" size={16} />
-          {controlMode === "guided" ? "Enter free flight" : "Exit free flight"}
+          {!freeFlightAvailable
+            ? "Guided only"
+            : controlMode === "guided"
+              ? "Enter free flight"
+              : "Exit free flight"}
         </button>
         <button type="button" onClick={onResetView}>
           <RotateCcw aria-hidden="true" size={16} />

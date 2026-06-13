@@ -1,7 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SandboxCanvas } from "@/components/3d/sandbox";
+import { WebGLErrorBoundary } from "@/components/3d/WebGLErrorBoundary";
+import { StarFallback } from "@/components/fallbacks/StarFallback";
 import { SandboxHUD } from "@/components/sandbox/SandboxHUD";
 import {
   DEFAULT_SANDBOX_OBJECT_ID,
@@ -15,6 +17,7 @@ export function SandboxExperience() {
   const [selectedObjectId, setSelectedObjectId] = useState(
     DEFAULT_SANDBOX_OBJECT_ID,
   );
+  const [mobileViewport, setMobileViewport] = useState(false);
   const [scannerActive, setScannerActive] = useState(false);
   const [controlMode, setControlMode] = useState<SandboxControlMode>("guided");
   const [discoveredObjectIds, setDiscoveredObjectIds] = useState<string[]>([
@@ -27,6 +30,23 @@ export function SandboxExperience() {
     () => findSandboxObject(selectedObjectId) ?? SANDBOX_WORLD.objects[0],
     [selectedObjectId],
   );
+  const freeFlightAvailable =
+    SANDBOX_WORLD.controls.freeFlightEnabled &&
+    (!mobileViewport || SANDBOX_WORLD.controls.mobileFreeFlightEnabled);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 720px)");
+    const update = () => setMobileViewport(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (!freeFlightAvailable && controlMode === "freefly") {
+      setControlMode("guided");
+    }
+  }, [controlMode, freeFlightAvailable]);
 
   const completeObjective = (objectiveId: string) => {
     setCompletedObjectiveIds((current) =>
@@ -35,16 +55,21 @@ export function SandboxExperience() {
   };
 
   const handleSelectObject = (objectId: string) => {
-    const nextDiscoveryCount = discoveredObjectIds.includes(objectId)
-      ? discoveredObjectIds.length
-      : discoveredObjectIds.length + 1;
-
-    setSelectedObjectId(objectId);
-    setDiscoveredObjectIds((current) =>
-      current.includes(objectId) ? current : [...current, objectId],
+    const nextDiscoveredObjectIds = discoveredObjectIds.includes(objectId)
+      ? discoveredObjectIds
+      : [...discoveredObjectIds, objectId];
+    const proofObjective = SANDBOX_WORLD.objectives.find(
+      (objective) => objective.id === "inspect-proof",
     );
 
-    if (nextDiscoveryCount >= 3) {
+    setSelectedObjectId(objectId);
+    setDiscoveredObjectIds(nextDiscoveredObjectIds);
+
+    if (
+      proofObjective?.objectIds.every((id) =>
+        nextDiscoveredObjectIds.includes(id),
+      )
+    ) {
       completeObjective("inspect-proof");
     }
   };
@@ -70,18 +95,31 @@ export function SandboxExperience() {
     }
   };
 
+  const handleToggleControlMode = () => {
+    if (!freeFlightAvailable) return;
+    setControlMode((mode) => (mode === "guided" ? "freefly" : "guided"));
+  };
+
   return (
     <section
       aria-labelledby="sandbox-title"
       className="relative isolate min-h-dvh overflow-hidden bg-void"
     >
-      <SandboxCanvas
-        selectedObjectId={selectedObjectId}
-        scannerActive={scannerActive}
-        controlMode={controlMode}
-        onSelectObject={handleSelectObject}
-        onExitFreeFlight={() => setControlMode("guided")}
-      />
+      <WebGLErrorBoundary
+        fallback={
+          <div className="absolute inset-0 z-0 bg-void">
+            <StarFallback />
+          </div>
+        }
+      >
+        <SandboxCanvas
+          selectedObjectId={selectedObjectId}
+          scannerActive={scannerActive}
+          controlMode={controlMode}
+          onSelectObject={handleSelectObject}
+          onExitFreeFlight={() => setControlMode("guided")}
+        />
+      </WebGLErrorBoundary>
       <div className="pointer-events-none absolute left-1/2 top-20 z-10 hidden -translate-x-1/2 text-center lg:block">
         <p className="font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-[0.28em] text-cherenkov">
           /sandbox/orbital-ruins
@@ -98,14 +136,13 @@ export function SandboxExperience() {
         selectedObjectId={selectedObjectId}
         scannerActive={scannerActive}
         controlMode={controlMode}
+        freeFlightAvailable={freeFlightAvailable}
         discoveredObjectIds={discoveredObjectIds}
         completedObjectiveIds={completedObjectiveIds}
         onSelectObject={handleSelectObject}
         onScan={handleScan}
         onResetView={handleResetView}
-        onToggleControlMode={() =>
-          setControlMode((mode) => (mode === "guided" ? "freefly" : "guided"))
-        }
+        onToggleControlMode={handleToggleControlMode}
         onAction={handleAction}
       />
     </section>

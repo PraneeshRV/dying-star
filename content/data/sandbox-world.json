@@ -1,0 +1,219 @@
+{
+  "version": 1,
+  "id": "orbital-ruins-sandbox",
+  "name": "Orbital Ruins Sandbox",
+  "route": "/sandbox",
+  "entry": {
+    "mode": "guided",
+    "focusObjectId": "derelict-relay",
+    "introObjectiveId": "scan-relay"
+  },
+  "controls": {
+    "defaultMode": "guided",
+    "freeFlightEnabled": true,
+    "mobileFreeFlightEnabled": false
+  },
+  "palette": {
+    "primary": "#58f3ff",
+    "accent": "#6fa8ff",
+    "warning": "#ff7a45",
+    "danger": "#d94a4a",
+    "metal": "#b8894d"
+  },
+  "zones": [
+    {
+      "id": "relay-field",
+      "name": "Relay Field",
+      "loreName": "Orison Wreck Belt",
+      "description": "A damaged signal field orbiting the shattered star, still broadcasting portfolio proof fragments."
+    }
+  ],
+  "objectives": [
+    {
+      "id": "scan-relay",
+      "label": "Scan the Derelict Relay",
+      "description": "Run the scanner on the central relay to restore the first signal.",
+      "objectIds": ["derelict-relay"]
+    },
+    {
+      "id": "inspect-proof",
+      "label": "Inspect three proof artifacts",
+      "description": "Open details for three portfolio artifacts in the ruins field.",
+      "objectIds": ["redcalibur-artifact", "ctf-breach-vault", "skills-array"]
+    },
+    {
+      "id": "open-archive-route",
+      "label": "Open a recovered archive route",
+      "description": "Use one object detail action to jump to resume, contact, or a project proof link.",
+      "objectIds": ["resume-vault", "contact-beacon", "redcalibur-artifact"]
+    }
+  ],
+  "objects": [
+    {
+      "id": "derelict-relay",
+      "kind": "relay",
+      "zoneId": "relay-field",
+      "name": "Derelict Relay",
+      "loreName": "Orison Relay Husk",
+      "status": "unstable",
+      "sectionId": "about",
+      "position": [0, 0.8, -2.4],
+      "scale": 1.35,
+      "color": "#58f3ff",
+      "scanText": "Primary relay signal recovered. Operator profile, contact vector, and archive route map are readable.",
+      "proofText": "Praneesh R V is a cybersecurity undergraduate focused on agentic AI red teaming, VAPT, CTF infrastructure, and Linux/cloud security workflows.",
+      "actions": [
+        {
+          "label": "Read operator record",
+          "href": "/#about",
+          "kind": "section"
+        },
+        {
+          "label": "Open contact channel",
+          "href": "/#contact",
+          "kind": "section"
+        }
+      ],
+      "asset": {
+        "type": "procedural",
+        "runtimePath": "procedural:derelict-relay-v1",
+        "fallback": "Derelict relay procedural lattice"
+      }
+    },
+    {
+      "id": "redcalibur-artifact",
+      "kind": "project",
+      "zoneId": "relay-field",
+      "name": "RedCalibur Artifact",
+      "loreName": "RedCalibur Drydock Fragment",
+      "status": "active",
+      "sectionId": "projects",
+      "position": [-4.2, -0.6, 1.8],
+      "scale": 0.7,
+      "color": "#ff7a45",
+      "scanText": "Recovered project shard: AI-assisted VAPT workflow, FastAPI backend, Next.js UI, Python tooling, and report artifacts.",
+      "proofText": "RedCalibur is a flagship AI-assisted red teaming toolkit for authorized security testing.",
+      "actions": [
+        {
+          "label": "View project section",
+          "href": "/#projects",
+          "kind": "section"
+        },
+        {
+          "label": "Open GitHub",
+          "href": "https://github.com/PraneeshRV/RedCalibur",
+          "kind": "external"
+        }
+      ],
+      "asset": {
+        "type": "procedural",
+        "runtimePath": "procedural:project-artifact-v1",
+        "fallback": "Angular drydock shard"
+      }
+    },
+    {
+      "id": "ctf-breach-vault",
+      "kind": "ctf",
+      "zoneId": "relay-field",
+      "name": "CTF Breach Vault",
+      "loreName": "Kharon Redoubt Cache",
+      "status": "quarantined",
+      "sectionId": "ctf",
+      "position": [4.8, -0.9, 2.1],
+      "scale": 0.74,
+      "color": "#d94a4a",
+      "scanText": "Safe challenge telemetry only. No real secrets. CTF infrastructure and competition proof fragments are visible.",
+      "proofText": "CTF proof includes Team Hunter competition work, L3m0nCTF infrastructure, and agentic AI security challenge building.",
+      "actions": [
+        {
+          "label": "View CTF archive",
+          "href": "/#ctf",
+          "kind": "section"
+        }
+      ],
+      "asset": {
+        "type": "procedural",
+        "runtimePath": "procedural:ctf-vault-v1",
+        "fallback": "Quarantine vault shard"
+      }
+    },
+    {
+      "id": "skills-array",
+      "kind": "skills",
+      "zoneId": "relay-field",
+      "name": "Skills Array",
+      "loreName": "Mnemosyne Skill Matrix",
+      "status": "degraded",
+      "sectionId": "skills",
+      "position": [-2.9, 1.2, 4.2],
+      "scale": 0.84,
+      "color": "#6fa8ff",
+      "scanText": "Skill matrix resolves security, development, infrastructure, and tooling domains.",
+      "proofText": "Core skills span AI red teaming, VAPT, web exploitation, OSINT, digital forensics, Docker, Linux, Azure, Next.js, and Python.",
+      "actions": [
+        {
+          "label": "View skills matrix",
+          "href": "/#skills",
+          "kind": "section"
+        }
+      ],
+      "asset": {
+        "type": "procedural",
+        "runtimePath": "procedural:skills-array-v1",
+        "fallback": "Cold skill-array lattice"
+      }
+    },
+    {
+      "id": "resume-vault",
+      "kind": "resume",
+      "zoneId": "relay-field",
+      "name": "Resume Vault",
+      "loreName": "Recovered Dossier Vault",
+      "status": "readable",
+      "sectionId": "resume",
+      "position": [2.7, 1.1, -4.2],
+      "scale": 0.78,
+      "color": "#c7d0d8",
+      "scanText": "Dossier route stable. Static PDF and resume route are available.",
+      "proofText": "The resume route exposes the static dossier and direct PDF download.",
+      "actions": [
+        {
+          "label": "Open resume",
+          "href": "/resume",
+          "kind": "route"
+        }
+      ],
+      "asset": {
+        "type": "procedural",
+        "runtimePath": "procedural:resume-vault-v1",
+        "fallback": "Dossier vault primitive"
+      }
+    },
+    {
+      "id": "contact-beacon",
+      "kind": "contact",
+      "zoneId": "relay-field",
+      "name": "Contact Beacon",
+      "loreName": "Long-range Comms Beacon",
+      "status": "online",
+      "sectionId": "contact",
+      "position": [0.2, -1.25, 5.4],
+      "scale": 0.68,
+      "color": "#b8894d",
+      "scanText": "Comms beacon can route visitors to email, GitHub, LinkedIn, and collaboration paths.",
+      "proofText": "Contact remains available through the homepage contact section and external professional links.",
+      "actions": [
+        {
+          "label": "Open contact section",
+          "href": "/#contact",
+          "kind": "section"
+        }
+      ],
+      "asset": {
+        "type": "procedural",
+        "runtimePath": "procedural:contact-beacon-v1",
+        "fallback": "Gold comms beacon primitive"
+      }
+    }
+  ]
+}

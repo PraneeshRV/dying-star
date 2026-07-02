@@ -1,5 +1,9 @@
 # Roadmap: Dying Star Portfolio
 
+> **SUPERSEDED for planning: `docs/MASTERPLAN.md` is the single source of truth (adopted 2026-07-02).**
+> This file is kept as requirement history. Statuses below were corrected 2026-07-02;
+> Packet Runner and the terminal are cut per MASTERPLAN. Do not plan new work from this file.
+
 **Created:** 2026-04-28
 **Granularity:** standard
 **Mode:** yolo
@@ -15,8 +19,8 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 | 1 | Finish Content Shell | Complete M3 content quality and certification UI | CONT-07, CONT-09 | Complete |
 | 2 | Contact API | Replace mailto-only contact with secure Resend submission | FORM-02, FORM-03 | Pending |
 | 3 | 3D Fallbacks and Validation | Make the heavy scene resilient across devices and preferences | SCENE-03, SCENE-04 | Complete |
-| 4 | Motion and Terminal | Add polished animation and the secret terminal layer | MOTN-01, MOTN-02, TERM-01, TERM-02, TERM-03 | Pending |
-| 5 | Packet Runner | Add optional minigame with local persistence | GAME-01, GAME-02, GAME-03 | Pending |
+| 4 | Motion and Terminal | Add polished animation and the secret terminal layer | MOTN-01, MOTN-02, TERM-01, TERM-02, TERM-03 | Partial — motion moves to MASTERPLAN W9; terminal cut |
+| 5 | Packet Runner | Add optional minigame with local persistence | GAME-01, GAME-02, GAME-03 | Cut (MASTERPLAN §0) |
 | 6 | Blog Engine | Add local MDX blog and first content | BLOG-01, BLOG-02, BLOG-03 | Pending |
 | 7 | Launch Polish | Finish SEO, analytics, accessibility, testing, and deployment | SEO-01, SEO-02, QA-03, DEPLOY-01, DEPLOY-02 | Partial |
 
@@ -53,7 +57,7 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 ### Phase 2: Contact API
 
 **Goal:** Make contact submission real while keeping mailto as a fallback.
-**Status:** Complete
+**Status:** Pending (no `app/api/` exists — continues as MASTERPLAN W8)
 **UI hint:** yes
 
 **Requirements:** FORM-02, FORM-03
@@ -67,7 +71,7 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 ### Phase 3: 3D Fallbacks and Validation
 
 **Goal:** Make the visual centerpiece resilient instead of merely impressive on ideal hardware.
-**Status:** Pending
+**Status:** Complete (shipped in the v0.2.5 space-realism pass)
 **UI hint:** yes
 
 **Requirements:** SCENE-03, SCENE-04
@@ -95,7 +99,7 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 ### Phase 5: Packet Runner
 
 **Goal:** Add a small optional game that supports the theme without blocking portfolio comprehension.
-**Status:** Pending
+**Status:** Cut — MASTERPLAN removes the minigame from scope entirely
 **UI hint:** yes
 
 **Requirements:** GAME-01, GAME-02, GAME-03
@@ -123,7 +127,7 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 ### Phase 7: Launch Polish
 
 **Goal:** Prepare the site for public launch on `praneeshrv.me`.
-**Status:** Pending
+**Status:** Partial (metadata/SEO/analytics done, site live; hardening + QA continue as MASTERPLAN W10/W11)
 **UI hint:** yes
 
 **Requirements:** SEO-01, SEO-02, QA-03, DEPLOY-01, DEPLOY-02
@@ -151,8 +155,8 @@ This is a brownfield roadmap. Phase 0 records what is already implemented so fut
 
 ## Next Step
 
-Run `$gsd-discuss-phase 2 --auto --analyze --chain` to start the next implementation phase: Contact API.
+Follow `docs/MASTERPLAN.md` §12: W0 (scope cut) first, then W1+W2 in parallel.
 
 ---
 *Roadmap created: 2026-04-28*
-*Last updated: 2026-04-28 after GSD project initialization*
+*Last updated: 2026-07-02 — statuses corrected, superseded by docs/MASTERPLAN.md*

@@ -1,13 +1,16 @@
 # Project State
 
-**Updated:** 2026-04-28
+**Updated:** 2026-07-02
+
+> **Planning authority: `docs/MASTERPLAN.md` (adopted 2026-07-02).** This file is a status
+> snapshot only. Old plan docs live in `docs/archive/`; sandbox scope is cut per MASTERPLAN W0.
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-04-28)
+See: `docs/MASTERPLAN.md` (authoritative) · `.planning/PROJECT.md` (background, 2026-04-28)
 
 **Core value:** Visitors must quickly understand Praneesh's cybersecurity credibility and have a memorable, high-signal experience that makes the portfolio stand out.
-**Current focus:** Production readiness for Archive of the Shattered Star; next feature phase remains Contact API.
+**Current focus:** Execute MASTERPLAN §12 — W0 scope cut (delete sandbox), then W1 copy + W2 tokens, with W6/W7/W8 (proof content, blog, contact API) as the launch-critical track.
 
 ## Current Snapshot
 
@@ -70,19 +73,22 @@ Last mapping commit: `9ad175d docs: map existing codebase`
 
 ## Next Execution Target
 
-Recommended next phase: Phase 2 - Contact API.
+MASTERPLAN W0 — scope cut & repo hygiene (delete `/sandbox` route, sandbox components, sandbox
+verify scripts; prune `verify:system`). Then W1+W2 in parallel per §12.
 
 Highest-impact blockers:
 
-- Replace mailto contact shell with the planned Resend API flow in Phase 2.
-- Investigate Next 16 dev-server hydration/response behavior; production build and `next start` are currently healthy.
-- Run final production verification and deploy preview checks after the production-readiness pass.
+- Contact is still mailto-only; W8 builds the Resend API (`app/api/contact/route.ts`).
+- Blog does not exist; W7 is the highest-leverage content investment (2 seed posts).
+- Investigate Next 16 dev-server hydration/response behavior; production build and `next start` are currently healthy (MASTERPLAN §8).
+- Branch `sandbox-render-foundation` is ahead of `main`; merge to main after W0 so the live site picks up post-May work.
 
 ## Session Continuity
 
-- Stopped at: Phase 1 implemented and verified.
-- Resume file: `.planning/phases/01-finish-content-shell/01-SUMMARY.md`
-- Next recommended command: `$gsd-discuss-phase 2 --auto --analyze --chain`
+- Stopped at: plan consolidation (2026-07-02) — MASTERPLAN adopted as single source of truth,
+  redundant plans archived, roadmap statuses corrected.
+- Resume file: `docs/MASTERPLAN.md` ("Start here" block)
+- Next recommended action: execute W0.
 
 ## Quick Tasks Completed
 

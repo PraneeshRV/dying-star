@@ -96,6 +96,37 @@ Every plan step carries a verify line. Phase gates:
 - Phase 3 (polish + a11y + perf): Lighthouse ≥90, reduced-motion check, 375px screenshot.
 - Phase 4 (reviews): Antigravity Opus findings fixed or explicitly rejected; merge.
 
+## Amendments — 2026-07-04 Gemini 3.1 Pro adversarial review
+
+All 15 findings adjudicated (`docs/specs/2026-07-04-spec-review-gemini.md`);
+14 accepted, #3/#4 merged into a broader cut:
+
+1. **Mobile = static hero image, desktop = 3D** (resolves findings 2, 13, 14).
+   Reduced-motion/WebGL/mobile checks happen at parent level in `page.tsx`
+   BEFORE the dynamic import mounts — fallback path never fetches Three.js.
+2. `SpaceCanvas` loads via `next/dynamic` `ssr:false` with `StarFallback`
+   as loading state (finding 1).
+3. **All 6 verify-space scripts killed** + `verify:system` wiring +
+   `content/data/space-asset-ledger.json` pruned (findings 3, 4 broadened).
+   Verify = `biome check && tsc --noEmit && next build`.
+4. Deletion ordering: gimmick UI components (GlitchText, TypewriterText,
+   CustomCursor, FloatingNav) die in Phase 2 with their consuming sections,
+   not Phase 0. `app/layout.tsx` CustomCursor mount and
+   `components/3d/index.ts` barrel exports pruned in the same commits as
+   their targets (findings 5, 6, 7).
+5. `app/globals.css`: legacy cyan/purple tokens + glow utilities stripped in
+   Phase 1 token work; all accents map to ember + grayscale ramp (finding 8).
+6. Route is **`/blog`** (matches MASTERPLAN + existing content dir); spec
+   references to `/writeups` are superseded (finding 9).
+7. `/resume`: hide PDF iframe under 768px, show download CTA (finding 10).
+8. **Research section hierarchy inverted** (finding 11): tier 1 = AI red team
+   work — LLM vulns, prompt injection, RedCalibur, AI security research;
+   tier 2 "Foundations" = HTB/THM/pwn.college telemetry.
+9. Dead `reducedMotion` state/action removed from `stores/globalStore.ts`
+   (finding 12).
+10. BootLoader progress state throttled to per-line updates, visuals
+    unchanged (finding 15).
+
 ## Out of scope
 
 - Explorable sandbox world (archived, may return post-ship as separate route).

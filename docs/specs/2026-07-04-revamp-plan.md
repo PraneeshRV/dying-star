@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- Verify command (every task): `npx biome check && npx tsc --noEmit && npm run build` — all green.
+- Verify command (every task): `npm run lint && npx tsc --noEmit && npm run build` — all green (`npx biome` doesn't resolve; binary lives at `@biomejs/biome`, `npm run lint` wraps it).
 - Palette ONLY: `--color-void #0A0A0C`, `--color-panel #111114`, `--color-line #26262B`, `--color-ember #FF7A45`, `--color-ember-dim #B2532F`, text ramp `#ECECEA / #9A9A94 / #5C5C58`. No green, purple, cyan, gradients, glows, glassmorphism.
 - Fonts: Space Grotesk (headings), DM Sans (body), JetBrains Mono (telemetry/labels/metadata). Orbitron + Cinzel removed.
 - Mono telemetry labels: uppercase, tracking-wide, `text-[11px]`–`text-xs`, `--color-text-low`, format `NN · LABEL` (e.g. `02 · RESEARCH`).

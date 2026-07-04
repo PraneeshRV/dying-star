@@ -1,7 +1,6 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
-import { Cinzel, DM_Sans, JetBrains_Mono, Orbitron } from "next/font/google";
-import { CustomCursor } from "@/components/ui/CustomCursor";
+import { DM_Sans, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import {
   absoluteUrl,
   SITE_DESCRIPTION,
@@ -15,11 +14,11 @@ import { MainContent } from "./MainContent";
 
 /* ═══ Font Configuration (zero layout shift via next/font) ═══ */
 
-const orbitron = Orbitron({
-  variable: "--font-orbitron",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const dmSans = DM_Sans({
@@ -34,13 +33,6 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],
-});
-
-const cinzel = Cinzel({
-  variable: "--font-cinzel",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
 });
 
 const analyticsEnabled = process.env.VERCEL === "1";
@@ -100,13 +92,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${orbitron.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${cinzel.variable}`}
+      className={`${spaceGrotesk.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
       <body
         suppressHydrationWarning
         className="min-h-dvh flex flex-col antialiased bg-void"
       >
-        <CustomCursor />
         <MainContent>{children}</MainContent>
         {analyticsEnabled ? <Analytics /> : null}
       </body>

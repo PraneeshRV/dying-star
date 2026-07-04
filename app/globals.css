@@ -1,53 +1,49 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════
-   ARCHIVE OF THE SHATTERED STAR - Design System
-   Tactical post-apocalyptic civilization archive
+   MISSION CONTROL - Design System
+   Near-black, restrained. Ember is the only accent.
    ═══════════════════════════════════════════════════ */
 
 @theme inline {
-  /* ─── Backgrounds ─── */
-  --color-void: #030406;
-  --color-void-2: #07111a;
-  --color-surface: #081018;
-  --color-surface-2: #101821;
-
-  /* ─── Shattered-Star Tactical Palette ─── */
-  --color-ash: #c7d0d8;
-  --color-cherenkov: #58f3ff;
+  --color-void: #0a0a0c;
+  --color-panel: #111114;
+  --color-line: #26262b;
   --color-ember: #ff7a45;
-  --color-oxidized: #b8894d;
-  --color-rust: #8a3f2d;
-  --color-gravity: #6fa8ff;
-  --color-threat: #d94a4a;
-
-  /* ─── Legacy Semantic Mappings ─── */
-  --color-green: #58f3ff;
-  --color-green-dim: #3fb8c6;
-  --color-purple: #6fa8ff;
-  --color-purple-hot: #9ec3ff;
-  --color-purple-deep: #21314d;
-  --color-blue: #58f3ff;
-  --color-blue-hot: #dceeff;
-  --color-blue-deep: #17303f;
-  --color-red: #d94a4a;
-  --color-orange: #ff7a45;
-
-  /* ─── Text ─── */
-  --color-text-primary: #e6eef5;
-  --color-text-secondary: #9aa8b4;
-  --color-text-dim: #55616c;
-  --color-text-mono: #58f3ff;
-
-  /* ─── Special ─── */
-  --color-gold: #b8894d;
-  --color-neutron: #ffffff;
-
-  /* ─── Fonts ─── */
-  --font-display: var(--font-orbitron);
+  --color-ember-dim: #b2532f;
+  --color-text-hi: #ececea;
+  --color-text-mid: #9a9a94;
+  --color-text-low: #5c5c58;
+  --font-grotesk: var(--font-space-grotesk);
   --font-body: var(--font-dm-sans);
   --font-mono: var(--font-jetbrains-mono);
-  --font-accent: var(--font-cinzel);
+
+  /* TEMP aliases — removed in Task 5 */
+  --color-void-2: var(--color-panel);
+  --color-surface: var(--color-panel);
+  --color-surface-2: var(--color-panel);
+  --color-ash: var(--color-text-mid);
+  --color-cherenkov: var(--color-ember);
+  --color-oxidized: var(--color-ember-dim);
+  --color-gravity: var(--color-ember);
+  --color-green: var(--color-ember);
+  --color-green-dim: var(--color-ember-dim);
+  --color-purple: var(--color-ember);
+  --color-purple-hot: var(--color-ember);
+  --color-purple-deep: var(--color-ember-dim);
+  --color-blue: var(--color-ember);
+  --color-blue-hot: var(--color-ember);
+  --color-blue-deep: var(--color-ember-dim);
+  --color-red: var(--color-ember);
+  --color-orange: var(--color-ember);
+  --color-text-primary: var(--color-text-hi);
+  --color-text-secondary: var(--color-text-mid);
+  --color-text-dim: var(--color-text-low);
+  --color-text-mono: var(--color-ember);
+  --color-gold: var(--color-ember-dim);
+  --color-neutron: var(--color-text-hi);
+  --font-display: var(--font-grotesk);
+  --font-accent: var(--font-grotesk);
 
   /* ─── Z-Index Scale ─── */
   --z-base: 0;
@@ -70,14 +66,6 @@
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ─── Glow Effect Colors (not in @theme bc rgba) ─── */
-:root {
-  --green-glow: rgba(88, 243, 255, 0.16);
-  --purple-glow: rgba(111, 168, 255, 0.18);
-  --blue-glow: rgba(88, 243, 255, 0.14);
-  --ember-glow: rgba(255, 122, 69, 0.18);
-}
-
 /* ═══ Base Styles ═══ */
 html {
   scroll-behavior: smooth;
@@ -95,8 +83,8 @@ body {
 
 /* ═══ Selection ═══ */
 ::selection {
-  background: var(--color-purple);
-  color: var(--color-neutron);
+  background: var(--color-ember);
+  color: var(--color-void);
 }
 
 /* ═══ Scrollbar ═══ */
@@ -109,81 +97,19 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-purple-deep);
+  background: var(--color-line);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-purple);
+  background: var(--color-ember-dim);
 }
 
 /* ═══ Focus Rings (a11y — 2-4px, ui-ux-pro-max) ═══ */
 :focus-visible {
-  outline: 2px solid var(--color-green);
+  outline: 2px solid var(--color-ember);
   outline-offset: 2px;
   border-radius: 2px;
-}
-
-/* ═══ Glassmorphism Utilities ═══ */
-.glass-panel {
-  background: rgba(8, 16, 24, 0.66);
-  backdrop-filter: blur(16px) saturate(145%);
-  border: 1px solid rgba(199, 208, 216, 0.12);
-  box-shadow:
-    0 0 40px rgba(88, 243, 255, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.glass-terminal {
-  background: rgba(3, 4, 6, 0.88);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(88, 243, 255, 0.18);
-  box-shadow: 0 0 20px rgba(88, 243, 255, 0.08);
-}
-
-/* ═══ Glow Utilities ═══ */
-.glow-green {
-  text-shadow:
-    0 0 20px var(--color-green),
-    0 0 60px var(--color-green-dim);
-}
-
-.glow-purple {
-  text-shadow:
-    0 0 20px var(--color-purple),
-    0 0 60px var(--color-purple-deep);
-}
-
-.glow-blue {
-  text-shadow: 0 0 20px var(--color-blue);
-}
-
-.box-glow-green {
-  box-shadow:
-    0 0 30px rgba(88, 243, 255, 0.3),
-    0 0 60px rgba(88, 243, 255, 0.1);
-}
-
-.box-glow-purple {
-  box-shadow:
-    0 0 30px rgba(111, 168, 255, 0.28),
-    0 0 60px rgba(111, 168, 255, 0.1);
-}
-
-/* ═══ CRT Scanlines Overlay ═══ */
-.scanlines::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.03) 2px,
-    rgba(0, 0, 0, 0.03) 4px
-  );
-  pointer-events: none;
-  z-index: 1;
 }
 
 /* ═══ Reduced Motion (CRITICAL — a11y) ═══ */
@@ -195,19 +121,6 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-/* ═══ Custom Cursor Document State ═══ */
-html.custom-cursor-enabled,
-html.custom-cursor-enabled * {
-  cursor: none !important;
-}
-
-@media (pointer: coarse), (prefers-reduced-motion: reduce) {
-  html.custom-cursor-enabled,
-  html.custom-cursor-enabled * {
-    cursor: auto !important;
   }
 }
 

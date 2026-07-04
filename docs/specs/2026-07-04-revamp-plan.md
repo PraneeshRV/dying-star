@@ -129,7 +129,7 @@ Delete: all green/purple/cyan/oxidized tokens, `glow-*`, `box-glow-*`, `glass-*`
 
 - [ ] Step 1: Dispatch Sonnet with this task + Global Constraints + Task 4 schemas verbatim.
 - [ ] Step 2: Wire `page.tsx`; delete now-orphaned: `AboutSection`, `SkillsSection`, `CertificationsSection`, `CTFSection`, `BlogPreviewSection`, `ContactSection`(old), `ExperienceSection`(old), `ProjectsSection`(old — overwritten), `GlitchText.*`, `TypewriterText.*`, `FloatingNav.*`, `ProjectCard.*`, `Button.*` if orphaned (grep each).
-- [ ] Step 3: Remove Task 2's temporary color aliases from `globals.css`; `grep -rn "glass-\|glow-\|cherenkov\|oxidized\|GlitchText\|TypewriterText\|FloatingNav" app components` → 0 hits.
+- [ ] Step 3: Remove Task 2's TEMP aliases/shims from `globals.css` that no longer have consumers after section rewrite; `grep -rn "GlitchText\|TypewriterText\|FloatingNav" app components` → 0 hits. (`app/resume/page.tsx` + `app/not-found.tsx` still consume glass/glow/scanlines shims — the remaining TEMP block dies in Task 7, where the final `grep -rn "glass-\|glow-\|scanlines\|cherenkov\|oxidized\|font-orbitron\|font-cinzel" app components` → 0 hits gate runs.)
 - [ ] Step 4: Verify green + dev screenshot of every section with real data. Commit `feat: mission-control sections`.
 
 ### Task 6: /blog route

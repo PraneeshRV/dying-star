@@ -44,6 +44,8 @@
   --color-neutron: var(--color-text-hi);
   --font-display: var(--font-grotesk);
   --font-accent: var(--font-grotesk);
+  --font-orbitron: var(--font-grotesk);
+  --font-cinzel: var(--font-grotesk);
 
   /* ─── Z-Index Scale ─── */
   --z-base: 0;
@@ -135,4 +137,24 @@ body {
     opacity: 0.8;
     transform: scale(1.2);
   }
+}
+
+/* TEMP class shims — legacy utility classes used by pre-revamp components.
+   Section consumers die in Task 5; resume/not-found consumers restyled in
+   Task 7. Delete this whole block in Task 7. */
+.glass-panel,
+.glass-terminal {
+  background: color-mix(in srgb, var(--color-panel) 78%, transparent);
+  border: 1px solid var(--color-line);
+}
+.glow-green,
+.glow-purple {
+  text-shadow: none;
+}
+.box-glow-green,
+.box-glow-purple {
+  box-shadow: none;
+}
+.scanlines::after {
+  content: none;
 }

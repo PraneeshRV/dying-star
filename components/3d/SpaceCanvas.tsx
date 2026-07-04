@@ -8,16 +8,7 @@ import type { WebGLRenderer } from "three";
 import { StarFallback } from "@/components/fallbacks/StarFallback";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useGlobalStore } from "@/stores/globalStore";
-import {
-  Constellation,
-  DysonSphere,
-  Megastructures,
-  NeutronStar,
-  OrbitalBodies,
-  PathwayRemnants,
-  Starfield,
-  SystemCamera,
-} from "./index";
+import { NeutronStar, Starfield } from "./index";
 
 type RenderMode = "fallback" | "canvas";
 
@@ -46,11 +37,6 @@ export function SpaceCanvas() {
   const [compactViewport, setCompactViewport] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
   const reducedMotion = useReducedMotion();
-  const cameraMode = useGlobalStore((state) => state.cameraMode);
-  const setCameraMode = useGlobalStore((state) => state.setCameraMode);
-  const setFocusedSystemNodeId = useGlobalStore(
-    (state) => state.setFocusedSystemNodeId,
-  );
 
   useEffect(() => {
     const updateVisibility = () => {
@@ -136,15 +122,6 @@ export function SpaceCanvas() {
       : tier === 2
         ? 18000
         : 50000;
-  const constellationCount = compactViewport
-    ? tier <= 1
-      ? 180
-      : 360
-    : tier <= 1
-      ? 250
-      : tier === 2
-        ? 500
-        : 750;
   const speedMultiplier = !pageVisible ? 0 : tier <= 1 ? 0.35 : 1;
   const useBloom = tier > 1 && !reducedMotion;
   const useSSAO = tier >= 2 && !compactViewport && !reducedMotion;
@@ -161,21 +138,10 @@ export function SpaceCanvas() {
           alpha: false,
         }}
         onCreated={handleCanvasCreated}
-        onPointerMissed={() => {
-          if (cameraMode === "freefly") {
-            return;
-          }
-
-          setFocusedSystemNodeId(null);
-          setCameraMode("overview");
-        }}
         shadows={tier > 1}
+        camera={{ position: [0, 4, 14], fov: 55 }}
       >
         <color attach="background" args={["#030406"]} />
-        <SystemCamera
-          reducedMotion={reducedMotion}
-          speedMultiplier={speedMultiplier}
-        />
 
         <ambientLight intensity={tier <= 1 ? 0.05 : 0.018} />
         <pointLight
@@ -196,24 +162,7 @@ export function SpaceCanvas() {
             color="#c7d0d8"
             timeScale={speedMultiplier}
           />
-          <Constellation
-            count={constellationCount}
-            timeScale={speedMultiplier}
-          />
-          <PathwayRemnants />
           <NeutronStar timeScale={speedMultiplier} />
-          <DysonSphere
-            color="#b8894d"
-            destroyedFraction={0.33}
-            panelFill={0.67}
-            timeScale={speedMultiplier}
-          />
-          <OrbitalBodies
-            speedMultiplier={speedMultiplier}
-            renderMoons={true}
-            tier={tier}
-          />
-          <Megastructures speedMultiplier={speedMultiplier} />
 
           {useBloom ? (
             <SpacePostProcessing tier={tier} useSSAO={useSSAO} />

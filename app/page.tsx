@@ -133,14 +133,6 @@ export default function Home() {
             >
               view dossier
             </a>
-            <a
-              href="/sandbox"
-              className="glass-panel px-8 py-3 font-[family-name:var(--font-jetbrains-mono)] text-oxidized text-sm uppercase tracking-widest
-              hover:shadow-[0_0_30px_rgba(184,137,77,0.28)] transition-all duration-[var(--duration-normal)] hover:scale-105
-              focus-visible:outline-2 focus-visible:outline-oxidized focus-visible:outline-offset-2"
-            >
-              enter sandbox
-            </a>
           </div>
         </div>
 

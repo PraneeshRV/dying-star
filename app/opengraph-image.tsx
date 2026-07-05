@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Archive of the Shattered Star - Praneesh R V cybersecurity portfolio";
+  "Praneesh R V — cybersecurity researcher (AI red teaming, VAPT, CTF)";
 export const size = {
   width: 1200,
   height: 630,

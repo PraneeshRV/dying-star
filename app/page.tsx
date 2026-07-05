@@ -144,7 +144,7 @@ export default function Home() {
             scroll to explore
           </span>
           <div className="w-5 h-8 border border-text-dim rounded-full flex items-start justify-center p-1">
-            <div className="w-1 h-2 bg-green rounded-full animate-bounce" />
+            <div className="w-1 h-2 bg-green rounded-full animate-scroll-bob" />
           </div>
         </div>
       </section>

@@ -64,7 +64,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Archive of the Shattered Star - Praneesh R V cybersecurity portfolio",
+        alt: "Praneesh R V — cybersecurity researcher (AI red teaming, VAPT, CTF)",
       },
     ],
   },
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#030406",
+  themeColor: "#0a0a0c",
   width: "device-width",
   initialScale: 1,
 };

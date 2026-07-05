@@ -23,10 +23,10 @@ export default function ResumePage() {
           <div className="relative z-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-text-secondary">
-                archive@shattered-star:/resume$ cat praneesh_r_v.pdf
+                Cybersecurity researcher
               </p>
               <h1 className="mt-3 font-[family-name:var(--font-orbitron)] text-3xl font-bold tracking-wider text-green glow-green sm:text-4xl">
-                RESUME ACCESS NODE
+                Résumé
               </h1>
               <p className="mt-3 max-w-2xl font-[family-name:var(--font-dm-sans)] text-sm leading-6 text-text-secondary sm:text-base">
                 Live document preview with a direct static asset fallback.
@@ -38,7 +38,7 @@ export default function ResumePage() {
                 href="/"
                 className="glass-panel px-5 py-3 text-center font-[family-name:var(--font-jetbrains-mono)] text-xs uppercase tracking-widest text-purple-hot transition-all duration-[var(--duration-normal)] hover:box-glow-purple focus-visible:outline-2 focus-visible:outline-green focus-visible:outline-offset-2"
               >
-                return home
+                Back to home
               </a>
               <a
                 href="/resume.pdf"

@@ -3,9 +3,9 @@ export const SITE_URL = (
 ).replace(/\/$/, "");
 
 export const SITE_NAME = "Praneesh R V";
-export const SITE_TITLE = "Archive of the Shattered Star - Praneesh R V";
+export const SITE_TITLE = "Praneesh R V — Cybersecurity researcher";
 export const SITE_DESCRIPTION =
-  "Praneesh R V's cybersecurity portfolio: agentic AI red teaming, VAPT tooling, Azure/IAM internship work, CTF infrastructure, and Team Hunter competition results presented as an interactive shattered-star archive.";
+  "Praneesh R V's cybersecurity portfolio: agentic AI red teaming, VAPT tooling, Azure/IAM internship work, CTF infrastructure, and Team Hunter competition results.";
 export const SITE_KEYWORDS = [
   "Praneesh R V",
   "cybersecurity portfolio",

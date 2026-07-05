@@ -1,5 +1,3 @@
-import { GlitchText } from "@/components/ui/GlitchText";
-import { TypewriterText } from "@/components/ui/TypewriterText";
 import profileData from "@/content/data/profile.json";
 
 type ProfileData = {
@@ -81,12 +79,12 @@ export function AboutSection() {
               <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-blue">
                 operator record / about
               </p>
-              <GlitchText
-                as="h2"
+              <h2
                 id="about-heading"
-                text="ABOUT"
                 className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-wider text-text-primary sm:text-4xl"
-              />
+              >
+                ABOUT
+              </h2>
             </div>
           </div>
 
@@ -96,11 +94,7 @@ export function AboutSection() {
               <span className="text-text-dim">tty-03</span>
             </div>
             <div className="space-y-5 font-[family-name:var(--font-mono)] text-sm leading-7 text-text-secondary sm:text-base">
-              <TypewriterText
-                text={PROFILE.summary}
-                speed={12}
-                className="block text-text-primary"
-              />
+              <p className="text-text-primary">{PROFILE.summary}</p>
               <p>
                 Current orbit: {PROFILE.operatorProfile.team},{" "}
                 {PROFILE.identity.affiliation}, and hands-on work across{" "}

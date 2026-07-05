@@ -3,7 +3,6 @@
 import { ExternalLink, Filter, GitBranch } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/Button";
-import { GlitchText } from "@/components/ui/GlitchText";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import projectsData from "@/content/data/projects.json";
 import { cn } from "@/lib/utils";
@@ -54,12 +53,12 @@ export function ProjectsSection() {
             <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-green">
               recovered blueprints / projects
             </p>
-            <GlitchText
-              as="h2"
+            <h2
               id="projects-heading"
-              text="PROJECTS"
               className="mt-3 font-[family-name:var(--font-display)] text-3xl font-bold tracking-wider text-text-primary sm:text-4xl"
-            />
+            >
+              PROJECTS
+            </h2>
           </div>
 
           <div
@@ -119,7 +118,7 @@ export function ProjectsSection() {
                         aria-label={`Open live project for ${project.title}`}
                       >
                         <ExternalLink className="size-3.5" aria-hidden="true" />
-                        BREACH
+                        LIVE
                       </Button>
                     )}
                     {project.sourceUrl && (

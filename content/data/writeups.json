@@ -1,0 +1,29 @@
+[
+  {
+    "id": "ham44-kictf-2026",
+    "title": "Ham44 — KICTF Yugam 2026",
+    "category": "OSINT",
+    "excerpt": "OSINT/forensics solve recognized as best write-up at a national CTF (top-8 of 50+ teams, 170+ participants).",
+    "date": "2026",
+    "href": "https://github.com/PraneeshRV/Ham44-Writeup-KICTF",
+    "tags": ["OSINT", "Forensics", "Writeup"]
+  },
+  {
+    "id": "agentic-ai-ctf-challenges",
+    "title": "Agentic AI Red-Teaming Challenges",
+    "category": "AI Security",
+    "excerpt": "Two named challenges — Bureaucratic Loophole (JSON injection via template literals) and Project Mnemosyne (shared-memory poisoning) — plus a scanner/reporting harness.",
+    "date": "2025",
+    "href": "https://github.com/PraneeshRV/Agent-Redteaming-CTF-challs",
+    "tags": ["Prompt Injection", "A2A", "Memory Poisoning"]
+  },
+  {
+    "id": "granzion-labs-attack-scenarios",
+    "title": "Granzion Labs — Multi-Agent Attack Scenarios",
+    "category": "AI Security",
+    "excerpt": "Four merged attack scenarios against A2A agent systems: token forgery, agent-card forgery, orchestrator task-queue poisoning, and delegation-loop abuse.",
+    "date": "2026",
+    "href": "https://github.com/PraneeshRV/granzion-labs",
+    "tags": ["A2A", "JWT", "MCP", "Observability"]
+  }
+]

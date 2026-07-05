@@ -1,6 +1,5 @@
 import { BriefcaseBusiness, GitBranch, Mail, Satellite } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { GlitchText } from "@/components/ui/GlitchText";
 import profile from "@/content/data/profile.json";
 
 const CONTACT_EMAIL = profile.email;
@@ -42,12 +41,12 @@ export function ContactSection() {
           <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-blue">
             long-range comms array
           </p>
-          <GlitchText
-            as="h2"
+          <h2
             id="contact-heading"
-            text="Contact"
             className="mt-4 block font-[family-name:var(--font-display)] text-3xl font-bold text-text-primary sm:text-5xl"
-          />
+          >
+            Contact
+          </h2>
           <p className="mt-5 max-w-xl text-base leading-7 text-text-secondary">
             Open a signal for AI security research, CTF collaboration,
             infrastructure work, VAPT tooling, or security internship roles.

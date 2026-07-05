@@ -1,5 +1,4 @@
 import { Award, BadgeCheck, GraduationCap, ShieldCheck } from "lucide-react";
-import { GlitchText } from "@/components/ui/GlitchText";
 import certificationsData from "@/content/data/certifications.json";
 import type { Certification } from "@/types";
 
@@ -29,12 +28,12 @@ export function CertificationsSection() {
           <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-green">
             authority seals / certifications
           </p>
-          <GlitchText
-            as="h2"
+          <h2
             id="certifications-heading"
-            text="CERTIFICATIONS"
             className="mt-3 font-[family-name:var(--font-display)] text-3xl font-bold tracking-wider text-text-primary sm:text-4xl"
-          />
+          >
+            CERTIFICATIONS
+          </h2>
           <p className="mt-4 text-base leading-7 text-text-secondary">
             Current certification tracks and academic credentials that back the
             security work, labs, and infrastructure projects shown above.

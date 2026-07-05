@@ -5,7 +5,6 @@ import {
   Server,
   Trophy,
 } from "lucide-react";
-import { GlitchText } from "@/components/ui/GlitchText";
 import experienceData from "@/content/data/experience.json";
 import type { TimelineEntry } from "@/types";
 
@@ -34,12 +33,12 @@ export function ExperienceSection() {
           <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-gold">
             signal chronology / experience
           </p>
-          <GlitchText
-            as="h2"
+          <h2
             id="experience-heading"
-            text="Experience Timeline"
             className="mt-4 block font-[family-name:var(--font-display)] text-3xl font-bold text-text-primary sm:text-5xl"
-          />
+          >
+            Experience Timeline
+          </h2>
           <p className="mt-5 max-w-2xl text-base leading-7 text-text-secondary">
             A detailed chronology of education, public GitHub work, CTF growth,
             AI red teaming research, internship work, hackathon prototypes, and

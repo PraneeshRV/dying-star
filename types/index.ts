@@ -69,6 +69,24 @@ export interface CTFAchievement {
   url?: string;
 }
 
+/** Writeup / proof-of-work entry (links to a public artifact) */
+export interface Writeup {
+  id: string;
+  title: string;
+  category:
+    | "OSINT"
+    | "AI Security"
+    | "Forensics"
+    | "Web"
+    | "Blockchain"
+    | "Networking"
+    | "Active Directory";
+  excerpt: string;
+  date: string;
+  href: string;
+  tags?: string[];
+}
+
 /** Blog post frontmatter */
 export interface BlogPost {
   slug: string;

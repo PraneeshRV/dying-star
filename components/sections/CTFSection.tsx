@@ -2,7 +2,6 @@
 
 import { Flag, Radar, ShieldCheck, Trophy } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { GlitchText } from "@/components/ui/GlitchText";
 import achievements from "@/content/data/ctf-achievements.json";
 import type { CTFAchievement } from "@/types";
 
@@ -63,12 +62,12 @@ export function CTFSection() {
             <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-red">
               breach archive / ctf
             </p>
-            <GlitchText
-              as="h2"
+            <h2
               id="ctf-heading"
-              text="CTF Hall of Fame"
               className="mt-4 block font-[family-name:var(--font-display)] text-3xl font-bold text-text-primary sm:text-5xl"
-            />
+            >
+              CTF Hall of Fame
+            </h2>
             <p className="mt-5 max-w-2xl text-base leading-7 text-text-secondary">
               Competition results, operations work, and signal traces from
               capture-the-flag events.

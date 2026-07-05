@@ -1,4 +1,3 @@
-import { GlitchText } from "@/components/ui/GlitchText";
 import skillsData from "@/content/data/skills.json";
 import type { Skill } from "@/types";
 
@@ -101,12 +100,12 @@ export function SkillsSection() {
           <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-purple-hot">
             knowledge matrix / skills
           </p>
-          <GlitchText
-            as="h2"
+          <h2
             id="skills-heading"
-            text="SKILLS"
             className="mt-3 font-[family-name:var(--font-display)] text-3xl font-bold tracking-wider text-text-primary sm:text-4xl"
-          />
+          >
+            SKILLS
+          </h2>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)]">

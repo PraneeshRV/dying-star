@@ -1,14 +1,25 @@
-import { BookOpen, RadioTower } from "lucide-react";
-import { GlitchText } from "@/components/ui/GlitchText";
+import { ExternalLink } from "lucide-react";
+import writeupsData from "@/content/data/writeups.json";
+import type { Writeup } from "@/types";
 
-const BLOG_CATEGORIES = [
-  "technical writeups",
-  "security notes",
-  "project retrospectives",
-  "research logs",
-  "CTF analyses",
-  "engineering breakdowns",
-] as const;
+// TODO-PRANEESH: 3 entries below are grounded in repo artifacts (experience.json /
+// projects.json). These dispatcher-named writeup sources live in 2nd-brain and
+// were not reachable from this sandbox — add them once the source text is supplied:
+//   - ActiveDirectory/  (category likely "Active Directory")
+//   - HTB Apocalypse Blockchain  (category "Blockchain")
+//   - Echoes of the Abyss OSINT  (category "OSINT")
+//   - Expressway  (category likely "Networking" or "Web")
+const WRITEUPS = writeupsData as Writeup[];
+
+const CATEGORY_BADGE: Record<Writeup["category"], string> = {
+  OSINT: "border-cherenkov/40 bg-cherenkov/10 text-cherenkov",
+  "AI Security": "border-ember/40 bg-ember/10 text-ember",
+  Forensics: "border-gravity/40 bg-gravity/10 text-gravity",
+  Web: "border-ember/40 bg-ember/10 text-ember",
+  Blockchain: "border-ash/40 bg-ash/10 text-ash",
+  Networking: "border-blue/40 bg-blue/10 text-blue-hot",
+  "Active Directory": "border-red/40 bg-red/10 text-red",
+};
 
 export function BlogPreviewSection() {
   return (
@@ -17,80 +28,80 @@ export function BlogPreviewSection() {
       aria-labelledby="blog-heading"
       className="relative overflow-hidden bg-void px-6 py-24 sm:py-32"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(88,243,255,0.12),transparent_30%),radial-gradient(circle_at_82%_36%,rgba(255,122,69,0.1),transparent_32%),linear-gradient(180deg,rgba(8,16,24,0.86),rgba(3,4,6,0.94))]" />
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ash/30 to-transparent"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(88,243,255,0.12),transparent_30%),radial-gradient(circle_at_82%_36%,rgba(255,122,69,0.1),transparent_32%),linear-gradient(180deg,rgba(8,16,24,0.86),rgba(3,4,6,0.94))]"
         aria-hidden="true"
       />
 
-      <div className="relative z-10 mx-auto grid max-w-[var(--content-max-width)] gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
-        <div className="glass-panel relative overflow-hidden rounded-lg border-ash/15 p-6 sm:p-8">
-          <div
-            className="absolute -right-16 -top-16 size-48 rounded-full border border-cherenkov/15"
-            aria-hidden="true"
-          />
-          <div
-            className="absolute -bottom-20 left-8 size-52 rounded-full border border-ember/10"
-            aria-hidden="true"
-          />
-
-          <div className="relative">
-            <div className="mb-6 inline-flex items-center gap-3 rounded border border-cherenkov/25 bg-cherenkov/10 px-3 py-2 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.18em] text-cherenkov">
-              <RadioTower className="size-4" aria-hidden="true" />
-              recovered transmissions
-            </div>
-            <GlitchText
-              as="h2"
-              id="blog-heading"
-              text="BLOG ARCHIVE"
-              className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-wider text-text-primary sm:text-5xl"
-            />
-            <p className="mt-5 max-w-xl text-base leading-7 text-text-secondary">
-              Field notes from broken systems, competition rooms, and builds
-              that survived the blast radius. The archive collects practical
-              traces first: what failed, what worked, and what changed after
-              contact.
-            </p>
-          </div>
+      <div className="relative z-10 mx-auto w-full max-w-[var(--content-max-width)]">
+        <div className="mb-10 max-w-3xl">
+          <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.28em] text-cherenkov">
+            proof of work / writeups
+          </p>
+          <h2
+            id="blog-heading"
+            className="mt-3 font-[family-name:var(--font-display)] text-3xl font-bold tracking-wider text-text-primary sm:text-4xl"
+          >
+            WRITEUPS
+          </h2>
+          <p className="mt-4 text-base leading-7 text-text-secondary">
+            Public artifacts from CTF solves and security research — challenge
+            writeups, attack-scenario builds, and reproducible red-team proof.
+          </p>
         </div>
 
-        <div className="glass-terminal rounded-lg border-ash/15 p-5 sm:p-7">
-          <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-cherenkov/15 pb-4">
-            <div className="flex items-center gap-3">
-              <BookOpen className="size-5 text-ember" aria-hidden="true" />
-              <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold text-text-primary">
-                Transmission Classes
-              </h3>
-            </div>
-            <span className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.18em] text-text-dim">
-              indexed signal lanes
-            </span>
-          </div>
+        <ul className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {WRITEUPS.map((writeup) => (
+            <li key={writeup.id}>
+              <article className="glass-panel flex h-full flex-col rounded-lg p-5 transition duration-[var(--duration-normal)] hover:border-cherenkov/45">
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <span
+                    className={`inline-flex items-center rounded-sm border px-2.5 py-1 font-[family-name:var(--font-mono)] text-[0.68rem] font-semibold uppercase tracking-[0.14em] ${CATEGORY_BADGE[writeup.category]}`}
+                  >
+                    {writeup.category}
+                  </span>
+                  <span className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.16em] text-text-dim">
+                    {writeup.date}
+                  </span>
+                </div>
 
-          <div className="grid gap-3 sm:grid-cols-2">
-            {BLOG_CATEGORIES.map((category, index) => (
-              <article
-                key={category}
-                className="rounded border border-ash/15 bg-surface/70 p-4 transition duration-[var(--duration-normal)] hover:border-cherenkov/45 hover:bg-cherenkov/5"
-              >
-                <p className="font-[family-name:var(--font-mono)] text-[0.68rem] uppercase tracking-[0.2em] text-gravity">
-                  packet {String(index + 1).padStart(2, "0")}
+                <h3 className="font-[family-name:var(--font-display)] text-lg font-semibold leading-snug text-text-primary">
+                  {writeup.title}
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-text-secondary">
+                  {writeup.excerpt}
                 </p>
-                <p className="mt-3 text-sm font-medium capitalize leading-6 text-text-primary">
-                  {category}
-                </p>
+
+                {writeup.tags && writeup.tags.length > 0 && (
+                  <ul
+                    className="mt-4 flex flex-wrap gap-2"
+                    aria-label={`Tags for ${writeup.title}`}
+                  >
+                    {writeup.tags.map((tag) => (
+                      <li
+                        key={tag}
+                        className="rounded-sm border border-blue-hot/25 bg-blue-hot/10 px-2 py-0.5 font-[family-name:var(--font-mono)] text-[0.64rem] uppercase tracking-[0.12em] text-blue-hot"
+                      >
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                <a
+                  href={writeup.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 inline-flex items-center gap-2 self-start font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.16em] text-cherenkov transition hover:text-ember"
+                  aria-label={`Open writeup: ${writeup.title}`}
+                >
+                  Read writeup
+                  <ExternalLink className="size-3.5" aria-hidden="true" />
+                </a>
               </article>
-            ))}
-          </div>
-
-          <div className="mt-6 rounded border border-ember/25 bg-ember/10 p-4 font-[family-name:var(--font-mono)] text-sm leading-6 text-text-secondary">
-            <p className="text-ember">$ tune --archive --latest</p>
-            <p className="mt-2">
-              The archive groups field notes by problem type, from exploit paths
-              and lab traces to post-build retrospectives and CTF analysis.
-            </p>
-          </div>
-        </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

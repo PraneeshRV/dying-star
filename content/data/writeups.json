@@ -25,5 +25,41 @@
     "date": "2026",
     "href": "https://github.com/PraneeshRV/granzion-labs",
     "tags": ["A2A", "JWT", "MCP", "Observability"]
+  },
+  {
+    "id": "ad-lab-local-setup",
+    "title": "Active Directory Lab — Local Build",
+    "category": "Active Directory",
+    "excerpt": "Local Active Directory lab: Windows Server 2025 domain controller (Alpha-DC) with the ADDS role installed via virt-manager, plus a Windows 11 Enterprise client.",
+    "date": "2026",
+    "href": "#blog",
+    "tags": ["Active Directory", "ADDS", "Homelab"]
+  },
+  {
+    "id": "htb-apocalypse-eldorion",
+    "title": "Eldorion — HTB Cyber Apocalypse (Blockchain)",
+    "category": "Blockchain",
+    "excerpt": "HTB Cyber Apocalypse blockchain challenge: Eldorion boss caps damage at 100/hit; an exploit contract calls attack(100) three times in one transaction.",
+    "date": "2025",
+    "href": "#blog",
+    "tags": ["Blockchain", "Solidity", "Foundry", "HTB"]
+  },
+  {
+    "id": "l3mn0nctf-echoes-abyss-osint",
+    "title": "Echoes of the Abyss — L3m0nCTF OSINT (Design)",
+    "category": "OSINT",
+    "excerpt": "Multi-stage Dark Souls-themed OSINT challenge design for L3m0nCTF chaining Twitter, YouTube, Reddit, Pastebin, GitHub, steghide and Google Maps with a Discord lore layer.",
+    "date": "2025",
+    "href": "#blog",
+    "tags": ["OSINT", "CTF Design", "Steganography"]
+  },
+  {
+    "id": "htb-expressway",
+    "title": "Expressway — HackTheBox",
+    "category": "Networking",
+    "excerpt": "HTB Expressway (Linux, Easy): cracked an IKE aggressive-mode PSK with ike-scan and psk-crack, then rooted the box via sudo 1.9.17 CVE-2025-32463.",
+    "date": "2025",
+    "href": "#blog",
+    "tags": ["Networking", "Pentesting", "HTB", "Privilege Escalation"]
   }
 ]

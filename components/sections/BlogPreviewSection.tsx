@@ -2,13 +2,6 @@ import { ExternalLink } from "lucide-react";
 import writeupsData from "@/content/data/writeups.json";
 import type { Writeup } from "@/types";
 
-// TODO-PRANEESH: 3 entries below are grounded in repo artifacts (experience.json /
-// projects.json). These dispatcher-named writeup sources live in 2nd-brain and
-// were not reachable from this sandbox — add them once the source text is supplied:
-//   - ActiveDirectory/  (category likely "Active Directory")
-//   - HTB Apocalypse Blockchain  (category "Blockchain")
-//   - Echoes of the Abyss OSINT  (category "OSINT")
-//   - Expressway  (category likely "Networking" or "Web")
 const WRITEUPS = writeupsData as Writeup[];
 
 const CATEGORY_BADGE: Record<Writeup["category"], string> = {

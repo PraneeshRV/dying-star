@@ -1,5 +1,4 @@
-import { SpaceCanvas, WebGLErrorBoundary } from "@/components/3d";
-import { StarFallback } from "@/components/fallbacks/StarFallback";
+import { HeroScene } from "@/components/3d/HeroScene";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { BlogPreviewSection } from "@/components/sections/BlogPreviewSection";
 import { CertificationsSection } from "@/components/sections/CertificationsSection";
@@ -89,49 +88,52 @@ export default function Home() {
         className="relative flex flex-col items-center justify-center min-h-dvh overflow-hidden"
         aria-label="Home"
       >
-        {/* 3D Space Scene */}
-        <WebGLErrorBoundary fallback={<StarFallback />}>
-          <SpaceCanvas />
-        </WebGLErrorBoundary>
+        {/* 3D backdrop — lazy/gated via HeroScene; hydrates after hero text paints (LCP target = text) */}
+        <HeroScene />
 
-        {/* Hero Content */}
+        {/* Hero Content — server-rendered so it paints before the canvas hydrates */}
         <div className="pointer-events-none relative z-10 px-6 text-center">
           {/* Name */}
-          <h1 className="font-[family-name:var(--font-orbitron)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-wider text-text-primary glow-green mb-4">
+          <h1 className="font-grotesk text-5xl font-bold tracking-tight text-text-hi sm:text-6xl md:text-7xl lg:text-8xl">
             PRANEESH R V
           </h1>
 
-          {/* Tagline */}
-          <p className="font-[family-name:var(--font-jetbrains-mono)] text-cherenkov text-sm sm:text-base md:text-lg tracking-widest mb-8">
-            <span className="text-text-secondary">
-              archive@shattered-star:~$
-            </span>{" "}
-            <span className="text-cherenkov">scan operator-record</span>
+          {/* Primary subhead — plain positioning */}
+          <p className="mt-6 font-body text-lg text-text-mid sm:text-xl md:text-2xl">
+            Cybersecurity researcher — AI red teaming · VAPT · CTF
           </p>
 
-          {/* Role */}
-          <p className="font-[family-name:var(--font-dm-sans)] text-text-secondary text-lg sm:text-xl md:text-2xl mb-12">
-            Cybersecurity Undergraduate · AI Red Teaming · VAPT · CTF
-            Infrastructure
+          {/* Proof line — credibility at a glance */}
+          <p className="mt-3 font-mono text-xs tracking-wide text-text-mid sm:text-sm">
+            Team Hunter · CTFtime #8 in India · LLM red-team research @
+            TIFAC-CORE
           </p>
 
-          {/* CTA Buttons */}
-          <div className="pointer-events-auto flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
-            <a
-              href="#about"
-              className="glass-terminal px-8 py-3 font-[family-name:var(--font-jetbrains-mono)] text-green text-sm uppercase tracking-widest
-              hover:box-glow-green transition-all duration-[var(--duration-normal)] hover:scale-105
-              focus-visible:outline-2 focus-visible:outline-green focus-visible:outline-offset-2"
-            >
-              Recover archive
-            </a>
+          {/* Themed flavor line — demoted mono accent, not the primary landing */}
+          <p className="mt-4 font-mono text-xs tracking-widest text-text-low">
+            <span>archive@shattered-star:~$</span>{" "}
+            <span className="text-ember-dim">scan operator-record</span>
+          </p>
+
+          {/* CTAs — clear verbs: résumé primary, work secondary, contact tertiary */}
+          <div className="pointer-events-auto mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <a
               href="/resume"
-              className="glass-panel px-8 py-3 font-[family-name:var(--font-jetbrains-mono)] text-purple-hot text-sm uppercase tracking-widest
-              hover:box-glow-purple transition-all duration-[var(--duration-normal)] hover:scale-105
-              focus-visible:outline-2 focus-visible:outline-purple focus-visible:outline-offset-2"
+              className="inline-flex items-center justify-center rounded-md bg-ember px-6 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-void transition-[filter] duration-[var(--duration-normal)] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-ember focus-visible:outline-offset-2"
             >
-              view dossier
+              View résumé
+            </a>
+            <a
+              href="#projects"
+              className="inline-flex items-center justify-center rounded-md border border-line px-6 py-3 font-mono text-xs uppercase tracking-widest text-text-hi transition-colors duration-[var(--duration-normal)] hover:border-ember hover:text-ember focus-visible:outline-2 focus-visible:outline-ember focus-visible:outline-offset-2"
+            >
+              See work
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center px-2 py-3 font-mono text-xs uppercase tracking-widest text-text-mid transition-colors duration-[var(--duration-normal)] hover:text-ember focus-visible:outline-2 focus-visible:outline-ember focus-visible:outline-offset-2"
+            >
+              Contact
             </a>
           </div>
         </div>

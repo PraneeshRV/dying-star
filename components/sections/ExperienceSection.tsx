@@ -25,7 +25,7 @@ export function ExperienceSection() {
       aria-labelledby="experience-heading"
       className="relative overflow-hidden bg-void px-6 py-24 sm:py-32"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(245,166,35,0.12),transparent_34%),linear-gradient(90deg,transparent,rgba(56,189,248,0.08),transparent)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,122,69,0.12),transparent_34%),linear-gradient(90deg,transparent,rgba(255,122,69,0.08),transparent)]" />
       <div className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-gradient-to-r from-transparent via-blue/50 to-transparent" />
 
       <div className="relative z-10 mx-auto max-w-[var(--content-max-width)]">

@@ -34,7 +34,7 @@ export function ContactSection() {
       aria-labelledby="contact-heading"
       className="relative overflow-hidden bg-void px-6 py-24 sm:py-32"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_76%_18%,rgba(56,189,248,0.14),transparent_30%),linear-gradient(180deg,rgba(139,92,246,0.08),transparent_45%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_76%_18%,rgba(255,122,69,0.14),transparent_30%),linear-gradient(180deg,rgba(178,83,47,0.08),transparent_45%)]" />
 
       <div className="relative z-10 mx-auto grid max-w-[var(--content-max-width)] gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div>
@@ -59,7 +59,7 @@ export function ContactSection() {
               <div className="absolute size-24 rounded-full border border-green/20" />
               <div className="absolute h-24 w-1 origin-bottom animate-pulse bg-blue/50" />
               <div className="absolute size-20 animate-ping rounded-full border border-green/40" />
-              <Satellite className="relative z-10 size-16 rotate-12 text-blue-hot drop-shadow-[0_0_18px_rgba(56,189,248,0.55)]" />
+              <Satellite className="relative z-10 size-16 rotate-12 text-blue-hot drop-shadow-[0_0_18px_rgba(255,122,69,0.55)]" />
             </div>
           </div>
         </div>

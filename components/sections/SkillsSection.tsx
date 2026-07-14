@@ -110,7 +110,7 @@ export function SkillsSection() {
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)]">
           <div className="glass-panel relative hidden min-h-[440px] overflow-hidden rounded-lg p-6 lg:block">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.12),transparent_58%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,122,69,0.12),transparent_58%)]" />
             <svg
               className="absolute inset-0 size-full"
               viewBox="0 0 100 100"

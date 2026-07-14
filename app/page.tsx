@@ -60,7 +60,7 @@ const structuredData = {
       "@type": "ProfilePage",
       "@id": `${SITE_URL}/#profile`,
       url: absoluteUrl("/"),
-      name: "Archive of the Shattered Star",
+      name: SITE_NAME,
       description: SITE_DESCRIPTION,
       mainEntity: {
         "@id": `${SITE_URL}/#person`,
@@ -149,7 +149,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="relative z-10 bg-[linear-gradient(180deg,rgba(3,4,6,0)_0%,#030406_7rem,#030406_100%)]">
+      <div className="relative z-10 bg-[linear-gradient(180deg,rgba(10,10,12,0)_0%,#0a0a0c_7rem,#0a0a0c_100%)]">
         <AboutSection />
         <ProjectsSection />
         <SkillsSection />

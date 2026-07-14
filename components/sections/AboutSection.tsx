@@ -70,7 +70,7 @@ export function AboutSection() {
         <div className="space-y-6">
           <div className="flex items-center gap-4">
             <div
-              className="size-12 rounded-full border border-blue/40 bg-blue/10 shadow-[0_0_32px_rgba(56,189,248,0.18)]"
+              className="size-12 rounded-full border border-blue/40 bg-blue/10 shadow-[0_0_32px_rgba(255,122,69,0.18)]"
               aria-hidden="true"
             >
               <div className="m-3 size-6 rounded-full border border-green/60 bg-green/20 shadow-[0_0_18px_rgba(0,255,136,0.35)]" />

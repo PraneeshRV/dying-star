@@ -22,7 +22,7 @@ export function BlogPreviewSection() {
       className="relative overflow-hidden bg-void px-6 py-24 sm:py-32"
     >
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(88,243,255,0.12),transparent_30%),radial-gradient(circle_at_82%_36%,rgba(255,122,69,0.1),transparent_32%),linear-gradient(180deg,rgba(8,16,24,0.86),rgba(3,4,6,0.94))]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,122,69,0.12),transparent_30%),radial-gradient(circle_at_82%_36%,rgba(255,122,69,0.1),transparent_32%),linear-gradient(180deg,rgba(10,10,12,0.86),rgba(10,10,12,0.94))]"
         aria-hidden="true"
       />
 
@@ -81,16 +81,18 @@ export function BlogPreviewSection() {
                   </ul>
                 )}
 
-                <a
-                  href={writeup.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-flex items-center gap-2 self-start font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.16em] text-cherenkov transition hover:text-ember"
-                  aria-label={`Open writeup: ${writeup.title}`}
-                >
-                  Read writeup
-                  <ExternalLink className="size-3.5" aria-hidden="true" />
-                </a>
+                {writeup.href !== "#blog" && (
+                  <a
+                    href={writeup.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-flex items-center gap-2 self-start font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.16em] text-cherenkov transition hover:text-ember"
+                    aria-label={`Open writeup: ${writeup.title}`}
+                  >
+                    Read writeup
+                    <ExternalLink className="size-3.5" aria-hidden="true" />
+                  </a>
+                )}
               </article>
             </li>
           ))}

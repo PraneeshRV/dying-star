@@ -17,7 +17,7 @@ export default function Image() {
         display: "flex",
         alignItems: "stretch",
         justifyContent: "space-between",
-        background: "#030406",
+        background: "#0a0a0c",
         color: "#e6eef5",
         fontFamily: "Arial, sans-serif",
         overflow: "hidden",
@@ -29,7 +29,7 @@ export default function Image() {
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(circle at 71% 46%, rgba(220,238,255,0.92) 0 1.8%, rgba(88,243,255,0.45) 2.4%, rgba(255,122,69,0.22) 8%, transparent 24%), radial-gradient(circle at 28% 22%, rgba(88,243,255,0.18), transparent 24%), radial-gradient(circle at 18% 78%, rgba(184,137,77,0.22), transparent 28%), linear-gradient(135deg, #030406 0%, #07111a 48%, #101821 100%)",
+            "radial-gradient(circle at 71% 46%, rgba(255,236,224,0.92) 0 1.8%, rgba(255,122,69,0.45) 2.4%, rgba(255,122,69,0.22) 8%, transparent 24%), radial-gradient(circle at 28% 22%, rgba(255,122,69,0.16), transparent 24%), radial-gradient(circle at 18% 78%, rgba(178,83,47,0.22), transparent 28%), linear-gradient(135deg, #0a0a0c 0%, #14100d 48%, #1a1512 100%)",
         }}
       />
       <div
@@ -40,10 +40,10 @@ export default function Image() {
           width: 370,
           height: 370,
           borderRadius: "50%",
-          border: "7px solid rgba(184,137,77,0.72)",
+          border: "7px solid rgba(178,83,47,0.72)",
           transform: "rotate(-18deg)",
           boxShadow:
-            "0 0 42px rgba(184,137,77,0.34), inset 0 0 30px rgba(255,122,69,0.18)",
+            "0 0 42px rgba(178,83,47,0.34), inset 0 0 30px rgba(255,122,69,0.18)",
         }}
       />
       <div
@@ -70,14 +70,14 @@ export default function Image() {
       >
         <div
           style={{
-            color: "#58f3ff",
+            color: "#ff7a45",
             fontSize: 28,
             letterSpacing: 8,
             textTransform: "uppercase",
             marginBottom: 28,
           }}
         >
-          shattered star archive
+          cybersecurity researcher
         </div>
         <div
           style={{
